@@ -1,0 +1,12 @@
+export { FaWallet as WalletIcon } from 'react-icons/fa';
+export { FiPlus as AddIcon } from 'react-icons/fi';
+export { FiArrowUpRight as ArrowUpRightIcon } from 'react-icons/fi';
+export { FiArrowLeft as ArrowLeftIcon } from 'react-icons/fi';
+export { FiMoreVertical as VerticalDotsIcon } from 'react-icons/fi';
+export { FiCopy as CopyIcon } from 'react-icons/fi';
+export { FiCheck as CheckIcon } from 'react-icons/fi';
+export { BiHomeSmile as HomeIcon } from 'react-icons/bi';
+export { BiShield as ShieldIcon } from 'react-icons/bi';
+export { BiDiamond as DiamondIcon } from 'react-icons/bi';
+export { BiCog as CogIcon } from 'react-icons/bi';
+// export { FaWallet as WalletIcon } from 'react-icons/fa';

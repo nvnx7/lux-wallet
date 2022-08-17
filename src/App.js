@@ -1,40 +1,38 @@
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+
 import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import { ChakraProvider, Box, CSSReset } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import theme from 'theme';
+import { Dimensions } from 'settings/constants';
+import Router from 'router/Router';
+import AppContext from 'contexts';
+
+import 'i18n';
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
+      <QueryClientProvider client={queryClient}>
+        <AppContext>
+          <Box
+            width={Dimensions.width}
+            height={Dimensions.height}
+            m={4}
+            bgColor="background"
+            borderWidth="1px"
+            borderColor="black"
+          >
+            <Router />
+          </Box>
+          <CSSReset />
+        </AppContext>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }

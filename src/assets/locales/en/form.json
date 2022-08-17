@@ -1,0 +1,16 @@
+{
+  "login": "Log In",
+  "your-password": "Your Password",
+  "your-private-key": "Your Private Key",
+  "not-sent-to-server": "This is not sent to any server",
+  "new-password": "New Password",
+  "confirm-password": "Confirm Password",
+  "create-new-account": "Create A New Account",
+  "create-account": "Create Account",
+  "import-wallet": "Import Wallet",
+  "want-to-import-account": "Want to import an account?",
+  "already-added-account": "Already added account?",
+  "add-profile": "Add Profile",
+  "add-profile-description": "Add your universal profile for a full experience and much more!",
+  "your-universal-profile": "Your Universal Profile Address"
+}
