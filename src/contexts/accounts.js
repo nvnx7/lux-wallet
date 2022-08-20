@@ -57,17 +57,23 @@ export const AccountProvider = ({ children }) => {
     [setAccountsData, accountsData]
   );
 
-  const addVaultAddress = useCallback(
-    (address, vaultAddress) => {
+  const addVault = useCallback(
+    (address, vault) => {
       const idx = accountsData.findIndex(account => account.address === address);
       if (idx === -1) {
         logError('AccountProvider:setProfileAddress', `${address} not found!`);
         return;
       }
       const updated = [...accountsData];
-      updated[idx].vaults.length
-        ? updated[idx].vaults.push(vaultAddress)
-        : (updated[idx].vaults = [vaultAddress]);
+      const dupIdx = updated[idx].vaults?.findIndex(v => v.address === vault.address);
+      if (!updated[idx].vaults) updated[idx].vaults = [];
+
+      if (dupIdx === -1) {
+        updated[idx].vaults.push(vault);
+      } else {
+        updated[idx].vaults[dupIdx] = vault;
+      }
+
       setAccountsData(updated);
     },
     [accountsData, setAccountsData]
@@ -88,25 +94,29 @@ export const AccountProvider = ({ children }) => {
     [accountsData, setAccountsData, setActiveAccountAddress]
   );
 
+  const exportAccount = async (password, address) => {
+    try {
+      await keyringController.verifyPassword(password);
+      const privateKey = await keyringController.exportAccount(address);
+      return { isValid: true, privateKey };
+    } catch (error) {
+      return { isValid: false };
+    }
+  };
+
   const value = useMemo(
     () => ({
       isUnlocked,
       lockAccount,
       unlockAccount,
       setUniversalProfileAddress,
-      addVaultAddress,
+      addVault,
       accountsData,
       activeAccount,
       addNewAccount,
+      exportAccount,
     }),
-    [
-      isUnlocked,
-      setUniversalProfileAddress,
-      addVaultAddress,
-      accountsData,
-      activeAccount,
-      addNewAccount,
-    ]
+    [isUnlocked, setUniversalProfileAddress, addVault, accountsData, activeAccount, addNewAccount]
   );
 
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;

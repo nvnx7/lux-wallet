@@ -12,5 +12,15 @@
   "already-added-account": "Already added account?",
   "add-profile": "Add Profile",
   "add-profile-description": "Add your universal profile for a full experience and much more!",
-  "your-universal-profile": "Your Universal Profile Address"
+  "your-universal-profile": "Your Universal Profile Address",
+  "create-new": "Create New",
+  "add-existing": "Add Existing",
+  "dont-have-vault": "Don't have a Vault?",
+  "already-have-vault": "Already have a Vault?",
+  "vault-label": "Vault Label",
+  "vault-address": "Vault Address",
+  "add-vault": "Add Vault",
+  "add-existing-vault": "Add Existing Vault",
+  "create-vault": "Create Vault",
+  "create-new-vault": "Create New Vault"
 }

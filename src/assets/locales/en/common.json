@@ -3,5 +3,12 @@
   "get-started": "Get Started",
   "get-started-desc": "To get started with Lux wallet, you need to create a new password protected account and import your wallet from a private key. Get started below.",
   "lets-go": "Let's Go",
-  "universal-profile": "Universal Profile"
+  "back": "Back",
+  "universal-profile": "Universal Profile",
+  "account-details": "Account Details",
+  "lock": "Lock",
+  "settings": "Settings",
+  "network": "Network",
+  "language": "Language",
+  "vault-detail": "Vault Detail"
 }

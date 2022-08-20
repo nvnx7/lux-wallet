@@ -9,12 +9,16 @@ import {
   Onboard,
   OnboardImportWallet,
   OnboardNewAccount,
+  Settings,
+  VaultDetail,
+  VaultManager,
 } from 'pages';
 import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Path from './paths';
 import keyringController from 'scripts/keyringController';
 import { logDebug } from 'utils/logger';
 import { wait } from 'utils/datetime';
+import { ManagedModal } from 'components/common/ui';
 
 const MemoryRoutes = () => {
   const navigate = useNavigate();
@@ -48,6 +52,11 @@ const MemoryRoutes = () => {
       <Route path={Path.PROFILE_ADD} element={<AddUniversalProfile />} />
       {/* Assets pages */}
       <Route path={Path.DIGITAL_ASSETS} element={<DigitalAssets />} />
+      {/* Vaults pages */}
+      <Route path={Path.VAULT_MANAGER} element={<VaultManager />} />
+      <Route path={Path.VAULT_DETAIL} element={<VaultDetail />} />
+      {/* Settings pages */}
+      <Route path={Path.SETTINGS} element={<Settings />} />
     </Routes>
   );
 };
@@ -56,28 +65,9 @@ const Router = () => {
   return (
     <MemoryRouter>
       <MemoryRoutes />
+      <ManagedModal />
     </MemoryRouter>
   );
 };
 
 export default Router;
-
-{
-  /* <Routes>
-{!isUnlocked && <Route path={Path.Login} element={<Login />} />}
-
-{isUnlocked && !hasVault && (
-  <>
-    <Route path={Path.ONBOARD} element={<Onboard />} />
-    <Route path={Path.ONBOARD_NEW_ACCOUNT} element={<OnboardNewAccount />} />
-    <Route path={Path.ONBOARD_IMPORT_WALLET} element={<OnboardImportWallet />} />
-  </>
-)}
-
-{isUnlocked && hasVault && (
-  <>
-    <Route path={Path.HOME} element={<Home />} />
-  </>
-)}
-</Routes> */
-}

@@ -6,6 +6,21 @@ export const Dimensions = {
   height: '600px',
 };
 
+export const supportedNetworks = [
+  {
+    name: 'L16',
+    chainId: 2828,
+    currencySymbol: 'LYXt',
+  },
+];
+
+export const supportedLanguages = [
+  {
+    symbol: 'en',
+    name: 'English',
+  },
+];
+
 export const Mock = {
   PASSWORD: 'th1sdummypassword',
   EOA_ADDRESS: '0xeD2bD6aFc9C216B3586e78161905AD98b36311E6',

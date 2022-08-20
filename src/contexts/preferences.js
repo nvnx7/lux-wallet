@@ -4,6 +4,7 @@ import { KEY_PREFERENCES } from 'utils/storage';
 
 const initialState = {
   activeAccountAddress: '',
+  language: 'en',
 };
 const PreferencesContext = createContext(initialState);
 PreferencesContext.displayName = 'AuthContext';

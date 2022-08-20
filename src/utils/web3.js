@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import { rpcEndpoint } from 'settings/config';
+import { explorerEndpoint, rpcEndpoint } from 'settings/config';
 
 export const web3Provider = new Web3.providers.HttpProvider(rpcEndpoint);
 const web3 = new Web3(web3Provider);
@@ -15,4 +15,9 @@ export const abbreviateAddress = (address, length = 9) => {
   const endIdx = Math.floor(length / 2);
 
   return address.slice(0, startIdx) + '...' + address.slice(-endIdx);
+};
+
+export const getExplorerLink = address => {
+  if (!address) return explorerEndpoint;
+  return `${explorerEndpoint}/address/${address}`;
 };

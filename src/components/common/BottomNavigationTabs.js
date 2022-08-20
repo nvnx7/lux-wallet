@@ -17,7 +17,7 @@ const Tab = ({ isActive, icon, label, onClick, ...props }) => {
   );
 };
 
-const tabPaths = [Path.HOME, Path.DIGITAL_ASSETS, Path.VAULTS, Path.SETTINGS];
+const tabPaths = [Path.HOME, Path.DIGITAL_ASSETS, Path.VAULT_MANAGER, Path.SETTINGS];
 
 const BottomNavigationTabs = ({ ...props }) => {
   const navigate = useNavigate();

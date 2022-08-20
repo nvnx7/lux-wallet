@@ -1,4 +1,4 @@
-import { Avatar, Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Button, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { getDigitalAsset, useGetDigitalAsset } from 'api/assets/getDigitalAsset';
 import { Card, CopyableAddress } from 'components/common/ui';
 import { WalletIcon } from 'components/icons';
@@ -6,16 +6,15 @@ import { useAccount } from 'contexts/accounts';
 import { useTranslation } from 'react-i18next';
 import AssetItemSkeleton from './SkeletonAssetItem';
 
+import fallbackSrc from 'assets/images/coin.png';
+
 const AssetItem = ({ assetAddress, ...props }) => {
   const { t } = useTranslation();
-  const { account } = useAccount();
-  const profileAddress = '0xa907c1904c22DFd37FF56c1f3c3d795682539196';
+  const { activeAccount } = useAccount();
   const { data, isLoading, isError, isFetching } = useGetDigitalAsset({
     assetAddress,
-    profileAddress, //: account?.address,
+    profileAddress: activeAccount?.universalProfile,
   });
-
-  // console.log('AssetItem', { data, isLoading, isError });
 
   if (isFetching && !data) {
     return <AssetItemSkeleton />;
@@ -25,7 +24,13 @@ const AssetItem = ({ assetAddress, ...props }) => {
     <Card px={4} py={4} bgColor="white" {...props}>
       <HStack justify="space-between">
         <HStack {...props}>
-          <Avatar size="md" src={data?.iconUrl} />
+          <Image
+            boxSize="42px"
+            borderRadius="full"
+            src={data?.iconUrl}
+            fallbackSrc={fallbackSrc}
+            bgColor="none"
+          />
           <VStack alignItems="start" justifyContent="center" spacing={0}>
             <Text fontWeight="bold">{data?.symbol}</Text>
             <Text fontSize="xs" color="gray.400">

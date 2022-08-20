@@ -1,12 +1,10 @@
 import { Box, Button, VStack } from '@chakra-ui/react';
-import { I18NText } from 'components/common/text';
 import { LuksoLogo } from 'components/common/ui';
-import { AddIcon, ArrowUpRightIcon } from 'components/icons';
-import { UniversalProfile } from 'components/profile';
+import { ArrowUpRightIcon } from 'components/icons';
+import { EmptyProfileView, UniversalProfile } from 'components/profile';
 import { useAccount } from 'contexts/accounts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import Path from 'router/paths';
 import AccountHeader from './AccountHeader';
 
 const AccountView = ({ ...props }) => {
@@ -27,23 +25,7 @@ const AccountView = ({ ...props }) => {
               {t('asset:send')}
             </Button>
           </VStack>
-          <VStack alignItems="center" py={2} spacing={4}>
-            <I18NText
-              text="form:add-profile-description"
-              textAlign="center"
-              variant="body"
-              px={8}
-            />
-            <Button
-              leftIcon={<AddIcon />}
-              variant="ghost"
-              colorScheme="gray"
-              textColor="gray.400"
-              onClick={() => navigate(Path.PROFILE_ADD)}
-            >
-              {t('form:add-profile')}
-            </Button>
-          </VStack>
+          <EmptyProfileView py={2} />
         </>
       )}
     </Box>

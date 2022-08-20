@@ -13,10 +13,10 @@ export const formatLSP3Metadata = data => {
         metadata.profile = parseProfile(d.value);
         break;
       case 'LSP12IssuedAssets[]':
-        metadata.issuedAssets = d.value;
+        metadata.issuedAssets = d.value || [];
         break;
       case 'LSP5ReceivedAssets[]':
-        metadata.receivedAssets = d.value;
+        metadata.receivedAssets = d.value || [];
         break;
       default:
         break;

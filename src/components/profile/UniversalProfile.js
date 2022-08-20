@@ -56,29 +56,7 @@ const UniversalProfile = ({ ...props }) => {
             @{profile?.name}
           </Text>
         </Card>
-        <Avatar size="xl" src={profile?.avatar} zIndex={2} />
-        {/* <HStack justify="space-between">
-          <HStack>
-            <FaWallet size={16} />
-            <Text fontSize="sm" fontWeight="bold">
-              {balance?.lyx} {currency}
-            </Text>
-          </HStack>
-        </HStack>
-        <VStack>
-          <Text fontWeight="bold">{profile?.name}</Text>
-        </VStack> */}
-        {/* <Text
-          position="absolute"
-          bottom={2}
-          right={0}
-          left={0}
-          textAlign="center"
-          fontSize="sm"
-          color="gray.400"
-        >
-          {activeAccount?.universalProfile}
-        </Text> */}
+
         <Center position="absolute" bottom={2} right={0} left={0}>
           <CopyableAddress
             abbreviate={30}
@@ -86,6 +64,7 @@ const UniversalProfile = ({ ...props }) => {
             address={activeAccount?.universalProfile}
           />
         </Center>
+        <Avatar size="xl" src={profile?.avatar} />
       </Stack>
       <HStack justify="center">
         <LuksoLogo size={6} />

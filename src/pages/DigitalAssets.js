@@ -2,10 +2,14 @@ import { Divider, Heading, HStack } from '@chakra-ui/react';
 import { AssetTabs } from 'components/digital-asset';
 import { DiamondIcon } from 'components/icons';
 import { BottomNavLayout } from 'components/layout';
+import { EmptyProfileView } from 'components/profile';
+import { useAccount } from 'contexts/accounts';
 import { useTranslation } from 'react-i18next';
 
 const DigitalAssets = () => {
   const { t } = useTranslation();
+  const { activeAccount } = useAccount();
+
   return (
     <BottomNavLayout>
       <HStack py={2} justify="center" alignItems="center">
@@ -15,7 +19,7 @@ const DigitalAssets = () => {
         </Heading>
       </HStack>
       <Divider />
-      <AssetTabs py={2} />
+      {activeAccount?.universalProfile ? <AssetTabs py={2} /> : <EmptyProfileView my={4} />}
     </BottomNavLayout>
   );
 };

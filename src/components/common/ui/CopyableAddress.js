@@ -9,6 +9,8 @@ const CopyableAddress = ({ address = '', abbreviate = 9, text, ...props }) => {
     address && onCopy();
   };
 
+  const abbreviated = abbreviate ? abbreviateAddress(address, abbreviate) : address;
+
   return (
     <HStack
       justify="center"
@@ -22,7 +24,7 @@ const CopyableAddress = ({ address = '', abbreviate = 9, text, ...props }) => {
       {...props}
     >
       <Text color="gray.400" fontSize="sm" {...text}>
-        {abbreviateAddress(address, abbreviate)}
+        {abbreviated}
       </Text>
       {hasCopied ? (
         <CheckIcon size={12} color="gray.400" />

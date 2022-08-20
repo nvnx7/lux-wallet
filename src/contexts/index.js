@@ -1,12 +1,16 @@
 import React from 'react';
 import { AccountProvider } from './accounts';
 import { PreferencesProvider } from './preferences';
-import { UProfileMetadataProvider } from './uProfileMetadata';
+import { UIProvider } from './ui';
+// import { UProfileMetadataProvider } from './uProfileMetadata';
 
 const AppContext = ({ children }) => (
   <PreferencesProvider>
     <AccountProvider>
-      <UProfileMetadataProvider>{children}</UProfileMetadataProvider>
+      <UIProvider>
+        {children}
+        {/* <UProfileMetadataProvider></UProfileMetadataProvider> */}
+      </UIProvider>
     </AccountProvider>
   </PreferencesProvider>
 );

@@ -1,25 +1,32 @@
 import { useMutation } from 'react-query';
 import web3 from 'utils/web3';
-import { LSP9Vault } from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
+import LSP9Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
+import { signAndSendTx } from 'api/utils/tx';
 
 const createVault = async params => {
-  const { profileAddress, eoaAddress } = params;
-  const vault = web3.eth.Contract(LSP9Vault.abi);
+  const { profileAddress, from } = params;
+  const vault = new web3.eth.Contract(LSP9Vault.abi);
 
-  const contracts = vault
+  const encodedData = vault
     .deploy({
       data: LSP9Vault.bytecode,
       arguments: [profileAddress],
     })
-    .send({
-      from: eoaAddress,
-    });
+    .encodeABI();
 
-  return contracts;
+  const txData = {
+    from,
+    data: encodedData,
+    gas: 5_000_000,
+  };
+
+  const data = await signAndSendTx(txData, from);
+
+  return data;
 };
 
-export const useCreateVault = ({ profileAddress, eoaAddress }) => {
-  return useMutation(() => createVault({ profileAddress, eoaAddress }), {
+export const useCreateVault = () => {
+  return useMutation(params => createVault(params), {
     onSuccess: () => {},
   });
 };

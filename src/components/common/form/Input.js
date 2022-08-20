@@ -19,7 +19,7 @@ const FormInput = ({
 
   return (
     <FormControl pb={2} isRequired={isRequired} isInvalid={!!error} {...props}>
-      <FormLabel fontWeight="medium">{label}</FormLabel>
+      <FormLabel>{label}</FormLabel>
       <Input
         type={type}
         onBlur={field.onBlur}

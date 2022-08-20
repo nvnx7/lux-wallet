@@ -4,6 +4,8 @@ import { abbreviateAddress } from 'utils/web3';
 import { useGetBalance } from 'api/account/getBalance';
 import { LuksoLogo } from 'components/common/ui';
 import { CheckIcon, CopyIcon, VerticalDotsIcon } from 'components/icons';
+import { Identicon } from 'components/common';
+import AccountMenu from './AccountMenu';
 
 const AccountHeader = ({ ...props }) => {
   const { activeAccount } = useAccount();
@@ -39,7 +41,10 @@ const AccountHeader = ({ ...props }) => {
           }}
           onClick={handleCopy}
         >
-          <Text>Account</Text>
+          <HStack>
+            <Identicon address={activeAccount?.address} size={20} />
+            <Text>Account</Text>
+          </HStack>
           <HStack>
             <Text color="gray.400" fontSize="sm">
               {addr}
@@ -51,12 +56,7 @@ const AccountHeader = ({ ...props }) => {
             )}
           </HStack>
         </VStack>
-        <IconButton
-          size="md"
-          variant="ghost"
-          icon={<VerticalDotsIcon size={20} />}
-          marginLeft="auto"
-        />
+        <AccountMenu />
       </HStack>
     </Box>
   );

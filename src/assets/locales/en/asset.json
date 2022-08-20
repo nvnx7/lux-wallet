@@ -3,5 +3,7 @@
   "send": "Send",
   "digital-assets": "Digital Assets",
   "issued": "Issued",
-  "received": "Received"
+  "received": "Received",
+  "no-asset-found": "No digital assets found",
+  "vault-manager": "Vault Manager"
 }

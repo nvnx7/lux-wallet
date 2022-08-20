@@ -1,22 +1,17 @@
-import {
-  Center,
-  Progress,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  VStack,
-} from '@chakra-ui/react';
+import { Progress, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
 import { useGetUniversalProfileMetadata } from 'api/profile/getUniversalProfile';
 import { DiamondIcon } from 'components/icons';
+import { useAccount } from 'contexts/accounts';
 import { useTranslation } from 'react-i18next';
 import AssetList from './AssetList';
 
 const AssetTabs = ({ ...props }) => {
   const { t } = useTranslation();
-  const profileAddress = '0xa907c1904c22DFd37FF56c1f3c3d795682539196';
-  const { data, isFetching } = useGetUniversalProfileMetadata({ profileAddress });
+  const { activeAccount } = useAccount();
+  // const profileAddress = '0xa907c1904c22DFd37FF56c1f3c3d795682539196';
+  const { data, isFetching } = useGetUniversalProfileMetadata({
+    profileAddress: activeAccount?.universalProfile,
+  });
 
   if (isFetching && !data) {
     return <LoadingView my={28} />;

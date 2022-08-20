@@ -8,3 +8,6 @@ export { default as OnboardNewAccount } from './onboard/OnboardNewAccount';
 export { default as OnboardImportWallet } from './onboard/OnboardImportWallet';
 export { default as AddUniversalProfile } from './profile/AddUniversalProfile';
 export { default as DigitalAssets } from './DigitalAssets';
+export { default as VaultManager } from './vault/VaultManager';
+export { default as VaultDetail } from './vault/VaultDetail';
+export { default as Settings } from './settings/Settings';
