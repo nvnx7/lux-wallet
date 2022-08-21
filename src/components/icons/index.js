@@ -15,3 +15,5 @@ export { FiExternalLink as ExternalLinkIcon } from 'react-icons/fi';
 export { FiChevronLeft as ChevronLeftIcon } from 'react-icons/fi';
 export { FiLock as LockIcon } from 'react-icons/fi';
 export { FiDownload as DownloadIcon } from 'react-icons/fi';
+export { FiEdit2 as EditIcon } from 'react-icons/fi';
+export { FiX as XIcon } from 'react-icons/fi';
