@@ -1,13 +1,15 @@
-import { Box, HStack, IconButton, Text, useClipboard, VStack } from '@chakra-ui/react';
+import { Box, HStack, Text, useClipboard, VStack } from '@chakra-ui/react';
 import { useAccount } from 'contexts/accounts';
 import { abbreviateAddress } from 'utils/web3';
 import { useGetBalance } from 'api/account/getBalance';
 import { LuksoLogo } from 'components/common/ui';
-import { CheckIcon, CopyIcon, VerticalDotsIcon } from 'components/icons';
+import { CheckIcon, CopyIcon } from 'components/icons';
 import { Identicon } from 'components/common';
 import AccountMenu from './AccountMenu';
+import { usePreferences } from 'contexts/preferences';
 
 const AccountHeader = ({ ...props }) => {
+  const { network } = usePreferences();
   const { activeAccount } = useAccount();
   const { hasCopied, onCopy } = useClipboard(activeAccount?.address);
   const { data } = useGetBalance({ address: activeAccount?.address });
@@ -24,7 +26,7 @@ const AccountHeader = ({ ...props }) => {
           <HStack alignItems="center" spacing={1}>
             <LuksoLogo size={4} />
             <Text fontSize="sm" fontWeight="bold" color="gray.500" m={0}>
-              LYX
+              {network?.currencySymbol}
             </Text>
           </HStack>
           <Text fontSize="md" fontWeight="bold">
@@ -37,13 +39,13 @@ const AccountHeader = ({ ...props }) => {
           cursor="pointer"
           rounded="md"
           _hover={{
-            bgColor: 'gray.300',
+            bgColor: 'whiteAlpha.200',
           }}
           onClick={handleCopy}
         >
           <HStack>
             <Identicon address={activeAccount?.address} size={20} />
-            <Text>Account</Text>
+            <Text>{activeAccount?.label}</Text>
           </HStack>
           <HStack>
             <Text color="gray.400" fontSize="sm">
