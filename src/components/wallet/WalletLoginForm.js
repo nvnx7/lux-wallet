@@ -22,14 +22,21 @@ const defaultValues = isDev
 
 const LoginForm = ({ ...props }) => {
   const { t } = useTranslation();
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, setError } = useForm({
     resolver,
     defaultValues,
   });
   const { unlockAccount } = useAccount();
 
   const onSubmit = data => {
-    unlockAccount(data.password);
+    unlockAccount(data.password).then(res => {
+      if (!res.isValid) {
+        setError('password', {
+          type: 'custom',
+          message: t('form:incorrect-password'),
+        });
+      }
+    });
   };
 
   return (
