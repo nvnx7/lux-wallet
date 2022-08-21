@@ -17,7 +17,7 @@ const createVault = async params => {
   const txData = {
     from,
     data: encodedData,
-    gas: 5_000_000,
+    gas: 3_00_000,
   };
 
   const data = await signAndSendTx(txData, from);

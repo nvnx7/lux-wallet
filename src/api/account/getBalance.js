@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import web3 from 'scripts/web3';
+import { isValidAddress } from 'utils/web3';
 
 const getAddressBalance = async ({ address }) => {
   const wei = await web3.eth.getBalance(address);
@@ -9,6 +10,6 @@ const getAddressBalance = async ({ address }) => {
 
 export const useGetBalance = ({ address }) => {
   return useQuery(['balance', { address }], () => getAddressBalance({ address }), {
-    enabled: !!address,
+    enabled: isValidAddress(address),
   });
 };

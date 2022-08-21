@@ -1,14 +1,14 @@
 import { VStack } from '@chakra-ui/react';
-import AssetItemSkeleton from './SkeletonAssetItem';
+import SkeletonAssetItem from './SkeletonAssetItem';
 
-const AssetListSkeleton = ({ count = 3, ...props }) => {
+const SkeletonAssetList = ({ count = 3, ...props }) => {
   return (
     <VStack alignItems="stretch" {...props}>
       {Array.from({ length: count }).map((d, idx) => (
-        <AssetItemSkeleton key={idx} />
+        <SkeletonAssetItem key={idx} my={1} />
       ))}
     </VStack>
   );
 };
 
-export default AssetListSkeleton;
+export default SkeletonAssetList;

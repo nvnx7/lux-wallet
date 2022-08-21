@@ -34,11 +34,9 @@ const UniversalProfile = ({ ...props }) => {
   }
 
   const handleSend = () => {
-    const state = { asset: 'native' };
-    navigate(Path.TX_SEND_ASSET, { state });
+    navigate(Path.TX_SEND_LYX);
   };
 
-  // console.log({ activeAccount, isLoading, isFetching });
   const profile = data?.profile;
   return (
     <VStack {...props}>
@@ -52,6 +50,7 @@ const UniversalProfile = ({ ...props }) => {
         <Card
           p={2}
           backgroundImage={`url('${profile?.backgroundImage}')`}
+          backgroundColor="whiteAlpha.200"
           position="absolute"
           height={24}
           top={0}

@@ -1,9 +1,9 @@
 import { HStack, Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import { Card } from 'components/common/ui';
 
-const AssetItemSkeleton = ({ ...props }) => {
+const SkeletonAssetItem = ({ ...props }) => {
   return (
-    <Card bgColor="white" p={4} {...props}>
+    <Card p={4} {...props}>
       <HStack spacing={2}>
         <SkeletonCircle width={12} height={12} />
         <VStack alignItems="start" w="100%">
@@ -15,4 +15,4 @@ const AssetItemSkeleton = ({ ...props }) => {
   );
 };
 
-export default AssetItemSkeleton;
+export default SkeletonAssetItem;
