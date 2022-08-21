@@ -11,7 +11,7 @@ const colors = {
     800: '#201115',
     900: '#1A0A10',
   },
-  background: '#fff5ee',
+  backgroundDark: '#383838',
   accent: '#E8EEFA',
 };
 

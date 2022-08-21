@@ -5,11 +5,16 @@ import components from './components';
 import { Dimensions } from 'settings/constants';
 
 const theme = extendTheme({
+  config: {
+    initialColorMode: 'dark',
+    useSystemColorMode: false,
+  },
   styles: {
     global: {
       body: {
         width: Dimensions.width,
         height: Dimensions.height,
+        background: 'white  ',
       },
       '::-webkit-scrollbar': { width: '2px' },
       '::-webkit-scrollbar-track': { background: 'none' },
