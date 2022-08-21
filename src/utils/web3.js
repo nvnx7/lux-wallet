@@ -1,14 +1,9 @@
-import Web3 from 'web3';
-import { explorerEndpoint, rpcEndpoint } from 'settings/config';
+import { explorerEndpoint } from 'settings/config';
+import { supportedNetworks } from 'settings/constants';
 
-export const web3Provider = new Web3.providers.HttpProvider(rpcEndpoint);
-const web3 = new Web3(web3Provider);
-
-export const weiToEth = wei => {
-  return web3.utils.fromWei(wei, 'ether');
+export const areEqualAddresses = (address1, address2) => {
+  return address1.toLowerCase() === address2.toLowerCase();
 };
-
-export default web3;
 
 export const abbreviateAddress = (address, length = 9) => {
   const startIdx = Math.ceil(length / 2);
@@ -20,4 +15,9 @@ export const abbreviateAddress = (address, length = 9) => {
 export const getExplorerLink = address => {
   if (!address) return explorerEndpoint;
   return `${explorerEndpoint}/address/${address}`;
+};
+
+export const getNetworkInfo = chainId => {
+  console.log({ chainId });
+  return supportedNetworks.find(network => network.chainId === chainId);
 };

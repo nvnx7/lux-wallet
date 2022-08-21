@@ -1,6 +1,6 @@
 import ERC725 from '@erc725/erc725.js';
 import uProfileMetadataSchema from '@erc725/erc725.js/schemas/LSP3UniversalProfileMetadata.json';
-import { web3Provider } from 'utils/web3';
+import { web3Provider } from 'scripts/web3';
 import { ipfsGateway } from 'settings/config';
 
 const config = { ipfsGateway };

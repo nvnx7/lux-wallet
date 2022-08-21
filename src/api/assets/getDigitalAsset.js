@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query';
 import ERC725 from '@erc725/erc725.js';
 import digitalAssetMetadataSchema from '@erc725/erc725.js/schemas/LSP4DigitalAsset.json';
-import web3, { web3Provider } from 'utils/web3';
 import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
 import LSP7DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
+import web3, { web3Provider } from 'scripts/web3';
 
 const config = { ipfsGateway };
 

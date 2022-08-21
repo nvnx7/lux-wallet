@@ -1,5 +1,5 @@
 import keyringController from 'scripts/keyringController';
-import web3 from 'utils/web3';
+import web3 from 'scripts/web3';
 
 export const signAndSendTx = async (txData, from) => {
   const pk = await keyringController.exportAccount(from);

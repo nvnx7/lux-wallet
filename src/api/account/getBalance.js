@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import web3 from 'utils/web3';
+import web3 from 'scripts/web3';
 
 const getAddressBalance = async ({ address }) => {
   const wei = await web3.eth.getBalance(address);
