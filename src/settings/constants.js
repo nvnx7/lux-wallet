@@ -1,4 +1,4 @@
-export const appName = 'Lux';
+export const appName = 'LUX';
 export const currency = 'LYXt';
 
 export const Dimensions = {
@@ -8,7 +8,7 @@ export const Dimensions = {
 
 export const supportedNetworks = [
   {
-    name: 'L16',
+    name: 'L16 Testnet',
     chainId: 2828,
     currencySymbol: 'LYXt',
   },
@@ -21,6 +21,7 @@ export const supportedLanguages = [
   },
 ];
 
+// For testing purposes only
 export const Mock = {
   PASSWORD: 'th1sdummypassword',
   EOA_ADDRESS: '0xeD2bD6aFc9C216B3586e78161905AD98b36311E6',
