@@ -5,6 +5,7 @@
   "not-sent-to-server": "This is not sent to any server",
   "new-password": "New Password",
   "confirm-password": "Confirm Password",
+  "incorrect-password": "Incorrect Password",
   "create-new-account": "Create A New Account",
   "create-account": "Create Account",
   "import-wallet": "Import Wallet",
@@ -22,5 +23,6 @@
   "add-vault": "Add Vault",
   "add-existing-vault": "Add Existing Vault",
   "create-vault": "Create Vault",
-  "create-new-vault": "Create New Vault"
+  "create-new-vault": "Create New Vault",
+  "edit": "Edit"
 }

@@ -1,5 +1,11 @@
 {
   "confirm": "Confirm",
   "cancel": "Cancel",
-  "view-on-explorer": "View on Explorer"
+  "view-on-explorer": "View on Explorer",
+  "send": "Send",
+  "send-asset": "Send Asset",
+  "from": "From",
+  "to": "To",
+  "amount": "Amount",
+  "asset": "Asset"
 }
