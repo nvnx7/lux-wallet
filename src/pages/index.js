@@ -11,3 +11,4 @@ export { default as DigitalAssets } from './DigitalAssets';
 export { default as VaultManager } from './vault/VaultManager';
 export { default as VaultDetail } from './vault/VaultDetail';
 export { default as Settings } from './settings/Settings';
+export { default as SendAsset } from './tx/SendAsset';
