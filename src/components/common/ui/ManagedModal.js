@@ -23,7 +23,7 @@ const ManagedModal = () => {
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px) hue-rotate(90deg)" />
       <ModalContent borderRadius={24}>
         <ModalCloseButton />
-        <ModalBody px={8} py={8}>
+        <ModalBody px={6} py={8}>
           {view === ModalView.SEND_TX && <Box />}
           {view === ModalView.CONFIRM_TX && <Box />}
           {view === ModalView.ADD_VAULT && <AddVaultForm />}

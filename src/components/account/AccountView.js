@@ -14,7 +14,7 @@ const AccountView = ({ ...props }) => {
 
   return (
     <Box {...props}>
-      <AccountHeader borderBottomWidth="1px" borderBottomColor="gray.200" />
+      <AccountHeader borderBottomWidth="1px" borderBottomColor="whiteAlpha.200" />
       {activeAccount?.universalProfile ? (
         <UniversalProfile my={4} />
       ) : (

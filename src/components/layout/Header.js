@@ -5,9 +5,9 @@ import { WalletMenu } from 'components/wallet';
 
 const Header = ({ ...props }) => {
   return (
-    <HStack width="100%" justify="space-between" px={4} py={2} bgColor="primary.500" {...props}>
+    <HStack width="100%" justify="space-between" pl={0} pr={2} bgColor="blackAlpha.800" {...props}>
       <Logo />
-      <Text fontWeight="bold" align="center" color="white">
+      <Text fontWeight="bold" fontSize={24} letterSpacing={8} align="center" color="white">
         {appName}
       </Text>
       <WalletMenu />

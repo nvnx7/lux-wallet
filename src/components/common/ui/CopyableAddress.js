@@ -16,7 +16,7 @@ const CopyableAddress = ({ address = '', abbreviate = 9, text, ...props }) => {
       justify="center"
       px={2}
       _hover={{
-        bgColor: 'gray.100',
+        bgColor: 'whiteAlpha.200',
       }}
       rounded="md"
       cursor="pointer"

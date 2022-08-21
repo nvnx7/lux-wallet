@@ -3,9 +3,9 @@ import Header from './Header';
 
 const Layout = ({ children, ...props }) => {
   return (
-    <Box>
+    <Box display="flex" flexDirection="column" height="full">
       <Header />
-      <Box p={4} {...props}>
+      <Box p={4} flexGrow={1} {...props}>
         {children}
       </Box>
     </Box>
