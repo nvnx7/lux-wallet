@@ -10,6 +10,7 @@ import {
   OnboardImportWallet,
   OnboardNewAccount,
   SendAsset,
+  SendLyx,
   Settings,
   VaultDetail,
   VaultManager,
@@ -24,13 +25,10 @@ import { ManagedModal } from 'components/common/ui';
 const MemoryRoutes = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
-  // const [hasVault, setHasVault] = useState(false);
   const { isUnlocked } = useAccount();
 
   useEffect(() => {
     const state = keyringController.store.getState();
-    // console.log('Router:', { state });
-    // setHasVault(!!state.vault);
     const hasVault = !!state.vault;
     wait(2000).then(() => setLoading(false));
 
@@ -60,6 +58,7 @@ const MemoryRoutes = () => {
       <Route path={Path.SETTINGS} element={<Settings />} />
       {/* Tx Pages */}
       <Route path={Path.TX_SEND_ASSET} element={<SendAsset />} />
+      <Route path={Path.TX_SEND_LYX} element={<SendLyx />} />
     </Routes>
   );
 };

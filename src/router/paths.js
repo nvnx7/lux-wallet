@@ -13,6 +13,7 @@ const Path = {
   ONBOARD_NEW_ACCOUNT: '/onboard/new-account',
   ONBOARD_IMPORT_WALLET: '/onboard/import-wallet',
   TX_SEND_ASSET: '/send-asset',
+  TX_SEND_LYX: '/send-lyx',
 };
 
 export default Path;
