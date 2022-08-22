@@ -1,9 +1,9 @@
-import { Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormInput, FormPasswordInput } from 'components/common/form';
-import { logError, logInfo } from 'utils/logger';
+import { logError } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
@@ -50,10 +50,6 @@ const NewAccountForm = ({ ...props }) => {
       });
   };
 
-  // const handleLogin = () => {
-  //   navigate(Path.LOGIN);
-  // };
-
   return (
     <VStack as="form" spacing={4} onSubmit={handleSubmit(onSubmit)} {...props}>
       <FormPasswordInput
@@ -72,13 +68,6 @@ const NewAccountForm = ({ ...props }) => {
       <Button type="submit" my={8}>
         {t('form:create-account')}
       </Button>
-
-      {/* <HStack>
-        <Text>{t('form:already-added-account')}</Text>
-        <Button variant="link" onClick={handleLogin}>
-          {t('form:login')}
-        </Button>
-      </HStack> */}
     </VStack>
   );
 };

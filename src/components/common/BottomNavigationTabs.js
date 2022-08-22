@@ -6,10 +6,10 @@ import { CogIcon, DiamondIcon, HomeIcon, ShieldIcon } from 'components/icons';
 import { logDebug } from 'utils/logger';
 
 const Tab = ({ isActive, icon, label, onClick, ...props }) => {
-  const iconEl = createElement(icon, { size: 18, color: 'white' });
+  const iconEl = createElement(icon, { size: 28, color: 'white' });
   return (
     <VStack spacing={0} alignItems="center" {...props}>
-      <IconButton size="md" icon={iconEl} isActive={isActive} onClick={onClick} />
+      <IconButton size="md" icon={iconEl} variant="ghost" onClick={onClick} />
       {/* <Text fontSize="xs" color="gray.100">
         {label}
       </Text> */}
@@ -31,7 +31,14 @@ const BottomNavigationTabs = ({ ...props }) => {
   };
 
   return (
-    <HStack justify="space-between" bgColor="primary.500" px={4} py={4} rounded="lg" {...props}>
+    <HStack
+      justify="space-between"
+      px={4}
+      py={4}
+      rounded="xl"
+      background="linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)"
+      {...props}
+    >
       <Tab
         label="Home"
         icon={HomeIcon}

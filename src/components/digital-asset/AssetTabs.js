@@ -3,12 +3,14 @@ import { useGetUniversalProfileMetadata } from 'api/profile/getUniversalProfile'
 import { DiamondIcon } from 'components/icons';
 import { useAccount } from 'contexts/accounts';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import Path from 'router/paths';
 import AssetList from './AssetList';
 
 const AssetTabs = ({ ...props }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { activeAccount } = useAccount();
-  // const profileAddress = '0xa907c1904c22DFd37FF56c1f3c3d795682539196';
   const { data, isFetching } = useGetUniversalProfileMetadata({
     profileAddress: activeAccount?.universalProfile,
   });
@@ -18,6 +20,11 @@ const AssetTabs = ({ ...props }) => {
   }
 
   const { receivedAssets, issuedAssets } = data || {};
+
+  const handleSend = assetAddress => {
+    console.log({ assetAddress });
+    // navigate(Path.TX_SEND_ASSET, { state: { assetAddress } });
+  };
 
   return (
     <Tabs maxH="100%" variant="soft-rounded" isLazy {...props}>
@@ -29,10 +36,18 @@ const AssetTabs = ({ ...props }) => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <AssetList assetAddresses={receivedAssets} />
+          <AssetList
+            assetAddresses={receivedAssets}
+            ownerAddress={activeAccount?.profileAddress}
+            onSendClick={handleSend}
+          />
         </TabPanel>
         <TabPanel>
-          <AssetList assetAddresses={issuedAssets} />
+          <AssetList
+            assetAddresses={issuedAssets}
+            ownerAddress={activeAccount?.profileAddress}
+            onSendClick={handleSend}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>

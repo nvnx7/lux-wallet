@@ -86,17 +86,20 @@ const UniversalProfile = ({ ...props }) => {
 
 const LoadingView = ({ ...props }) => {
   return (
-    <Stack
-      w="100%"
-      direction="column-reverse"
-      alignItems="center"
-      position="relative"
-      height={36}
-      {...props}
-    >
-      <Skeleton position="absolute" height={24} rounded="md" top={0} right={0} left={0} />
-      <SkeletonCircle size={24} borderWidth={2} borderColor="white" />
-    </Stack>
+    <VStack w="full" spacing={0}>
+      <Stack
+        w="100%"
+        direction="column-reverse"
+        alignItems="center"
+        position="relative"
+        height={36}
+        {...props}
+      >
+        <Skeleton position="absolute" height={24} rounded="md" top={0} right={0} left={0} />
+        <SkeletonCircle size={24} borderWidth={2} borderColor="white" />
+      </Stack>
+      <Skeleton height={4} rounded="md" w="30%" />
+    </VStack>
   );
 };
 

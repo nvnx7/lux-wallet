@@ -6,6 +6,7 @@
   "new-password": "New Password",
   "confirm-password": "Confirm Password",
   "incorrect-password": "Incorrect Password",
+  "account-label": "Account Label",
   "create-new-account": "Create A New Account",
   "create-account": "Create Account",
   "import-wallet": "Import Wallet",

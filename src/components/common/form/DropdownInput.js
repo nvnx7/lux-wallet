@@ -30,11 +30,9 @@ const FormDropdownInput = ({
   const error = formState?.errors?.[name]?.message;
 
   const handleSelect = e => {
-    console.log('onSelect', e.item.value);
     field.onChange(e.item?.value);
   };
   const handleChange = e => {
-    console.log('onCHange', e?.target?.value);
     field.onChange(e.target.value);
   };
 

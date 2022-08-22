@@ -1,8 +1,8 @@
 import keyringController from 'scripts/keyringController';
 import web3 from 'scripts/web3';
 
-export const signAndSendTx = async (txData, from) => {
-  const pk = await keyringController.exportAccount(from);
+export const signAndSendTx = async (txData, eoaAddress) => {
+  const pk = await keyringController.exportAccount(eoaAddress);
   const signed = await web3.eth.accounts.signTransaction(txData, pk);
   const tx = await web3.eth.sendSignedTransaction(signed.rawTransaction);
   return {

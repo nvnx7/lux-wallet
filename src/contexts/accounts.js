@@ -1,14 +1,15 @@
 import useLocalStorage from 'hooks/useLocalStorage';
 import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from 'react';
-import keyringController from 'scripts/keyringController';
+import keyringController, { KeyringType } from 'scripts/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
+import { areEqualAddresses } from 'utils/web3';
 import { usePreferences } from './preferences';
 
 // {
 //   address: '0xa..',
 //   universalProfile: '0xb..',
-//   vaults: ['0xc..', '0xd..']
+//   vaults: [{label: '', address: '0x..'}],
 // }
 const defaultAccountsData = [];
 const initialContextValue = {
@@ -32,26 +33,48 @@ export const AccountProvider = ({ children }) => {
     const memState = await keyringController.memStore.getState();
     if (memState.isUnlocked) {
       setUnlocked(true);
-      return;
+      return { isValid: true };
     }
 
     if (!memState.isUnlocked && !password) {
       logError('Keyring is locked and no password provided');
-    } else {
+      return { isValid: false };
+    }
+
+    try {
       await keyringController.unlockKeyrings(password);
       setUnlocked(true);
+      return { isValid: true };
+    } catch (error) {
+      logError('AccountProvider:unlockAccount', error);
+      return { isValid: false };
     }
   };
 
+  //TODO: Replace this with general updateAccount function
   const setUniversalProfileAddress = useCallback(
     (address, profileAddress) => {
-      const idx = accountsData.findIndex(account => account.address === address);
+      const idx = accountsData?.findIndex(account => account.address === address);
       if (idx === -1) {
         logError('AccountProvider:setProfileAddress', `${address} not found!`);
         return;
       }
       const updated = [...accountsData];
       updated[idx].universalProfile = profileAddress;
+      setAccountsData(updated);
+    },
+    [setAccountsData, accountsData]
+  );
+
+  const updateAccount = useCallback(
+    (address, data) => {
+      const idx = accountsData?.findIndex(account => areEqualAddresses(account.address, address));
+      if (idx === -1) {
+        logError('AccountProvider:updateAccount', `${address} not found!`);
+        return;
+      }
+      const updated = [...accountsData];
+      updated[idx] = { ...updated[idx], ...data };
       setAccountsData(updated);
     },
     [setAccountsData, accountsData]
@@ -80,7 +103,7 @@ export const AccountProvider = ({ children }) => {
   );
 
   const activeAccount = useMemo(
-    () => accountsData.find(acc => acc.address === activeAccountAddress),
+    () => accountsData?.find(acc => acc.address === activeAccountAddress),
     [activeAccountAddress, accountsData]
   );
 
@@ -104,12 +127,24 @@ export const AccountProvider = ({ children }) => {
     }
   };
 
+  const createNewAccount = async (account, activate) => {
+    const addresses = await keyringController.getAccounts();
+    if (addresses.length === 0) {
+      logError('AccountProvider:createNewAccount', 'No accounts found');
+      return;
+    }
+    const keyring = await keyringController.getKeyringForAccount(addresses[0]);
+    await keyringController.addNewAccount(keyring);
+    addNewAccount(account, activate);
+  };
+
   const value = useMemo(
     () => ({
       isUnlocked,
       lockAccount,
       unlockAccount,
       setUniversalProfileAddress,
+      updateAccount,
       addVault,
       accountsData,
       activeAccount,

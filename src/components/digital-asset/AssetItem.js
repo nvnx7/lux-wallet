@@ -1,52 +1,47 @@
-import { Avatar, Button, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { getDigitalAsset, useGetDigitalAsset } from 'api/assets/getDigitalAsset';
-import { Card, CopyableAddress } from 'components/common/ui';
-import { WalletIcon } from 'components/icons';
+import { Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { useGetDigitalAsset } from 'api/asset/getDigitalAsset';
+import { Card } from 'components/common/ui';
+import { ArrowUpRightIcon, WalletIcon } from 'components/icons';
 import { useAccount } from 'contexts/accounts';
 import { useTranslation } from 'react-i18next';
-import AssetItemSkeleton from './SkeletonAssetItem';
+import SkeletonAssetItem from './SkeletonAssetItem';
+import AssetIcon from './AssetIcon';
+import { ExplorerLink } from 'components/tx';
 
-import fallbackSrc from 'assets/images/coin.png';
-
-const AssetItem = ({ assetAddress, ...props }) => {
+const AssetItem = ({ assetAddress, ownerAddress, onSendClick, ...props }) => {
   const { t } = useTranslation();
-  const { activeAccount } = useAccount();
   const { data, isLoading, isError, isFetching } = useGetDigitalAsset({
     assetAddress,
-    profileAddress: activeAccount?.universalProfile,
+    ownerAddress,
   });
 
   if (isFetching && !data) {
-    return <AssetItemSkeleton />;
+    return <SkeletonAssetItem />;
   }
 
   return (
-    <Card px={4} py={4} bgColor="white" {...props}>
-      <HStack justify="space-between">
+    <Card px={4} py={4} {...props}>
+      <HStack justify="space-between" alignSelf="stretch">
         <HStack {...props}>
-          <Image
-            boxSize="42px"
-            borderRadius="full"
-            src={data?.iconUrl}
-            fallbackSrc={fallbackSrc}
-            bgColor="none"
-          />
+          <AssetIcon src={data?.iconUrl} />
           <VStack alignItems="start" justifyContent="center" spacing={0}>
-            <Text fontWeight="bold">{data?.symbol}</Text>
-            <Text fontSize="xs" color="gray.400">
-              {data?.name}
-            </Text>
+            <Text fontWeight="semibold">{data?.symbol}</Text>
+            <HStack>
+              <Text fontSize="xs" color="whiteAlpha.600">
+                {data?.name}
+              </Text>
+              <ExplorerLink fontSize="xs" address={assetAddress} />
+            </HStack>
           </VStack>
         </HStack>
-        <VStack alignItems="end" justify="space-between" spacing={0}>
+        <VStack Stack alignItems="end" justify="space-between" spacing={0}>
           <HStack>
             <WalletIcon size={10} color="gray" />
-            <Text fontSize="xs" color="gray">
-              {t('asset:balance')}
-            </Text>
+            <Text fontWeight="bold">{data?.balance?.lyx}</Text>
           </HStack>
-          <Text fontWeight="bold">{data?.balance}</Text>
-          <CopyableAddress address={assetAddress} text={{ fontSize: 'xs', color: 'gray.400' }} />
+          <Button size="xs" leftIcon={<ArrowUpRightIcon />} variant="ghost" onClick={onSendClick}>
+            {t('tx:send')}
+          </Button>
         </VStack>
       </HStack>
     </Card>

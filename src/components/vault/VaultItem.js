@@ -8,7 +8,7 @@ const VaultItem = ({ data, onClick, ...props }) => {
       boxSize={20}
       {...props}
       shadow="md"
-      bgColor="white"
+      bgColor="whiteAlpha.200"
       rounded="md"
       cursor="pointer"
       onClick={onClick}

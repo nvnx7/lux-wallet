@@ -4,13 +4,22 @@ import { Identicon } from 'components/common';
 import { abbreviateAddress } from 'utils/web3';
 import { useAccount } from 'contexts/accounts';
 import { AddIcon, CogIcon, DownloadIcon, LockIcon } from 'components/icons';
+import { useNavigate } from 'react-router-dom';
+import Path from 'router/paths';
+import { ModalView, useUI } from 'contexts/ui';
 
 const WalletMenu = ({ ...props }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { activeAccount, accountsData, lockAccount } = useAccount();
+  const { setModalViewAndOpen } = useUI();
 
-  const handleLock = () => {
-    lockAccount();
+  const handleCreateAccount = () => {
+    setModalViewAndOpen(ModalView.CREATE_ACCOUNT);
+  };
+
+  const handleImportAccount = () => {
+    setModalViewAndOpen(ModalView.IMPORT_ACCOUNT);
   };
 
   return (
@@ -28,16 +37,16 @@ const WalletMenu = ({ ...props }) => {
           ))}
         </MenuGroup>
         <MenuGroup title={t('common:settings')}>
-          <MenuItem icon={<AddIcon />} onClick={handleLock}>
+          <MenuItem icon={<AddIcon />} onClick={handleCreateAccount}>
             {t('account:create-account')}
           </MenuItem>
-          <MenuItem icon={<DownloadIcon />} onClick={handleLock}>
+          <MenuItem icon={<DownloadIcon />} onClick={handleImportAccount}>
             {t('account:import-account')}
           </MenuItem>
-          <MenuItem icon={<CogIcon />} onClick={handleLock}>
+          <MenuItem icon={<CogIcon />} onClick={() => navigate(Path.SETTINGS)}>
             {t('common:settings')}
           </MenuItem>
-          <MenuItem icon={<LockIcon />} color="red.500" onClick={handleLock}>
+          <MenuItem icon={<LockIcon />} color="red.500" onClick={lockAccount}>
             {t('common:lock')}
           </MenuItem>
         </MenuGroup>

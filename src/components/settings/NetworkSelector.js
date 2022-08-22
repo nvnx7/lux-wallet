@@ -19,7 +19,9 @@ const NetworkSelector = ({ ...props }) => {
       onChange={handleChange}
     >
       {supportedNetworks.map(net => (
-        <option value={net.chainId}>{net.name}</option>
+        <option key={net.chainId} value={net.chainId}>
+          {net.name}
+        </option>
       ))}
     </Select>
   );

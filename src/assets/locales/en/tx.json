@@ -3,9 +3,11 @@
   "cancel": "Cancel",
   "view-on-explorer": "View on Explorer",
   "send": "Send",
+  "send-lyx": "Send LYX",
   "send-asset": "Send Asset",
   "from": "From",
   "to": "To",
   "amount": "Amount",
-  "asset": "Asset"
+  "asset": "Asset",
+  "review": "Review"
 }

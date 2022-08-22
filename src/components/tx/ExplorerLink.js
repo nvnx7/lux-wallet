@@ -9,7 +9,7 @@ const ExplorerLink = ({ address, ...props }) => {
     <Link
       href={getExplorerLink(address)}
       isExternal
-      color="gray.500"
+      color="whiteAlpha.700"
       fontSize="sm"
       display="flex"
       alignItems="center"

@@ -3,15 +3,21 @@ import { MehIcon } from 'components/icons';
 import { useTranslation } from 'react-i18next';
 import AssetItem from './AssetItem';
 
-const AssetList = ({ assetAddresses = [], ...props }) => {
+const AssetList = ({ assetAddresses = [], ownerAddress, onSendClick, ...props }) => {
   if (assetAddresses?.length === 0) {
     return <EmptyView />;
   }
 
   return (
     <Box maxH="400px" overflowY="scroll" {...props}>
-      {assetAddresses.slice(0, 4)?.map(assetAddress => (
-        <AssetItem key={assetAddress} assetAddress={assetAddress} my={1} />
+      {assetAddresses?.map(assetAddress => (
+        <AssetItem
+          key={assetAddress}
+          assetAddress={assetAddress}
+          ownerAddress={ownerAddress}
+          onSendClick={() => onSendClick(assetAddress)}
+          my={1}
+        />
       ))}
       <Box py={8} />
     </Box>

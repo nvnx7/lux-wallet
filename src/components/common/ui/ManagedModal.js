@@ -1,12 +1,5 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
-  Box,
-} from '@chakra-ui/react';
-import { AccountDetails } from 'components/account';
+import { Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react';
+import { AccountDetails, CreateAccountForm } from 'components/account';
 import { AddVaultForm, CreateVaultForm } from 'components/vault';
 import { ModalView, useUI } from 'contexts/ui';
 
@@ -24,11 +17,11 @@ const ManagedModal = () => {
       <ModalContent borderRadius={24}>
         <ModalCloseButton />
         <ModalBody px={6} py={8}>
-          {view === ModalView.SEND_TX && <Box />}
-          {view === ModalView.CONFIRM_TX && <Box />}
           {view === ModalView.ADD_VAULT && <AddVaultForm />}
           {view === ModalView.CREATE_VAULT && <CreateVaultForm />}
           {view === ModalView.ACCOUNT_DETAILS && <AccountDetails />}
+          {view === ModalView.CREATE_ACCOUNT && <CreateAccountForm />}
+          {view === ModalView.IMPORT_ACCOUNT && <AccountDetails />}
         </ModalBody>
       </ModalContent>
     </Modal>

@@ -2,11 +2,11 @@ import { createContext, useContext, useMemo, useReducer } from 'react';
 import { logError } from 'utils/logger';
 
 export const ModalView = {
-  SEND_TX: 'sendTx',
-  CONFIRM_TX: 'confirmTx',
+  ACCOUNT_DETAILS: 'accountDetails',
+  CREATE_ACCOUNT: 'createAccount',
+  IMPORT_ACCOUNT: 'importAccount',
   ADD_VAULT: 'addVault',
   CREATE_VAULT: 'createVault',
-  ACCOUNT_DETAILS: 'accountDetails',
 };
 
 const initialState = {

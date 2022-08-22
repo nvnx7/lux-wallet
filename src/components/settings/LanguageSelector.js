@@ -14,7 +14,9 @@ const LanguageSelector = ({ ...props }) => {
   return (
     <Select placeholder={t('common:language')} defaultValue="en" {...props} onChange={handleChange}>
       {supportedLanguages.map(lang => (
-        <option value={lang.symbol}>{lang.name}</option>
+        <option key={lang.symbol} value={lang.symbol}>
+          {lang.name}
+        </option>
       ))}
     </Select>
   );

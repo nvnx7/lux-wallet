@@ -1,9 +1,11 @@
 {
   "accounts": "Accounts",
+  "import": "Import",
   "import-account": "Import Account",
   "create-account": "Create Account",
   "export-private-key": "Export Private Key",
   "export-account": "Export Account",
   "export-warning": "Warning: Do not reveal this to key to anyone!",
-  "incorrect-password": "Incorrect Password"
+  "incorrect-password": "Incorrect Password",
+  "lock-account": "Lock Account"
 }
