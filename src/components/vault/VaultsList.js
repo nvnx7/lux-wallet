@@ -37,7 +37,7 @@ const VaultsList = ({ ...props }) => {
           <VaultItem key={vault.address} data={vault} onClick={() => handleClick(vault.address)} />
         ))}
       </SimpleGrid>
-      <Button position="absolute" right={4} bottom={4} leftIcon={<AddIcon />} onClick={handleAdd}>
+      <Button position="absolute" right={2} bottom={6} leftIcon={<AddIcon />} onClick={handleAdd}>
         {t('form:add-vault')}
       </Button>
     </Box>

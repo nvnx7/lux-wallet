@@ -1,14 +1,14 @@
 import { HeaderLayout } from 'components/layout';
-import { SendAssetForm } from 'components/tx';
+import { SendTokenForm } from 'components/tx';
 import { useTranslation } from 'react-i18next';
 
-const SendAsset = () => {
+const SendToken = () => {
   const { t } = useTranslation();
   return (
     <HeaderLayout title={t('tx:send-asset')}>
-      <SendAssetForm />
+      <SendTokenForm />
     </HeaderLayout>
   );
 };
 
-export default SendAsset;
+export default SendToken;

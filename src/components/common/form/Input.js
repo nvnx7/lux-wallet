@@ -11,6 +11,7 @@ const FormInput = ({
   helperText,
   isRequired,
   isInvalid,
+  disabled = false,
   _input,
   ...props
 }) => {
@@ -26,6 +27,7 @@ const FormInput = ({
         placeholder={placeholder}
         onChange={val => field.onChange(val)}
         value={field.value}
+        disabled={disabled}
         {..._input}
       />
       {helperText && <FormHelperText>{helperText}</FormHelperText>}

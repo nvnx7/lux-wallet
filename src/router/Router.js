@@ -9,7 +9,7 @@ import {
   Onboard,
   OnboardImportWallet,
   OnboardNewAccount,
-  SendAsset,
+  SendToken,
   SendLyx,
   Settings,
   VaultDetail,
@@ -57,7 +57,7 @@ const MemoryRoutes = () => {
       {/* Settings pages */}
       <Route path={Path.SETTINGS} element={<Settings />} />
       {/* Tx Pages */}
-      <Route path={Path.TX_SEND_ASSET} element={<SendAsset />} />
+      <Route path={Path.TX_SEND_TOKEN} element={<SendToken />} />
       <Route path={Path.TX_SEND_LYX} element={<SendLyx />} />
     </Routes>
   );

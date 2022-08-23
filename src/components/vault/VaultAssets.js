@@ -1,16 +1,4 @@
-import {
-  HStack,
-  Progress,
-  Switch,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  useBoolean,
-  VStack,
-} from '@chakra-ui/react';
+import { Progress, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
 import { useGetAllAssets } from 'api/asset/getAllAssets';
 import { AssetList } from 'components/digital-asset';
 import { DiamondIcon } from 'components/icons';
@@ -19,47 +7,38 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
 
-const UniversalProfileAssets = ({ ...props }) => {
+const VaultAssets = ({ vaultAddress, ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [assetFlag, setAssetFlag] = useBoolean();
-  const { activeAccount } = useAccount();
-  const { data, isFetching } = useGetAllAssets({ address: activeAccount?.universalProfile });
+  const { data, isFetching } = useGetAllAssets({ address: vaultAddress });
 
   if (isFetching && !data) {
-    return <LoadingView my={28} />;
+    return <LoadingView my={16} />;
   }
 
   const handleSend = tokenAddress => {
     const state = {
       tokenAddress,
-      fromAddress: activeAccount?.universalProfile,
-      fromLabel: 'Universal Profile',
+      fromAddress: vaultAddress,
+      fromLabel: 'Vault',
     };
     navigate(Path.TX_SEND_TOKEN, { state });
   };
 
-  const assetData = assetFlag ? data?.issued : data?.received;
+  const assetData = data?.received || [];
 
   return (
     <VStack alignItems="stretch" {...props}>
       <Tabs maxH="100%" variant="soft-rounded" isLazy>
         <TabList>
-          <Tab fontSize="sm" py={0}>
-            Tokens
-          </Tab>
+          <Tab fontSize="sm">Tokens</Tab>
           <Tab fontSize="sm">NFTs</Tab>
-          <HStack ml="auto" alignItems="center">
-            <Text fontSize="xs">{t('asset:received')}</Text>
-            <Switch size="md" mr={4} onChange={setAssetFlag.toggle} />
-            <Text fontSize="xs">{t('asset:issued')}</Text>
-          </HStack>
         </TabList>
         <TabPanels>
           <TabPanel>
             <AssetList
               assetAddresses={assetData?.tokens || []}
-              ownerAddress={activeAccount?.universalProfile}
+              ownerAddress={vaultAddress}
               onSendClick={handleSend}
               areNfts={false}
             />
@@ -67,7 +46,7 @@ const UniversalProfileAssets = ({ ...props }) => {
           <TabPanel>
             <AssetList
               assetAddresses={assetData?.nfts || []}
-              ownerAddress={activeAccount?.universalProfile}
+              ownerAddress={vaultAddress}
               onSendClick={handleSend}
               areNfts={true}
             />
@@ -87,4 +66,4 @@ const LoadingView = ({ ...props }) => {
   );
 };
 
-export default UniversalProfileAssets;
+export default VaultAssets;

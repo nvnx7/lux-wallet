@@ -10,6 +10,9 @@ import { usePreferences } from 'contexts/preferences';
 import { WalletIcon } from 'components/icons';
 import { useGetBalance } from 'api/account/getBalance';
 import { useSendLyx } from 'api/asset/sendLyx';
+import useToast from 'hooks/useToast';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object().shape({
   from: yup
@@ -26,18 +29,26 @@ const resolver = yupResolver(schema);
 
 const SendLyxForm = ({ ...props }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { showTxStatusToast } = useToast();
   const { network } = usePreferences();
   const { activeAccount } = useAccount();
 
   const { control, handleSubmit, setError } = useForm({
     resolver,
-    defaultValues: { from: activeAccount?.universalProfile || undefined },
+    defaultValues: { from: activeAccount?.address || undefined },
   });
   const fromAddress = useWatch({ control, name: 'from' });
   const { data: balance } = useGetBalance({ address: fromAddress });
-  const { data, mutate: sendLyx, error, isLoading } = useSendLyx();
+  const { mutate: sendLyx, isError, isSuccess, isLoading } = useSendLyx();
 
-  console.log({ data, error });
+  useEffect(() => {
+    if (isError || isSuccess) {
+      showTxStatusToast(isSuccess, isError);
+      navigate(-1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, isError]);
 
   const onSubmit = data => {
     if (data.amount > Number(balance.lyx || 0)) {
@@ -75,7 +86,7 @@ const SendLyxForm = ({ ...props }) => {
         </Text>
       </HStack>
       <Button type="submit" isLoading={isLoading}>
-        {t('tx:review')}
+        {t('tx:send')}
       </Button>
     </VStack>
   );

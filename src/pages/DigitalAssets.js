@@ -1,5 +1,4 @@
 import { Divider, Heading, HStack } from '@chakra-ui/react';
-import { AssetTabs } from 'components/digital-asset';
 import { DiamondIcon } from 'components/icons';
 import { BottomNavLayout } from 'components/layout';
 import { EmptyProfileView, UniversalProfileAssets } from 'components/profile';

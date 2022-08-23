@@ -23,8 +23,11 @@ const sendLyx = async params => {
     const up = new web3.eth.Contract(UniversalProfile.abi, from);
     const kmAddress = await up.methods.owner().call();
     const km = new web3.eth.Contract(KeyManager.abi, kmAddress);
-    const payload = up.methods.execute(0, to, amountWei, '0x').encodeABI();
-    const data = km.methods.execute(payload).encodeABI();
+    const payload = await up.methods.execute(0, to, amountWei, '0x').encodeABI();
+    const data = await km.methods.execute(payload).encodeABI();
+    txData.from = accountAddress;
+    txData.to = kmAddress;
+    txData.value = '0'; // Not sending from account/eoa address
     txData.data = data;
     txData.gas = 300_000;
   }
