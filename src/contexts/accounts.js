@@ -1,16 +1,20 @@
 import useLocalStorage from 'hooks/useLocalStorage';
-import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from 'react';
-import keyringController, { KeyringType } from 'scripts/keyringController';
+import React, { createContext, useState, useContext, useMemo, useCallback } from 'react';
+import keyringController from 'scripts/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
 import { areEqualAddresses } from 'utils/web3';
 import { usePreferences } from './preferences';
 
-// {
-//   address: '0xa..',
-//   universalProfile: '0xb..',
-//   vaults: [{label: '', address: '0x..'}],
-// }
+/**
+ * Accounts data list storing non-sensitive account data
+ * Structure:
+ * {
+ *   address: '0xa..',
+ *   universalProfile: '0xb..',
+ *   vaults: [{label: '', address: '0xc..'}, ...],
+ * }
+ */
 const defaultAccountsData = [];
 const initialContextValue = {
   isUnlocked: false,
@@ -19,6 +23,11 @@ const initialContextValue = {
 const AccountContext = createContext(initialContextValue);
 AccountContext.displayName = 'AccountContext';
 
+/**
+ * Account context provider for access to accounts data,
+ * manipulation of accounts data, access to active account,
+ * lock/unlock wallet
+ */
 export const AccountProvider = ({ children }) => {
   const { activeAccountAddress, setActiveAccountAddress } = usePreferences();
   const [accountsData, setAccountsData] = useLocalStorage(KEY_ACCOUNTS_DATA, defaultAccountsData);
@@ -157,6 +166,9 @@ export const AccountProvider = ({ children }) => {
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;
 };
 
+/**
+ * Custom hook to access account context values
+ */
 export const useAccount = () => {
   const context = useContext(AccountContext);
   if (context === undefined) {

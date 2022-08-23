@@ -3,6 +3,7 @@ import Tabs from './tabs';
 import Text from './text';
 import { FormLabel } from './form';
 import Modal from './modal';
+import Switch from './switch';
 
 const components = {
   Button,
@@ -10,6 +11,7 @@ const components = {
   Text,
   FormLabel,
   Modal,
+  Switch,
 };
 
 export default components;

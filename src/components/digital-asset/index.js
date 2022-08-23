@@ -1,4 +1,4 @@
-export { default as AssetItem } from './AssetItem';
+// export { default as AssetItem } from './AssetItemToken';
 export { default as AssetList } from './AssetList';
 export { default as AssetTabs } from './AssetTabs';
 export { default as AssetIcon } from './AssetIcon';

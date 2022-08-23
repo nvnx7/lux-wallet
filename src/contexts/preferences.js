@@ -12,6 +12,10 @@ const initialState = {
 const PreferencesContext = createContext(initialState);
 PreferencesContext.displayName = 'AuthContext';
 
+/**
+ * Context provider for access to locally stored user preferences
+ * and storing preferences
+ */
 export const PreferencesProvider = ({ children }) => {
   const [preferences, setPreferences] = useLocalStorage(KEY_PREFERENCES, initialState);
 
@@ -36,6 +40,9 @@ export const PreferencesProvider = ({ children }) => {
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;
 };
 
+/**
+ * Custom hook to access preference context values
+ */
 export const usePreferences = () => {
   const context = useContext(PreferencesContext);
   if (context === undefined) {

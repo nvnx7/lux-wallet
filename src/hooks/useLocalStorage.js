@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { logDebug } from 'utils/logger';
 import { getItem, storeItem } from 'utils/storage';
 
+/**
+ * Custom hook to sync state to local storage
+ */
 const useLocalStorage = (key, defaultValue) => {
   const [value, setValue] = useState(() => {
     return getItem(key, defaultValue);

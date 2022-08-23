@@ -9,5 +9,7 @@
   "to": "To",
   "amount": "Amount",
   "asset": "Asset",
-  "review": "Review"
+  "review": "Review",
+  "tx-success": "Transaction Successful!",
+  "tx-error": "Transaction Error!"
 }

@@ -3,22 +3,12 @@ import ERC725 from '@erc725/erc725.js';
 import digitalAssetMetadataSchema from '@erc725/erc725.js/schemas/LSP4DigitalAsset.json';
 import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
-import LSP4DigitalAssetMetadata from '@lukso/lsp-smart-contracts/artifacts/LSP4DigitalAssetMetadata.json';
 import LSP7DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
-import { INTERFACE_IDS } from '@lukso/lsp-smart-contracts/constants.js';
 import web3, { web3Provider } from 'scripts/web3';
 const config = { ipfsGateway };
 
-const isAssetNft = async assetAddress => {
-  const asset = new web3.Contract(LSP4DigitalAssetMetadata.abi, assetAddress);
-  const isNft = await asset.methods
-    .supportsInterface(INTERFACE_IDS['LSP8IdentifiableDigitalAsset'])
-    .call();
-  return isNft;
-};
-
 export const getDigitalAsset = async params => {
-  const { assetAddress, ownerAddress } = params;
+  const { assetAddress, ownerAddress, isNft } = params;
 
   const asset = new ERC725(digitalAssetMetadataSchema, assetAddress, web3Provider, config);
   const data = await asset.fetchData(['LSP4TokenName', 'LSP4TokenSymbol', 'LSP4Metadata']);
@@ -41,8 +31,6 @@ export const getDigitalAsset = async params => {
     }
   });
 
-  const isNft = await isAssetNft(assetAddress);
-
   const contract = new web3.eth.Contract(LSP7DigitalAsset.abi, assetAddress);
   let balance = {};
   if (ownerAddress) {
@@ -55,7 +43,7 @@ export const getDigitalAsset = async params => {
   return assetData;
 };
 
-export const useGetDigitalAsset = ({ assetAddress, ownerAddress }) => {
+export const useGetDigitalAsset = ({ assetAddress, ownerAddress, isNft }) => {
   return useQuery(
     ['LSP7DigitalAsset', { assetAddress, ownerAddress }],
     () => getDigitalAsset({ assetAddress, ownerAddress }),

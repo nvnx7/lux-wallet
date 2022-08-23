@@ -3,7 +3,7 @@ import { ExternalLinkIcon } from 'components/icons';
 import { useTranslation } from 'react-i18next';
 import { getExplorerLink } from 'utils/web3';
 
-const ExplorerLink = ({ address, ...props }) => {
+const ExplorerLink = ({ address, variant, ...props }) => {
   const { t } = useTranslation();
   return (
     <Link
@@ -15,7 +15,7 @@ const ExplorerLink = ({ address, ...props }) => {
       alignItems="center"
       {...props}
     >
-      {t('tx:view-on-explorer')} <ExternalLinkIcon />
+      {variant !== 'icon' && t('tx:view-on-explorer')} <ExternalLinkIcon />
     </Link>
   );
 };
