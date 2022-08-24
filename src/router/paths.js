@@ -1,3 +1,6 @@
+/**
+ * All paths in the  app
+ */
 const Path = {
   LOADING: '/',
   HOME: '/home',

@@ -8,7 +8,7 @@ import web3, { web3Provider } from 'scripts/web3';
 const config = { ipfsGateway };
 
 export const getDigitalAsset = async params => {
-  const { assetAddress, ownerAddress, isNft } = params;
+  const { assetAddress, ownerAddress } = params;
 
   const asset = new ERC725(digitalAssetMetadataSchema, assetAddress, web3Provider, config);
   const data = await asset.fetchData(['LSP4TokenName', 'LSP4TokenSymbol', 'LSP4Metadata']);
@@ -43,7 +43,7 @@ export const getDigitalAsset = async params => {
   return assetData;
 };
 
-export const useGetDigitalAsset = ({ assetAddress, ownerAddress, isNft }) => {
+export const useGetDigitalAsset = ({ assetAddress, ownerAddress }) => {
   return useQuery(
     ['LSP7DigitalAsset', { assetAddress, ownerAddress }],
     () => getDigitalAsset({ assetAddress, ownerAddress }),

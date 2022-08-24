@@ -30,13 +30,18 @@ const UniversalProfileAssets = ({ ...props }) => {
     return <LoadingView my={28} />;
   }
 
-  const handleSend = tokenAddress => {
+  const handleSend = (assetAddress, isNft) => {
     const state = {
-      tokenAddress,
       fromAddress: activeAccount?.universalProfile,
       fromLabel: 'Universal Profile',
     };
-    navigate(Path.TX_SEND_TOKEN, { state });
+    if (isNft) {
+      state.nftAddress = assetAddress;
+      navigate(Path.TX_SEND_NFT, { state });
+    } else {
+      state.tokenAddress = assetAddress;
+      navigate(Path.TX_SEND_TOKEN, { state });
+    }
   };
 
   const assetData = assetFlag ? data?.issued : data?.received;
@@ -60,7 +65,7 @@ const UniversalProfileAssets = ({ ...props }) => {
             <AssetList
               assetAddresses={assetData?.tokens || []}
               ownerAddress={activeAccount?.universalProfile}
-              onSendClick={handleSend}
+              onSendClick={addr => handleSend(addr, false)}
               areNfts={false}
             />
           </TabPanel>
@@ -68,7 +73,7 @@ const UniversalProfileAssets = ({ ...props }) => {
             <AssetList
               assetAddresses={assetData?.nfts || []}
               ownerAddress={activeAccount?.universalProfile}
-              onSendClick={handleSend}
+              onSendClick={addr => handleSend(addr, true)}
               areNfts={true}
             />
           </TabPanel>

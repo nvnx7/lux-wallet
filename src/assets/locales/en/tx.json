@@ -8,6 +8,7 @@
   "from": "From",
   "to": "To",
   "amount": "Amount",
+  "token-id": "Token Id",
   "asset": "Asset",
   "review": "Review",
   "tx-success": "Transaction Successful!",

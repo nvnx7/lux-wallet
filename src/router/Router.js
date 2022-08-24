@@ -11,6 +11,7 @@ import {
   OnboardNewAccount,
   SendToken,
   SendLyx,
+  SendNft,
   Settings,
   VaultDetail,
   VaultManager,
@@ -57,8 +58,9 @@ const MemoryRoutes = () => {
       {/* Settings pages */}
       <Route path={Path.SETTINGS} element={<Settings />} />
       {/* Tx Pages */}
-      <Route path={Path.TX_SEND_TOKEN} element={<SendToken />} />
       <Route path={Path.TX_SEND_LYX} element={<SendLyx />} />
+      <Route path={Path.TX_SEND_TOKEN} element={<SendToken />} />
+      <Route path={Path.TX_SEND_NFT} element={<SendNft />} />
     </Routes>
   );
 };

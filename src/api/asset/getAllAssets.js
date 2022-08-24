@@ -56,7 +56,7 @@ export const getAllAssets = async ({ address }) => {
 };
 
 export const useGetAllAssets = ({ address }) => {
-  return useQuery(['LSP5ReceivedAssets', { address }], () => getAllAssets({ address }), {
+  return useQuery(['LSP5LSP12Assets', { address }], () => getAllAssets({ address }), {
     enabled: !!address,
   });
 };
