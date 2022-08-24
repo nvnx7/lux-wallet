@@ -1,79 +1,54 @@
 import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import { FormInput } from 'components/common/form';
-import { logDebug, logError } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 import { useAccount } from 'contexts/accounts';
-import { ModalView, useUI } from 'contexts/ui';
+import { useUI } from 'contexts/ui';
 import { useCreateVault } from 'api/vault';
+import { CopyableAddress } from 'components/common/ui';
+import { ExplorerLink } from 'components/tx';
 import { useEffect } from 'react';
+import useToast from 'hooks/useToast';
 
-const schema = yup.object().shape({
-  label: yup.string(),
-});
-const resolver = yupResolver(schema);
-
-const AddVaultForm = ({ ...props }) => {
+const CreateVaultForm = ({ ...props }) => {
   const { t } = useTranslation();
-  const { setModalView, closeModal } = useUI();
-  const { activeAccount, addVault } = useAccount();
-  const { control, handleSubmit, getValues } = useForm({
-    resolver,
-    defaultValues: { label: `Vault ${(activeAccount?.vaults?.length || 0) + 1}` },
-  });
-  const { data: txData, isLoading, isError, mutate: createVault } = useCreateVault();
+  const { showTxStatusToast } = useToast();
+  const { closeModal } = useUI();
+  const { activeAccount } = useAccount();
+
+  const { isSuccess, isLoading, isError, mutate: createVault } = useCreateVault();
 
   useEffect(() => {
-    if (!txData) return;
-    const label = getValues('label') || `Vault ${(activeAccount?.vaults?.length || 0) + 1}`;
-    const vault = { label, address: txData.contractAddress };
-    addVault(activeAccount.address, vault);
-    closeModal();
-  }, [txData, activeAccount]);
-
-  const onSubmit = data => {
-    logDebug('AddVaultForm:onSubmit', data);
-    let label = data.label;
-    if (!label?.trim()) {
-      label = `Vault ${(activeAccount?.vaults?.length || 0) + 1}`;
+    if (isSuccess || isError) {
+      showTxStatusToast(isSuccess, isError);
+      closeModal();
     }
+  });
 
+  const handleCreate = () => {
     createVault({
-      profileAddress: activeAccount?.universalProfile,
-      from: activeAccount?.address,
+      upAddress: activeAccount?.universalProfile,
+      accountAddress: activeAccount?.address,
     });
   };
 
-  const handleAddExisting = () => {
-    setModalView(ModalView.ADD_VAULT);
-  };
-
   return (
-    <VStack as="form" onSubmit={handleSubmit(onSubmit)} {...props}>
+    <VStack {...props}>
       <Heading fontSize="lg">{t('form:create-vault')}</Heading>
-      <FormInput label={t('form:vault-label')} name="label" control={control} />
+      <Text variant="body" textAlign="center">
+        {t('form:create-vault-desc')}
+      </Text>
+      <VStack alignItems="flex-start">
+        <Text fontWeight="semibold">{t('common:universal-profile')}</Text>
+        <CopyableAddress address={activeAccount.universalProfile} abbreviate={32} />
+        <ExplorerLink address={activeAccount.universalProfile} ml={2} />
+      </VStack>
 
       <VStack>
-        <Button isLoading={isLoading} type="submit" mt={4}>
+        <Button isLoading={isLoading} onClick={handleCreate} mt={4}>
           {t('form:create-vault')}
         </Button>
-        <HStack>
-          <Text variant="body">{t('form:already-have-vault')}</Text>
-          <Button
-            disabled={isLoading}
-            variant="link"
-            color="gray.500"
-            fontSize="sm"
-            onClick={handleAddExisting}
-          >
-            {t('form:add-existing')}
-          </Button>
-        </HStack>
       </VStack>
     </VStack>
   );
 };
 
-export default AddVaultForm;
+export default CreateVaultForm;

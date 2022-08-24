@@ -5,6 +5,7 @@ import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProf
 import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
 import LSP9Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
+import { padToBytes32Hex } from 'utils/web3';
 
 /**
  * Send LSP8 Identifiable Digital Asset (nft) from Universal Profile contract
@@ -15,6 +16,8 @@ const sendVaultNft = async params => {
   // Expect `from` to be vault
   const vaultAddress = from;
 
+  const hexTokenId = padToBytes32Hex(tokenId);
+
   // Contracts
   const up = new web3.eth.Contract(UniversalProfile.abi, upAddress);
   const vault = new web3.eth.Contract(LSP9Vault.abi, vaultAddress);
@@ -24,7 +27,7 @@ const sendVaultNft = async params => {
 
   // Payloads
   const nftPayload = await nft.methods
-    .transfer(vaultAddress, to, tokenId, !!force, '0x')
+    .transfer(vaultAddress, to, hexTokenId, !!force, '0x')
     .encodeABI();
   const vaultPayload = await vault.methods.execute(0, nftAddress, 0, nftPayload).encodeABI();
   const upPayload = await up.methods.execute(0, vaultAddress, 0, vaultPayload).encodeABI();

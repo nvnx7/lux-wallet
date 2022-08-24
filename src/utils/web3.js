@@ -1,3 +1,4 @@
+import web3 from 'scripts/web3';
 import { explorerEndpoint } from 'settings/config';
 import { supportedNetworks } from 'settings/constants';
 
@@ -46,4 +47,11 @@ export const makeBatchCall = (web3, calls) => {
   batch.execute();
 
   return Promise.all(promises);
+};
+
+export const padToBytes32Hex = hex => {
+  if (!hex.startsWith('0x')) {
+    hex = web3.utils.numberToHex(hex);
+  }
+  return '0x' + '0'.repeat(66 - hex.length) + hex.slice(2);
 };

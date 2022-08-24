@@ -14,6 +14,7 @@ import useToast from 'hooks/useToast';
 import { areEqualAddresses } from 'utils/web3';
 import { useSendUpNft } from 'api/asset/sendUpNft';
 import { useSendVaultNft } from 'api/asset/sendVaultNft';
+import { listNfts, useListNfts } from 'api/asset/listNfts';
 
 const schema = yup.object().shape({
   from: yup
@@ -48,6 +49,12 @@ const SendNftForm = ({ ...props }) => {
     ownerAddress: params.fromAddress,
   });
   const {
+    data: nfts,
+    isLoading: isNftLoading,
+    isError: isNftError,
+  } = useListNfts({ nftAddress: params.nftAddress, ownerAddress: params.fromAddress });
+
+  const {
     mutate: sendUpNft,
     isSuccess: isUpTxSuccess,
     isError: isUpTxError,
@@ -79,13 +86,6 @@ const SendNftForm = ({ ...props }) => {
   const addressOpts = [profileOpt, ...vaultOpts];
 
   const onSubmit = data => {
-    // if (data.amount > Number(asset?.balance?.lyx || 0)) {
-    //   setError('amount', { type: 'custom', message: 'Insufficient balance' });
-    //   return;
-    // }
-    console.log({ data });
-    return;
-
     // Force send enable for unknown address
     data.force = addressOpts.findIndex(v => data.to === v.value) === -1;
     if (areEqualAddresses(data.from, activeAccount.universalProfile)) {
@@ -103,10 +103,11 @@ const SendNftForm = ({ ...props }) => {
         upAddress: activeAccount.universalProfile,
       });
     }
+    console.log({ data });
   };
 
-  const isLoading = isAssetLoading || isUpTxLoading || isVaultTxLoading;
-
+  const isLoading = isAssetLoading || isUpTxLoading || isVaultTxLoading || isNftLoading;
+  const nftOptions = nfts?.map(id => ({ label: `${asset.symbol} #${id}`, value: `${id}` })) || [];
   return (
     <VStack as="form" px={8} onSubmit={handleSubmit(onSubmit)} {...props}>
       <VStack>
@@ -115,7 +116,7 @@ const SendNftForm = ({ ...props }) => {
           <WalletIcon size={12} color="gray" />
           <Text fontSize="sm">{asset?.symbol}</Text>
           <Text fontSize="sm" fontWeight="bold">
-            {asset?.balance?.lyx || '0'}
+            {asset?.balance?.wei || '0'}
           </Text>
         </HStack>
       </VStack>
@@ -133,7 +134,14 @@ const SendNftForm = ({ ...props }) => {
         {/* <Text fontWeight="bold" pt={6}>
           NFT
         </Text> */}
-        <FormSelect label={t('tx:token-id')} name="tokenId" control={control} flex={0.6} />
+        <FormSelect
+          label={t('tx:token-id')}
+          name="tokenId"
+          control={control}
+          flex={0.6}
+          options={nftOptions}
+          disabled={isLoading}
+        />
       </HStack>
       <Button type="submit" disabled={isLoading} isLoading={isUpTxLoading || isVaultTxLoading}>
         {t('tx:send')}

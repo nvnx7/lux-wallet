@@ -9,6 +9,7 @@ const FormSelect = ({
   isRequired,
   defaultValue = '',
   options = [],
+  disabled = false,
   ...props
 }) => {
   const { field, formState } = useController({ name, control, defaultValue });
@@ -21,27 +22,14 @@ const FormSelect = ({
         placeholder={placeholder}
         value={field.value}
         onChange={e => field.onChange(e.target.value)}
+        disabled={disabled}
       >
         {options.map(opt => (
-          <option value={opt.value}>{label}</option>
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
       </Select>
-      {/* <Controller
-          control={control}
-          name={name}
-          render={({ field }) => (
-            <Select
-              onValueChange={(val) => field.onChange(val)}
-              selectedValue={field.value}
-              accessibilityLabel={placeholder}
-              placeholder={placeholder}
-            >
-              {options.map((option) => (
-                <Select.Item key={option.value} label={option.label} value={option.value} />
-              ))}
-            </Select>
-          )}
-        /> */}
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
   );

@@ -4,6 +4,8 @@ import web3 from 'scripts/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
+import { logError } from 'utils/logger';
+import { padToBytes32Hex } from 'utils/web3';
 
 /**
  * Send LSP8 Identifiable Digital Asset (nft) from Universal Profile contract
@@ -13,6 +15,7 @@ const sendUpNft = async params => {
 
   // Expect `from` to be UP
   const upAddress = from;
+  const hexTokenId = padToBytes32Hex(tokenId);
 
   // Contracts
   const up = new web3.eth.Contract(UniversalProfile.abi, upAddress);
@@ -21,7 +24,9 @@ const sendUpNft = async params => {
   const km = new web3.eth.Contract(KeyManager.abi, kmAddress);
 
   // Payloads
-  const nftPayload = await nft.methods.transfer(upAddress, to, tokenId, !!force, '0x').encodeABI();
+  const nftPayload = await nft.methods
+    .transfer(upAddress, to, hexTokenId, !!force, '0x')
+    .encodeABI();
   const upPayload = await up.methods.execute(0, nftAddress, 0, nftPayload).encodeABI();
   const txPayload = await km.methods.execute(upPayload).encodeABI();
   const txData = {
@@ -38,6 +43,6 @@ const sendUpNft = async params => {
 
 export const useSendUpNft = () => {
   return useMutation(params => sendUpNft(params), {
-    onSuccess: () => {},
+    onError: logError,
   });
 };

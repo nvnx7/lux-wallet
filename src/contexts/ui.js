@@ -5,7 +5,6 @@ export const ModalView = {
   ACCOUNT_DETAILS: 'accountDetails',
   CREATE_ACCOUNT: 'createAccount',
   IMPORT_ACCOUNT: 'importAccount',
-  ADD_VAULT: 'addVault',
   CREATE_VAULT: 'createVault',
 };
 
