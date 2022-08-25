@@ -1,5 +1,5 @@
 import { Box, HStack, Text, useClipboard, VStack } from '@chakra-ui/react';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { abbreviateAddress } from 'utils/web3';
 import { useGetBalance } from 'api/account/getBalance';
 import { LuksoLogo } from 'components/common/ui';
@@ -10,7 +10,7 @@ import { usePreferences } from 'contexts/preferences';
 
 const AccountHeader = ({ ...props }) => {
   const { network } = usePreferences();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   const { hasCopied, onCopy } = useClipboard(activeAccount?.address);
   const { data } = useGetBalance({ address: activeAccount?.address });
 

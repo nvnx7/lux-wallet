@@ -1,14 +1,13 @@
-import { Button, VStack } from '@chakra-ui/react';
+import { Button, Heading, VStack } from '@chakra-ui/react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormInput } from 'components/common/form';
-import { logError } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 import { isDev } from 'settings/config';
 import { Mock } from 'settings/constants';
-import { useAccount } from 'contexts/accounts';
-import { useLocation } from 'react-router-dom';
+import { useWallet } from 'contexts/wallet';
+import { useUI } from 'contexts/ui';
 
 const schema = yup.object().shape({
   privateKey: yup
@@ -27,8 +26,8 @@ const defaultValues = isDev
 
 const ImportAccountForm = ({ ...props }) => {
   const { t } = useTranslation();
-  const { state } = useLocation();
-  const { accountsData, createNewWallet } = useAccount();
+  const { closeModal } = useUI();
+  const { accountsData, importAccount } = useWallet();
   const { control, handleSubmit } = useForm({
     resolver,
     defaultValues: {
@@ -38,9 +37,7 @@ const ImportAccountForm = ({ ...props }) => {
   });
 
   const onSubmit = data => {
-    console.log({ state, data });
-
-    let account = { ...data };
+    const account = { ...data };
     if (!account?.label.trim()) {
       account.label = `Account ${(accountsData?.length || 0) + 1}`;
     }
@@ -50,15 +47,13 @@ const ImportAccountForm = ({ ...props }) => {
       account.privateKey = account.privateKey.slice(2);
     }
 
-    createNewWallet(state.password, account)
-      .then(() => {})
-      .catch(err => {
-        logError('ImportAccountForm:onSubmit', err);
-      });
+    importAccount(account);
+    closeModal();
   };
 
   return (
-    <VStack as="form" spacing={6} onSubmit={handleSubmit(onSubmit)} {...props}>
+    <VStack as="form" spacing={2} onSubmit={handleSubmit(onSubmit)} {...props}>
+      <Heading fontSize="2xl">{t('form:import-account')}</Heading>
       <FormInput label={t('form:account-label')} name="label" control={control} />
 
       <FormInput

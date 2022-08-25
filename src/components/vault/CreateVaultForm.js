@@ -1,6 +1,6 @@
 import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useUI } from 'contexts/ui';
 import { useCreateVault } from 'api/vault';
 import { CopyableAddress } from 'components/common/ui';
@@ -12,7 +12,7 @@ const CreateVaultForm = ({ ...props }) => {
   const { t } = useTranslation();
   const { showTxStatusToast } = useToast();
   const { closeModal } = useUI();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
 
   const { isSuccess, isLoading, isError, mutate: createVault } = useCreateVault();
 

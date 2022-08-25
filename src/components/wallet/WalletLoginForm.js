@@ -6,7 +6,7 @@ import { FormPasswordInput } from 'components/common/form';
 import { useTranslation } from 'react-i18next';
 import { isDev } from 'settings/config';
 import { Mock } from 'settings/constants';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 
 const schema = yup.object().shape({
   password: yup.string().required('Required'),
@@ -26,10 +26,10 @@ const LoginForm = ({ ...props }) => {
     resolver,
     defaultValues,
   });
-  const { unlockAccount } = useAccount();
+  const { unlockWallet } = useWallet();
 
   const onSubmit = data => {
-    unlockAccount(data.password).then(res => {
+    unlockWallet(data.password).then(res => {
       if (!res.isValid) {
         setError('password', {
           type: 'custom',

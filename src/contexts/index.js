@@ -1,13 +1,13 @@
 import React from 'react';
-import { AccountProvider } from './accounts';
+import { WalletProvider } from './wallet';
 import { PreferencesProvider } from './preferences';
 import { UIProvider } from './ui';
 
 const AppContext = ({ children }) => (
   <PreferencesProvider>
-    <AccountProvider>
+    <WalletProvider>
       <UIProvider>{children}</UIProvider>
-    </AccountProvider>
+    </WalletProvider>
   </PreferencesProvider>
 );
 

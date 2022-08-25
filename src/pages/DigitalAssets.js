@@ -2,12 +2,12 @@ import { Divider, Heading, HStack } from '@chakra-ui/react';
 import { DiamondIcon } from 'components/icons';
 import { BottomNavLayout } from 'components/layout';
 import { EmptyProfileView, UniversalProfileAssets } from 'components/profile';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useTranslation } from 'react-i18next';
 
 const DigitalAssets = () => {
   const { t } = useTranslation();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
 
   return (
     <BottomNavLayout>

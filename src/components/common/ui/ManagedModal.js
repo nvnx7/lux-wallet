@@ -1,5 +1,5 @@
 import { Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react';
-import { AccountDetails, CreateAccountForm } from 'components/account';
+import { AccountDetails, CreateAccountForm, ImportAccountForm } from 'components/account';
 import { CreateVaultForm } from 'components/vault';
 import { ModalView, useUI } from 'contexts/ui';
 
@@ -20,7 +20,7 @@ const ManagedModal = () => {
           {view === ModalView.CREATE_VAULT && <CreateVaultForm />}
           {view === ModalView.ACCOUNT_DETAILS && <AccountDetails />}
           {view === ModalView.CREATE_ACCOUNT && <CreateAccountForm />}
-          {view === ModalView.IMPORT_ACCOUNT && <AccountDetails />}
+          {view === ModalView.IMPORT_ACCOUNT && <ImportAccountForm />}
         </ModalBody>
       </ModalContent>
     </Modal>

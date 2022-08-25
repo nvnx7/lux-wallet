@@ -1,13 +1,13 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { DetailIcon, ExternalLinkIcon, VerticalDotsIcon } from 'components/icons';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';
 import { useTranslation } from 'react-i18next';
 import { getExplorerLink } from 'utils/web3';
 
 const AccountMenu = ({ ...props }) => {
   const { t } = useTranslation();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   const { setModalViewAndOpen } = useUI();
 
   const explorerLink = getExplorerLink(activeAccount?.address || '');

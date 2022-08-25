@@ -1,13 +1,14 @@
-import { Box, Divider, Heading, HStack } from '@chakra-ui/react';
+import { Divider, Heading, HStack } from '@chakra-ui/react';
 import { ShieldIcon } from 'components/icons';
 import { BottomNavLayout } from 'components/layout';
+import { EmptyProfileView } from 'components/profile';
 import { VaultsList } from 'components/vault';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useTranslation } from 'react-i18next';
 
 const VaultManager = () => {
   const { t } = useTranslation();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   return (
     <BottomNavLayout>
       <HStack py={2} justify="center" alignItems="center">
@@ -17,7 +18,7 @@ const VaultManager = () => {
         </Heading>
       </HStack>
       <Divider />
-      <VaultsList py={2} />
+      {activeAccount?.universalProfile ? <VaultsList py={2} /> : <EmptyProfileView py={12} />}
     </BottomNavLayout>
   );
 };

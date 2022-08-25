@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { FormInput } from 'components/common/form';
 import { logDebug } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';
 
 const schema = yup.object().shape({
@@ -16,20 +16,19 @@ const resolver = yupResolver(schema);
 const CreateAccountForm = ({ ...props }) => {
   const { t } = useTranslation();
   const { setModalView, closeModal } = useUI();
-  const { accountsData, addNewAccount } = useAccount();
+  const { accountsData, createNewAccount } = useWallet();
   const { control, handleSubmit } = useForm({
     resolver,
     defaultValues: { label: `Account ${(accountsData?.length || 0) + 1}` },
   });
 
   const onSubmit = data => {
-    logDebug('CreateAccountForm:onSubmit', data);
     let label = data.label;
     if (!label?.trim()) {
       label = `Account ${(accountsData?.length || 0) + 1}`;
     }
 
-    // addNewAccount({ label, address: ''}, true);
+    createNewAccount({ label });
     closeModal();
   };
 
@@ -39,7 +38,7 @@ const CreateAccountForm = ({ ...props }) => {
 
   return (
     <VStack as="form" onSubmit={handleSubmit(onSubmit)} {...props}>
-      <Heading>{t('form:create-vault')}</Heading>
+      <Heading fontSize="2xl">{t('form:create-account')}</Heading>
       <FormInput label={t('form:account-label')} name="label" control={control} />
 
       <VStack>
@@ -47,7 +46,7 @@ const CreateAccountForm = ({ ...props }) => {
           {t('form:create-account')}
         </Button>
         <HStack>
-          <Text variant="body">{t('form:already-have-vault')}</Text>
+          <Text variant="body">{t('form:want-to-import-account')}</Text>
           <Button variant="link" color="gray.500" fontSize="sm" onClick={handleImport}>
             {t('account:import')}
           </Button>

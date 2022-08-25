@@ -55,3 +55,8 @@ export const padToBytes32Hex = hex => {
   }
   return '0x' + '0'.repeat(66 - hex.length) + hex.slice(2);
 };
+
+export const privateKeyToAddress = pk => {
+  const account = web3.eth.accounts.privateKeyToAccount(pk);
+  return account.address;
+};

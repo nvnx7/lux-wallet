@@ -10,6 +10,7 @@
   "create-new-account": "Create New Account",
   "create-account": "Create Account",
   "import-wallet": "Import Wallet",
+  "import-account": "Import Account",
   "want-to-import-account": "Want to import an account?",
   "already-added-account": "Already added account?",
   "add-profile": "Add Profile",

@@ -14,7 +14,7 @@ import {
 import { useGetAllAssets } from 'api/asset/getAllAssets';
 import { AssetList } from 'components/digital-asset';
 import { DiamondIcon } from 'components/icons';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
@@ -23,7 +23,7 @@ const UniversalProfileAssets = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [assetFlag, setAssetFlag] = useBoolean();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   const { data, isFetching } = useGetAllAssets({ address: activeAccount?.universalProfile });
 
   if (isFetching && !data) {

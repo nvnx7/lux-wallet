@@ -1,5 +1,4 @@
-import { VStack } from '@chakra-ui/react';
-import { I18NHeading, I18NText } from 'components/common/text';
+import { Heading, Text, VStack } from '@chakra-ui/react';
 import { HeaderLayout } from 'components/layout';
 import { AddProfileForm } from 'components/profile';
 import { useTranslation } from 'react-i18next';
@@ -7,10 +6,14 @@ import { useTranslation } from 'react-i18next';
 const AddUniversalProfile = () => {
   const { t } = useTranslation();
   return (
-    <HeaderLayout title={'form:add-profile'}>
+    <HeaderLayout title={t('form:add-profile')}>
       <VStack>
-        <I18NHeading text="common:universal-profile" textAlign="center" />
-        <I18NText text="form:add-profile-description" textAlign="center" variant="body" pt={4} />
+        <Heading textAlign="center" fontSize="3xl">
+          {t('common:universal-profile')}
+        </Heading>
+        <Text textAlign="center" variant="body" pt={4}>
+          {t('form:add-profile-description')}
+        </Text>
         <AddProfileForm py={12} />
       </VStack>
     </HeaderLayout>

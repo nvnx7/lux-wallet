@@ -13,7 +13,7 @@ import { useGetBalance } from 'api/account/getBalance';
 import { useGetUniversalProfileMetadata } from 'api/profile/getUniversalProfile';
 import { Card, CopyableAddress, LuksoLogo } from 'components/common/ui';
 import { ArrowUpRightIcon } from 'components/icons';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { usePreferences } from 'contexts/preferences';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ import Path from 'router/paths';
 const UniversalProfile = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   const { network } = usePreferences();
   const { data, isLoading, isFetching, isError } = useGetUniversalProfileMetadata({
     profileAddress: activeAccount?.universalProfile,

@@ -6,7 +6,7 @@ import { FormInput } from 'components/common/form';
 import { useTranslation } from 'react-i18next';
 import { isDev } from 'settings/config';
 import { Mock } from 'settings/constants';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { logDebug } from 'utils/logger';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
@@ -32,7 +32,7 @@ const AddProfileForm = ({ ...props }) => {
     resolver,
     defaultValues,
   });
-  const { activeAccount, updateAccount } = useAccount();
+  const { activeAccount, updateAccount } = useWallet();
 
   const onSubmit = data => {
     logDebug('AddProfileForm:onSubmit', data);

@@ -1,5 +1,4 @@
-import { Box, Center, Divider, HStack, IconButton, Text } from '@chakra-ui/react';
-import { I18NText } from 'components/common/text';
+import { Box, Center, Divider, IconButton, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon } from 'components/icons';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import {
   AddUniversalProfile,
   DigitalAssets,
@@ -26,7 +26,7 @@ import { ManagedModal } from 'components/common/ui';
 const MemoryRoutes = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
-  const { isUnlocked } = useAccount();
+  const { isUnlocked } = useWallet();
 
   useEffect(() => {
     const state = keyringController.store.getState();

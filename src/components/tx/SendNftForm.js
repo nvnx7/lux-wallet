@@ -1,6 +1,6 @@
 import { Button, Divider, HStack, Text, VStack } from '@chakra-ui/react';
 import { FormDropdownInput, FormInput, FormSelect } from 'components/common/form';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -35,7 +35,7 @@ const SendNftForm = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { showTxStatusToast, showErrorToast } = useToast();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   const { control, handleSubmit } = useForm({
     resolver,
     defaultValues: { from: params.fromAddress || undefined },

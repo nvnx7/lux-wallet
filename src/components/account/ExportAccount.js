@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { isDev } from 'settings/config';
 import { Mock } from 'settings/constants';
 import keyringController, { KeyringType } from 'scripts/keyringController';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useState } from 'react';
 import { CopyableAddress } from 'components/common/ui';
 
@@ -30,7 +30,7 @@ const ExportAccount = ({ ...props }) => {
     resolver,
     defaultValues,
   });
-  const { activeAccount, exportAccount } = useAccount();
+  const { activeAccount, exportAccount } = useWallet();
 
   const onSubmit = data => {
     exportAccount(data.password, activeAccount?.address).then(res => {

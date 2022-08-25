@@ -4,14 +4,14 @@ import { EditableInput } from 'components/common/form';
 import { CopyableAddress } from 'components/common/ui';
 import { ChevronLeftIcon } from 'components/icons';
 import { ExplorerLink } from 'components/tx';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ExportAccount from './ExportAccount';
 
 const AccountDetails = ({ ...props }) => {
   const [showExportKey, setShowExportKey] = useState(false);
-  const { activeAccount, updateAccount } = useAccount();
+  const { activeAccount, updateAccount } = useWallet();
   const { t } = useTranslation();
 
   const handleLabelChange = value => {

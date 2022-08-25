@@ -1,7 +1,7 @@
 import { Box, Button, SimpleGrid } from '@chakra-ui/react';
 import { useListVaults } from 'api/vault/listVaults';
 import { AddIcon } from 'components/icons';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ import VaultItem from './VaultItem';
 const VaultsList = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
   const { setModalViewAndOpen } = useUI();
 
   const { data, isFetching, isError } = useListVaults({

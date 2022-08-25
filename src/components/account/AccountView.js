@@ -2,7 +2,7 @@ import { Box, Button, VStack } from '@chakra-ui/react';
 import { LuksoLogo } from 'components/common/ui';
 import { ArrowUpRightIcon } from 'components/icons';
 import { EmptyProfileView, UniversalProfile } from 'components/profile';
-import { useAccount } from 'contexts/accounts';
+import { useWallet } from 'contexts/wallet';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AccountHeader from './AccountHeader';
@@ -10,7 +10,7 @@ import AccountHeader from './AccountHeader';
 const AccountView = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { activeAccount } = useAccount();
+  const { activeAccount } = useWallet();
 
   return (
     <Box {...props}>
