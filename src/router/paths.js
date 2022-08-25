@@ -1,12 +1,10 @@
 /**
- * All paths in the  app
+ * All router paths in the  app
  */
 const Path = {
   LOADING: '/',
   HOME: '/home',
   LOGIN: '/login',
-  IMPORT: '/import',
-  NEW_WALLET: '/new-wallet',
   PROFILE_ADD: '/profile-add',
   DIGITAL_ASSETS: '/digital-assets',
   SETTINGS: '/settings',
