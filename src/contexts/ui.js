@@ -1,3 +1,4 @@
+import { useColorMode } from '@chakra-ui/react';
 import { createContext, useContext, useMemo, useReducer } from 'react';
 import { logError } from 'utils/logger';
 
@@ -41,6 +42,7 @@ const reducer = (state, action) => {
 };
 
 export const UIProvider = props => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const openModal = () => dispatch({ type: Action.OPEN_MODAL });
@@ -53,6 +55,11 @@ export const UIProvider = props => {
     setModalView(view);
     openModal();
   };
+
+  // Force color mode to dark
+  if (colorMode !== 'dark') {
+    toggleColorMode();
+  }
 
   const value = useMemo(
     () => ({
