@@ -20,13 +20,17 @@ export const PreferencesProvider = ({ children }) => {
   const [preferences, setPreferences] = useLocalStorage(KEY_PREFERENCES, initialState);
 
   const setActiveAccountAddress = useCallback(
-    activeAccountAddress => setPreferences({ activeAccountAddress, ...preferences }),
+    activeAccountAddress => {
+      setPreferences({ ...preferences, activeAccountAddress });
+    },
     [preferences, setPreferences]
   );
 
   const network = useMemo(() => {
     return getNetworkInfo(preferences.chainId);
   }, [preferences.chainId]);
+
+  console.log({ preferences });
 
   const value = useMemo(
     () => ({

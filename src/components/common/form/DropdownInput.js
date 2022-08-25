@@ -55,7 +55,12 @@ const FormDropdownInput = ({
         />
         <AutoCompleteList>
           {options.map(opt => (
-            <AutoCompleteItem key={opt.value} value={opt.value} label={opt.label}>
+            <AutoCompleteItem
+              key={opt.value}
+              value={opt.value}
+              label={opt.label}
+              overflowX="hidden"
+            >
               <VStack spacing={0} alignItems="start">
                 <Text fontSize="xs" variant="body">
                   {opt.label}

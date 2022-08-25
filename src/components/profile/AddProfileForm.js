@@ -32,12 +32,11 @@ const AddProfileForm = ({ ...props }) => {
     resolver,
     defaultValues,
   });
-  const { activeAccount, setUniversalProfileAddress } = useAccount();
+  const { activeAccount, updateAccount } = useAccount();
 
   const onSubmit = data => {
     logDebug('AddProfileForm:onSubmit', data);
-    console.log({ activeAccount, data });
-    setUniversalProfileAddress(activeAccount.address, data.profileAddress);
+    updateAccount(activeAccount.address, { universalProfile: data.profileAddress });
     navigate(Path.HOME);
   };
 

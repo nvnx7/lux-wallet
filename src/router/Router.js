@@ -7,8 +7,8 @@ import {
   Loading,
   Login,
   Onboard,
-  OnboardImportWallet,
-  OnboardNewAccount,
+  OnboardImportAccount,
+  OnboardNewWallet,
   SendToken,
   SendLyx,
   SendNft,
@@ -31,6 +31,9 @@ const MemoryRoutes = () => {
   useEffect(() => {
     const state = keyringController.store.getState();
     const hasVault = !!state.vault;
+    if (state) {
+      keyringController.getAccounts().then(d => console.log({ d }));
+    }
     wait(2000).then(() => setLoading(false));
 
     logDebug('Router:', { isLoading, isUnlocked, hasVault });
@@ -46,8 +49,8 @@ const MemoryRoutes = () => {
       <Route path={Path.LOGIN} element={<Login />} />
       {/* Onboard pages */}
       <Route path={Path.ONBOARD} element={<Onboard />} />
-      <Route path={Path.ONBOARD_NEW_ACCOUNT} element={<OnboardNewAccount />} />
-      <Route path={Path.ONBOARD_IMPORT_WALLET} element={<OnboardImportWallet />} />
+      <Route path={Path.ONBOARD_NEW_WALLET} element={<OnboardNewWallet />} />
+      <Route path={Path.ONBOARD_IMPORT_ACCOUNT} element={<OnboardImportAccount />} />
       {/* Profile pages */}
       <Route path={Path.PROFILE_ADD} element={<AddUniversalProfile />} />
       {/* Assets pages */}

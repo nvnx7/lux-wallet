@@ -9,14 +9,16 @@ const GetStarted = ({ ...props }) => {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate(Path.ONBOARD_NEW_ACCOUNT);
+    navigate(Path.ONBOARD_NEW_WALLET);
   };
 
   return (
-    <VStack {...props}>
+    <VStack w="full" spacing={6} {...props}>
       <Logo size={64} />
       <Heading>{t('common:get-started')}</Heading>
-      <Text>{t('common:get-started-desc')}</Text>
+      <Text variant="body" textAlign="center">
+        {t('common:get-started-desc')}
+      </Text>
       <Button onClick={handleStart} marginTop="auto">
         {t('common:lets-go')}
       </Button>

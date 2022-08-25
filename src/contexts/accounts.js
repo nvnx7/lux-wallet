@@ -1,6 +1,6 @@
 import useLocalStorage from 'hooks/useLocalStorage';
 import React, { createContext, useState, useContext, useMemo, useCallback } from 'react';
-import keyringController from 'scripts/keyringController';
+import keyringController, { KeyringType } from 'scripts/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
 import { areEqualAddresses } from 'utils/web3';
@@ -12,7 +12,6 @@ import { usePreferences } from './preferences';
  * {
  *   address: '0xa..',
  *   universalProfile: '0xb..',
- *   vaults: [{label: '', address: '0xc..'}, ...],
  * }
  */
 const defaultAccountsData = [];
@@ -60,21 +59,6 @@ export const AccountProvider = ({ children }) => {
     }
   };
 
-  //TODO: Replace this with general updateAccount function
-  const setUniversalProfileAddress = useCallback(
-    (address, profileAddress) => {
-      const idx = accountsData?.findIndex(account => account.address === address);
-      if (idx === -1) {
-        logError('AccountProvider:setProfileAddress', `${address} not found!`);
-        return;
-      }
-      const updated = [...accountsData];
-      updated[idx].universalProfile = profileAddress;
-      setAccountsData(updated);
-    },
-    [setAccountsData, accountsData]
-  );
-
   const updateAccount = useCallback(
     (address, data) => {
       const idx = accountsData?.findIndex(account => areEqualAddresses(account.address, address));
@@ -89,34 +73,18 @@ export const AccountProvider = ({ children }) => {
     [setAccountsData, accountsData]
   );
 
-  const addVault = useCallback(
-    (address, vault) => {
-      const idx = accountsData.findIndex(account => account.address === address);
-      if (idx === -1) {
-        logError('AccountProvider:setProfileAddress', `${address} not found!`);
-        return;
-      }
-      const updated = [...accountsData];
-      const dupIdx = updated[idx].vaults?.findIndex(v => v.address === vault.address);
-      if (!updated[idx].vaults) updated[idx].vaults = [];
+  const activeAccount = useMemo(() => {
+    const account = accountsData?.find(acc => areEqualAddresses(acc.address, activeAccountAddress));
+    if (!account) {
+      logError(
+        `AccountsProvider:activeAccount`,
+        `account address not found '${activeAccountAddress}'`
+      );
+    }
+    return account;
+  }, [activeAccountAddress, accountsData]);
 
-      if (dupIdx === -1) {
-        updated[idx].vaults.push(vault);
-      } else {
-        updated[idx].vaults[dupIdx] = vault;
-      }
-
-      setAccountsData(updated);
-    },
-    [accountsData, setAccountsData]
-  );
-
-  const activeAccount = useMemo(
-    () => accountsData?.find(acc => acc.address === activeAccountAddress),
-    [activeAccountAddress, accountsData]
-  );
-
-  const addNewAccount = useCallback(
+  const addAccount = useCallback(
     (account, activate) => {
       const updated = [...accountsData, account];
       logDebug('AccountsProvider:addNewAccount', updated);
@@ -144,7 +112,22 @@ export const AccountProvider = ({ children }) => {
     }
     const keyring = await keyringController.getKeyringForAccount(addresses[0]);
     await keyringController.addNewAccount(keyring);
-    addNewAccount(account, activate);
+    addAccount(account, activate);
+  };
+
+  const createNewWallet = async (password, account) => {
+    await keyringController.createNewVaultAndKeychain(password);
+    // Clears auto created HD wallet
+    await keyringController.clearKeyrings();
+    await keyringController.addNewKeyring(KeyringType.SIMPLE_KEYRING, [account.privateKey]);
+    const address = await keyringController.getAccounts().then(v => v?.[0]);
+    if (!address) {
+      logError(`Error creating wallet! Address not found!`);
+      return;
+    }
+    logDebug(`Created new wallet with address`, address);
+    addAccount({ label: account.label, address }, true);
+    unlockAccount();
   };
 
   const value = useMemo(
@@ -152,15 +135,14 @@ export const AccountProvider = ({ children }) => {
       isUnlocked,
       lockAccount,
       unlockAccount,
-      setUniversalProfileAddress,
       updateAccount,
-      addVault,
       accountsData,
       activeAccount,
-      addNewAccount,
+      addAccount,
+      createNewWallet,
       exportAccount,
     }),
-    [isUnlocked, setUniversalProfileAddress, addVault, accountsData, activeAccount, addNewAccount]
+    [isUnlocked, accountsData, activeAccount, addAccount]
   );
 
   return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;

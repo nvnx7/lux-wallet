@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { Layout } from 'components/layout';
 import { GetStarted } from 'components/onboard';
 

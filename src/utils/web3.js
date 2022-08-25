@@ -16,8 +16,8 @@ export const isValidAddress = address => {
 };
 
 export const abbreviateAddress = (address, length = 9) => {
-  const startIdx = Math.ceil(length / 2);
-  const endIdx = Math.floor(length / 2);
+  const startIdx = Math.ceil(length / 2) + 1;
+  const endIdx = Math.floor(length / 2) - 1;
 
   return address.slice(0, startIdx) + '...' + address.slice(-endIdx);
 };

@@ -6,8 +6,8 @@ const OnboardRoutes = () => {
   return (
     <>
       <Route path={Path.ONBOARD} element={<Onboard />} />
-      <Route path={Path.ONBOARD_NEW_ACCOUNT} element={<OnboardNewAccount />} />
-      <Route path={Path.ONBOARD_IMPORT_WALLET} element={<OnboardImportWallet />} />
+      <Route path={Path.ONBOARD_NEW_WALLET} element={<OnboardNewAccount />} />
+      <Route path={Path.ONBOARD_IMPORT_ACCOUNT} element={<OnboardImportWallet />} />
     </>
   );
 };

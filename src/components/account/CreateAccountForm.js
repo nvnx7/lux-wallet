@@ -3,12 +3,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormInput } from 'components/common/form';
-import { logDebug, logError } from 'utils/logger';
+import { logDebug } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 import { useAccount } from 'contexts/accounts';
 import { ModalView, useUI } from 'contexts/ui';
-import { useCreateVault } from 'api/vault';
-import { useEffect } from 'react';
 
 const schema = yup.object().shape({
   label: yup.string(),
@@ -41,7 +39,7 @@ const CreateAccountForm = ({ ...props }) => {
 
   return (
     <VStack as="form" onSubmit={handleSubmit(onSubmit)} {...props}>
-      <Heading fontSize="lg">{t('form:create-vault')}</Heading>
+      <Heading>{t('form:create-vault')}</Heading>
       <FormInput label={t('form:account-label')} name="label" control={control} />
 
       <VStack>

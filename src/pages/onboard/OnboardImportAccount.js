@@ -3,16 +3,16 @@ import { Layout } from 'components/layout';
 import { ImportAccountForm } from 'components/account';
 import { useTranslation } from 'react-i18next';
 
-const OnboardImportWallet = () => {
+const OnboardImportAccount = () => {
   const { t } = useTranslation();
   return (
     <Layout>
-      <Heading textAlign="center" my={4}>
-        {t('form:import-wallet')}
+      <Heading fontSize="3xl" textAlign="center" my={4}>
+        {t('account:import-account')}
       </Heading>
-      <ImportAccountForm />
+      <ImportAccountForm pt={4} px={2} />
     </Layout>
   );
 };
 
-export default OnboardImportWallet;
+export default OnboardImportAccount;

@@ -14,7 +14,8 @@ import useToast from 'hooks/useToast';
 import { areEqualAddresses } from 'utils/web3';
 import { useSendUpNft } from 'api/asset/sendUpNft';
 import { useSendVaultNft } from 'api/asset/sendVaultNft';
-import { listNfts, useListNfts } from 'api/asset/listNfts';
+import { useListNfts } from 'api/asset/listNfts';
+import { useListVaults } from 'api/vault/listVaults';
 
 const schema = yup.object().shape({
   from: yup
@@ -33,9 +34,9 @@ const SendNftForm = ({ ...props }) => {
   const { state: params } = useLocation();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { showTxStatusToast } = useToast();
+  const { showTxStatusToast, showErrorToast } = useToast();
   const { activeAccount } = useAccount();
-  const { control, handleSubmit, setError } = useForm({
+  const { control, handleSubmit } = useForm({
     resolver,
     defaultValues: { from: params.fromAddress || undefined },
   });
@@ -43,11 +44,16 @@ const SendNftForm = ({ ...props }) => {
   const {
     data: asset,
     isLoading: isAssetLoading,
-    error: assetError,
+    isError: isAssetError,
   } = useGetDigitalAsset({
     assetAddress: params.nftAddress,
     ownerAddress: params.fromAddress,
   });
+  const {
+    data: vaults,
+    isLoading: areVaultsLoading,
+    isError: isVaultError,
+  } = useListVaults({ upAddress: activeAccount.universalProfile });
   const {
     data: nfts,
     isLoading: isNftLoading,
@@ -67,6 +73,7 @@ const SendNftForm = ({ ...props }) => {
     isLoading: isVaultTxLoading,
   } = useSendVaultNft();
 
+  // For tx feedback
   useEffect(() => {
     if (isUpTxError || isUpTxSuccess || isVaultTxError || isVaultTxSuccess) {
       showTxStatusToast(isUpTxSuccess || isVaultTxSuccess, isUpTxError || isVaultTxError);
@@ -75,13 +82,22 @@ const SendNftForm = ({ ...props }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpTxSuccess, isUpTxError, isVaultTxSuccess, isVaultTxError]);
 
+  // For any error in asset/vault fetching
+  useEffect(() => {
+    if (isAssetError || isVaultError || isNftError) {
+      showErrorToast({ title: t('asset:error-loading') });
+      navigate(-1);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAssetError, isVaultError, isNftError]);
+
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
-    activeAccount.vaults
-      ?.filter(vault => vault.address !== params.fromAddress)
-      .map(vault => ({
-        label: vault.label,
-        value: vault.address,
+    vaults
+      ?.filter(address => !areEqualAddresses(params.fromAddress, address))
+      .map(vaultAddress => ({
+        label: 'Vault',
+        value: vaultAddress,
       })) || [];
   const addressOpts = [profileOpt, ...vaultOpts];
 
@@ -103,10 +119,10 @@ const SendNftForm = ({ ...props }) => {
         upAddress: activeAccount.universalProfile,
       });
     }
-    console.log({ data });
   };
 
-  const isLoading = isAssetLoading || isUpTxLoading || isVaultTxLoading || isNftLoading;
+  const isLoading =
+    isAssetLoading || isUpTxLoading || isVaultTxLoading || isNftLoading || areVaultsLoading;
   const nftOptions = nfts?.map(id => ({ label: `${asset.symbol} #${id}`, value: `${id}` })) || [];
   return (
     <VStack as="form" px={8} onSubmit={handleSubmit(onSubmit)} {...props}>
@@ -131,9 +147,6 @@ const SendNftForm = ({ ...props }) => {
 
       <FormDropdownInput label={t('tx:to')} name="to" options={addressOpts} control={control} />
       <HStack alignSelf="stretch">
-        {/* <Text fontWeight="bold" pt={6}>
-          NFT
-        </Text> */}
         <FormSelect
           label={t('tx:token-id')}
           name="tokenId"
@@ -141,6 +154,7 @@ const SendNftForm = ({ ...props }) => {
           flex={0.6}
           options={nftOptions}
           disabled={isLoading}
+          defaultValue={nftOptions?.[0]?.value}
         />
       </HStack>
       <Button type="submit" disabled={isLoading} isLoading={isUpTxLoading || isVaultTxLoading}>

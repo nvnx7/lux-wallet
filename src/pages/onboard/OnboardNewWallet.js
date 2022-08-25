@@ -3,11 +3,11 @@ import { Layout } from 'components/layout';
 import { NewWalletForm } from 'components/wallet';
 import { useTranslation } from 'react-i18next';
 
-const OnboardNewAccount = () => {
+const OnboardNewWallet = () => {
   const { t } = useTranslation();
   return (
     <Layout>
-      <Heading textAlign="center" my={4}>
+      <Heading fontSize="3xl" textAlign="center" my={4}>
         {t('form:create-new-account')}
       </Heading>
       <NewWalletForm my={4} />
@@ -15,4 +15,4 @@ const OnboardNewAccount = () => {
   );
 };
 
-export default OnboardNewAccount;
+export default OnboardNewWallet;

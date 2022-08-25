@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import useToast from 'hooks/useToast';
 import { useSendVaultToken } from 'api/asset/sendVaultToken';
 import { areEqualAddresses } from 'utils/web3';
+import { useListVaults } from 'api/vault/listVaults';
 
 const schema = yup.object().shape({
   from: yup
@@ -48,6 +49,11 @@ const SendTokenForm = ({ ...props }) => {
     ownerAddress: params.fromAddress,
   });
   const {
+    data: vaults,
+    isLoading: areVaultsLoading,
+    error: vaultError,
+  } = useListVaults({ upAddress: activeAccount.universalProfile });
+  const {
     mutate: sendUpToken,
     isSuccess: isUpTxSuccess,
     isError: isUpTxError,
@@ -70,32 +76,32 @@ const SendTokenForm = ({ ...props }) => {
 
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
-    activeAccount.vaults
-      ?.filter(vault => vault.address !== params.fromAddress)
-      .map(vault => ({
-        label: vault.label,
-        value: vault.address,
+    vaults
+      ?.filter(address => !areEqualAddresses(params.fromAddress, address))
+      .map(vaultAddress => ({
+        label: 'Vault',
+        value: vaultAddress,
       })) || [];
   const addressOpts = [profileOpt, ...vaultOpts];
 
-  const onSubmit = data => {
-    if (data.amount > Number(asset?.balance?.lyx || 0)) {
+  const onSubmit = input => {
+    if (input.amount > Number(asset?.balance?.lyx || 0)) {
       setError('amount', { type: 'custom', message: 'Insufficient balance' });
       return;
     }
 
     // Force send enable for unknown address
-    data.force = addressOpts.findIndex(v => data.to === v.value) === -1;
-    if (areEqualAddresses(data.from, activeAccount.universalProfile)) {
+    input.force = addressOpts.findIndex(v => input.to === v.value) === -1;
+    if (areEqualAddresses(input.from, activeAccount.universalProfile)) {
       // Sending from Universal Profile
       sendUpToken({
-        ...data,
+        ...input,
         accountAddress: activeAccount?.address,
         tokenAddress: params.tokenAddress,
       });
     } else {
       sendVaultToken({
-        ...data,
+        ...input,
         accountAddress: activeAccount?.address,
         tokenAddress: params.tokenAddress,
         upAddress: activeAccount?.universalProfile,
@@ -103,8 +109,7 @@ const SendTokenForm = ({ ...props }) => {
     }
   };
 
-  const isLoading = isAssetLoading || isUpTxLoading || isVaultTxLoading;
-
+  const isLoading = isAssetLoading || isUpTxLoading || isVaultTxLoading || areVaultsLoading;
   return (
     <VStack as="form" px={8} onSubmit={handleSubmit(onSubmit)} {...props}>
       <VStack>

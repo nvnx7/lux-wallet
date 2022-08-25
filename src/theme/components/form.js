@@ -6,3 +6,9 @@ export const FormLabel = {
     ml: 1,
   },
 };
+
+export const FormErrorMessage = {
+  baseStyle: {
+    fontSize: 'sm',
+  },
+};

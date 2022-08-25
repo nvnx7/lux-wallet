@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import web3 from 'scripts/web3';
 import ERC725 from '@erc725/erc725.js';
-import constants from '@lukso/lsp-smart-contracts/constants.js';
+import { ERC725YKeys } from '@lukso/lsp-smart-contracts/constants.js';
 import UniversalReceiverDelegateVault from '@lukso/lsp-smart-contracts/artifacts/LSP1UniversalReceiverDelegateVault.json';
 import Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
@@ -12,7 +12,7 @@ import { ipfsGateway } from 'settings/config';
 import { logError } from 'utils/logger';
 const config = { ipfsGateway };
 
-const URD_DATA_KEY = constants.ERC725YKeys.LSP0.LSP1UniversalReceiverDelegate;
+const URD_DATA_KEY = ERC725YKeys.LSP0.LSP1UniversalReceiverDelegate;
 
 /**
  * Deploys UniversalReceiverDelegateVault contract.

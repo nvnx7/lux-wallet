@@ -3,11 +3,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormInput, FormPasswordInput } from 'components/common/form';
-import { logError } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
-import keyringController from 'scripts/keyringController';
 import { isDev } from 'settings/config';
 import { Mock } from 'settings/constants';
 
@@ -20,7 +18,7 @@ const schema = yup.object().shape({
   confirmPassword: yup
     .string()
     .required('Confirm Password Required')
-    .oneOf([yup.ref('password'), null], 'Passwords does not match!'),
+    .oneOf([yup.ref('password'), null], 'Passwords do not match!'),
 });
 const resolver = yupResolver(schema);
 
@@ -40,14 +38,7 @@ const NewAccountForm = ({ ...props }) => {
   });
 
   const onSubmit = data => {
-    keyringController
-      .createNewVaultAndKeychain(data.password)
-      .then(() => {
-        navigate(Path.ONBOARD_IMPORT_WALLET);
-      })
-      .catch(err => {
-        logError(err);
-      });
+    navigate(Path.ONBOARD_IMPORT_ACCOUNT, { state: data });
   };
 
   return (
