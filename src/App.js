@@ -20,7 +20,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <AppContext>
-          <Box width={Dimensions.width} height={Dimensions.height} m={4} bgColor="blackAlpha.900">
+          <Box width={Dimensions.width} height={Dimensions.height} bgColor="blackAlpha.900">
             <Router />
           </Box>
           <CSSReset />
