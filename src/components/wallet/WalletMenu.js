@@ -1,7 +1,7 @@
 import { Text, Menu, MenuButton, MenuList, MenuGroup, MenuItem, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { Identicon } from 'components/common';
-import { abbreviateAddress } from 'utils/web3';
+import { abbreviateHex } from 'utils/web3';
 import { useWallet } from 'contexts/wallet';
 import { AddIcon, CogIcon, DownloadIcon, LockIcon } from 'components/icons';
 import { useNavigate } from 'react-router-dom';
@@ -43,9 +43,9 @@ const WalletMenu = ({ ...props }) => {
               <Identicon size={18} address={account.address} />
               <VStack ml={2} spacing={0} alignItems="flex-start">
                 <Text variant="body" fontSize="xs">
-                  {account.label || abbreviateAddress(account.address, 6)}
+                  {account.label || abbreviateHex(account.address, 6)}
                 </Text>
-                <Text fontSize="xs">{abbreviateAddress(account.address, 12)}</Text>
+                <Text fontSize="xs">{abbreviateHex(account.address, 12)}</Text>
               </VStack>
             </MenuItem>
           ))}

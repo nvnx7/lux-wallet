@@ -16,6 +16,7 @@ const Path = {
   TX_SEND_LYX: '/send-lyx',
   TX_SEND_TOKEN: '/send-token',
   TX_SEND_NFT: '/send-nft',
+  ACTIVITY: '/activity',
 };
 
 export default Path;

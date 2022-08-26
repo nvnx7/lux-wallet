@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 
 /**
  * Lists all token (nft) ids owned by an address

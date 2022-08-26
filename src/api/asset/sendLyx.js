@@ -1,9 +1,11 @@
 import { signAndSendTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import { areEqualAddresses } from 'utils/web3';
+import useSentTxStore from 'hooks/useSentTxStore';
+import { logError } from 'utils/logger';
 
 const sendLyx = async params => {
   const { accountAddress, from, to, amount } = params;
@@ -37,8 +39,10 @@ const sendLyx = async params => {
   return data;
 };
 
-export const useSendLyx = () => {
+export const useSendLyx = ({ accountAddress }) => {
+  const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendLyx(params), {
-    onSuccess: () => {},
+    onSuccess: tx => storeSentTx(tx),
+    onError: logError,
   });
 };

@@ -17,3 +17,6 @@ export { FiLock as LockIcon } from 'react-icons/fi';
 export { FiDownload as DownloadIcon } from 'react-icons/fi';
 export { FiEdit2 as EditIcon } from 'react-icons/fi';
 export { FiX as XIcon } from 'react-icons/fi';
+export { FiActivity as ActivityIcon } from 'react-icons/fi';
+export { FiArrowRight as ArrowStraightIcon } from 'react-icons/fi';
+export { FiWatch as WatchIcon } from 'react-icons/fi';

@@ -1,5 +1,5 @@
 import { useMutation } from 'react-query';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 import ERC725 from '@erc725/erc725.js';
 import { ERC725YKeys } from '@lukso/lsp-smart-contracts/constants.js';
 import UniversalReceiverDelegateVault from '@lukso/lsp-smart-contracts/artifacts/LSP1UniversalReceiverDelegateVault.json';

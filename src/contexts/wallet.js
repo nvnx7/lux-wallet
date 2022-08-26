@@ -1,6 +1,6 @@
 import useLocalStorage from 'hooks/useLocalStorage';
 import React, { createContext, useState, useContext, useMemo, useCallback } from 'react';
-import keyringController, { KeyringType } from 'scripts/keyringController';
+import keyringController, { KeyringType } from 'lib/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
 import { areEqualAddresses, privateKeyToAddress } from 'utils/web3';

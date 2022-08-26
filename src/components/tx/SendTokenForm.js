@@ -58,13 +58,13 @@ const SendTokenForm = ({ ...props }) => {
     isSuccess: isUpTxSuccess,
     isError: isUpTxError,
     isLoading: isUpTxLoading,
-  } = useSendUpToken();
+  } = useSendUpToken({ accountAddress: activeAccount?.address });
   const {
     mutate: sendVaultToken,
     isSuccess: isVaultTxSuccess,
     isError: isVaultTxError,
     isLoading: isVaultTxLoading,
-  } = useSendVaultToken();
+  } = useSendVaultToken({ accountAddress: activeAccount?.address });
 
   useEffect(() => {
     if (isUpTxError || isUpTxSuccess || isVaultTxError || isVaultTxSuccess) {

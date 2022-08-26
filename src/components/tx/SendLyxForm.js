@@ -32,7 +32,7 @@ const SendLyxForm = ({ ...props }) => {
   const navigate = useNavigate();
   const { showTxStatusToast } = useToast();
   const { network } = usePreferences();
-  const { activeAccount } = useWallet();
+  const { activeAccount, accountsData } = useWallet();
 
   const { control, handleSubmit, setError } = useForm({
     resolver,
@@ -40,7 +40,14 @@ const SendLyxForm = ({ ...props }) => {
   });
   const fromAddress = useWatch({ control, name: 'from' });
   const { data: balance } = useGetBalance({ address: fromAddress });
-  const { mutate: sendLyx, isError, isSuccess, isLoading } = useSendLyx();
+  const {
+    mutate: sendLyx,
+    isError,
+    isSuccess,
+    isLoading,
+  } = useSendLyx({
+    accountAddress: activeAccount?.address,
+  });
 
   useEffect(() => {
     if (isError || isSuccess) {
@@ -58,10 +65,17 @@ const SendLyxForm = ({ ...props }) => {
     }
   };
 
-  const addressOpts = [
-    { label: 'Your Account', value: activeAccount.address },
-    { label: 'Universal Profile', value: activeAccount.universalProfile },
-  ];
+  const fromAddressOpts = [{ label: activeAccount?.label, value: activeAccount?.address }];
+  const toAddressOpts =
+    accountsData?.map(acc => ({
+      label: acc.label,
+      value: acc.address,
+    })) || [];
+
+  if (activeAccount?.universalProfile) {
+    fromAddressOpts.push({ label: 'Universal Profile', value: activeAccount.universalProfile });
+    toAddressOpts.push({ label: 'Universal Profile', value: activeAccount.universalProfile });
+  }
 
   return (
     <VStack as="form" px={8} onSubmit={handleSubmit(onSubmit)} {...props}>
@@ -76,9 +90,14 @@ const SendLyxForm = ({ ...props }) => {
         </HStack>
       </VStack>
       <Divider />
-      <FormDropdownInput label={t('tx:from')} name="from" options={addressOpts} control={control} />
+      <FormDropdownInput
+        label={t('tx:from')}
+        name="from"
+        options={fromAddressOpts}
+        control={control}
+      />
 
-      <FormDropdownInput label={t('tx:to')} name="to" options={addressOpts} control={control} />
+      <FormDropdownInput label={t('tx:to')} name="to" options={toAddressOpts} control={control} />
       <HStack>
         <FormInput label={t('tx:amount')} name="amount" control={control} flex={0.6} />
         <Text fontWeight="bold" pt={6}>

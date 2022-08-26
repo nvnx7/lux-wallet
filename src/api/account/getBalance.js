@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 import { isValidAddress } from 'utils/web3';
 
 const getAddressBalance = async ({ address }) => {

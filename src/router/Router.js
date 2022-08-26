@@ -15,10 +15,11 @@ import {
   Settings,
   VaultDetail,
   VaultManager,
+  Activity,
 } from 'pages';
 import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Path from './paths';
-import keyringController from 'scripts/keyringController';
+import keyringController from 'lib/keyringController';
 import { logDebug } from 'utils/logger';
 import { wait } from 'utils/datetime';
 import { ManagedModal } from 'components/common/ui';
@@ -31,9 +32,9 @@ const MemoryRoutes = () => {
   useEffect(() => {
     const state = keyringController.store.getState();
     const hasVault = !!state.vault;
-    if (state) {
-      keyringController.getAccounts().then(d => console.log({ d }));
-    }
+    // if (state) {
+    //   keyringController.getAccounts().then(d => console.log({ d }));
+    // }
     wait(2000).then(() => setLoading(false));
 
     logDebug('Router:', { isLoading, isUnlocked, hasVault });
@@ -64,6 +65,8 @@ const MemoryRoutes = () => {
       <Route path={Path.TX_SEND_LYX} element={<SendLyx />} />
       <Route path={Path.TX_SEND_TOKEN} element={<SendToken />} />
       <Route path={Path.TX_SEND_NFT} element={<SendNft />} />
+      {/* Activity pages */}
+      <Route path={Path.ACTIVITY} element={<Activity />} />
     </Routes>
   );
 };

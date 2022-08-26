@@ -1,6 +1,6 @@
 import { Box, HStack, Text, useClipboard, VStack } from '@chakra-ui/react';
 import { useWallet } from 'contexts/wallet';
-import { abbreviateAddress } from 'utils/web3';
+import { abbreviateHex } from 'utils/web3';
 import { useGetBalance } from 'api/account/getBalance';
 import { LuksoLogo } from 'components/common/ui';
 import { CheckIcon, CopyIcon } from 'components/icons';
@@ -18,7 +18,7 @@ const AccountHeader = ({ ...props }) => {
     activeAccount?.address && onCopy();
   };
 
-  const addr = abbreviateAddress(activeAccount?.address || '');
+  const addr = abbreviateHex(activeAccount?.address || '');
   return (
     <Box w="100%" {...props}>
       <HStack justify="space-between" w="100%" position="relative">

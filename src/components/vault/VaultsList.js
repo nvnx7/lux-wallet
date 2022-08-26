@@ -6,7 +6,7 @@ import { ModalView, useUI } from 'contexts/ui';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
-import { abbreviateAddress } from 'utils/web3';
+import { abbreviateHex } from 'utils/web3';
 import VaultItem from './VaultItem';
 
 const VaultsList = ({ ...props }) => {
@@ -31,7 +31,7 @@ const VaultsList = ({ ...props }) => {
     return 'Loading..';
   }
 
-  const vaults = data?.map(v => ({ label: abbreviateAddress(v, 6), address: v })) || [];
+  const vaults = data?.map(v => ({ label: abbreviateHex(v, 6), address: v })) || [];
 
   if (vaults.length === 0) {
     return 'No vaults found';

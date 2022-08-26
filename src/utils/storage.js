@@ -1,6 +1,7 @@
 export const KEY_VAULTS = 'vaults';
 export const KEY_ACCOUNTS_DATA = 'accounts';
 export const KEY_PREFERENCES = 'preferences';
+export const KEY_SENT_TX_DATA = 'sentTx';
 
 export const getItem = (key, defaultValue) => {
   const item = localStorage.getItem(key);

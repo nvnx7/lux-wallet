@@ -1,2 +1,2 @@
 export { default as GetStarted } from './GetStarted';
-// export
+export { default as OnboardImportAccountForm } from './OnboardImportAccountForm';

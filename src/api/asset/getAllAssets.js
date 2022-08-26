@@ -4,7 +4,7 @@ import receivedAssetsSchema from '@erc725/erc725.js/schemas/LSP5ReceivedAssets.j
 import issuedAssetsSchema from '@erc725/erc725.js/schemas/LSP12IssuedAssets.json';
 import LSP4DigitalAssetMetadata from '@lukso/lsp-smart-contracts/artifacts/LSP4DigitalAssetMetadata.json';
 import { INTERFACE_IDS } from '@lukso/lsp-smart-contracts/constants.js';
-import web3, { web3Provider } from 'scripts/web3';
+import web3, { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
 import { makeBatchCall } from 'utils/web3';
 const config = { ipfsGateway };

@@ -1,9 +1,11 @@
 import { signAndSendTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import LSP7DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
+import { logError } from 'utils/logger';
+import useSentTxStore from 'hooks/useSentTxStore';
 
 /**
  * Send LSP7 Digital Asset (token) from Universal Profile contract
@@ -39,8 +41,10 @@ const sendUpToken = async params => {
   return data;
 };
 
-export const useSendUpToken = () => {
+export const useSendUpToken = ({ accountAddress }) => {
+  const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendUpToken(params), {
-    onSuccess: () => {},
+    onSuccess: tx => storeSentTx(tx),
+    onError: logError,
   });
 };

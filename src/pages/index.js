@@ -12,3 +12,4 @@ export { default as Settings } from './settings/Settings';
 export { default as SendToken } from './tx/SendToken';
 export { default as SendLyx } from './tx/SendLyx';
 export { default as SendNft } from './tx/SendNft';
+export { default as Activity } from './activity/Activity';
