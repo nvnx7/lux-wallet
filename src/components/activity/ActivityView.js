@@ -6,7 +6,7 @@ import ActivityList from './ActivityList';
 const ActivityView = ({ ...props }) => {
   const { t } = useTranslation();
   return (
-    <VStack {...props}>
+    <VStack maxH="100%" {...props}>
       <HStack py={2} justify="center" alignItems="center">
         <ActivityIcon size={20} />
         <Heading textAlign="center" fontSize="lg">
@@ -14,7 +14,7 @@ const ActivityView = ({ ...props }) => {
         </Heading>
       </HStack>
       <Divider />
-      <ActivityList />
+      <ActivityList overflowY="scroll" />
     </VStack>
   );
 };

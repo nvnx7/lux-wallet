@@ -4,20 +4,12 @@ import Header from './Header';
 
 const BottomNavLayout = ({ children, ...props }) => {
   return (
-    <Box h="100%" display="flex" flexDirection="column" position="relative">
-      <Header />
-      <Box p={2} flexGrow={1} {...props}>
+    <Box h="100%" maxH="100%" display="flex" flexDirection="column" position="relative">
+      <Header h="10%" />
+      <Box p={2} h="77%" {...props}>
         {children}
       </Box>
-      <Box
-        position="absolute"
-        p={2}
-        marginLeft="auto"
-        marginRight="auto"
-        left={0}
-        right={0}
-        bottom={2}
-      >
+      <Box px={2} h="13%">
         <BottomNavigationTabs />
       </Box>
     </Box>

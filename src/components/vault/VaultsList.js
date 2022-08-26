@@ -42,18 +42,24 @@ const VaultsList = ({ ...props }) => {
     navigate(Path.VAULT_DETAIL, { state: vault });
   };
 
-  const handleAdd = () => {
+  const handleCreate = () => {
     setModalViewAndOpen(ModalView.CREATE_VAULT);
   };
 
   return (
-    <Box position="relative" height="80%">
+    <Box position="relative" height="100%">
       <SimpleGrid columns={3} spacing={8} {...props}>
         {vaults.map((vault, idx) => (
           <VaultItem key={vault.address} data={vault} onClick={() => handleClick(vault.address)} />
         ))}
       </SimpleGrid>
-      <Button position="absolute" right={2} bottom={6} leftIcon={<AddIcon />} onClick={handleAdd}>
+      <Button
+        position="absolute"
+        right={0}
+        bottom={10}
+        leftIcon={<AddIcon />}
+        onClick={handleCreate}
+      >
         {t('form:create-vault')}
       </Button>
     </Box>

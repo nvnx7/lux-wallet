@@ -26,3 +26,20 @@ export const signAndSendTx = async (txData, eoaAddress) => {
       });
   });
 };
+
+export const makeBatchCall = (web3, calls) => {
+  let batch = new web3.BatchRequest();
+
+  let promises = calls.map(call => {
+    return new Promise((res, rej) => {
+      let req = call.request(null, (err, data) => {
+        if (err) rej(err);
+        else res(data);
+      });
+      batch.add(req);
+    });
+  });
+  batch.execute();
+
+  return Promise.all(promises);
+};

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import AssetItemNft from './AssetItemNft';
 import AssetItemToken from './AssetItemToken';
 
-const AssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNfts, ...props }) => {
+const LegacyAssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNfts, ...props }) => {
   if (assetAddresses?.length === 0) {
     return <EmptyView />;
   }
@@ -49,4 +49,4 @@ const EmptyView = ({ ...props }) => {
   );
 };
 
-export default AssetList;
+export default LegacyAssetList;

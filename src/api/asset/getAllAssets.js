@@ -6,7 +6,7 @@ import LSP4DigitalAssetMetadata from '@lukso/lsp-smart-contracts/artifacts/LSP4D
 import { INTERFACE_IDS } from '@lukso/lsp-smart-contracts/constants.js';
 import web3, { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
-import { makeBatchCall } from 'utils/web3';
+import { makeBatchCall } from 'api/utils/tx';
 const config = { ipfsGateway };
 
 /**

@@ -1,34 +1,16 @@
-import {
-  HStack,
-  Progress,
-  Switch,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  useBoolean,
-  VStack,
-} from '@chakra-ui/react';
-import { useGetAllAssets } from 'api/asset/getAllAssets';
-import { AssetList } from 'components/digital-asset';
-import { DiamondIcon } from 'components/icons';
-import { useWallet } from 'contexts/wallet';
+import { Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { AssetList } from 'components/digital-asset';
+import { useWallet } from 'contexts/wallet';
+import useImportedLegacyAssets from 'hooks/useImportedLegacyAssets';
 import Path from 'router/paths';
 
 const UniversalProfileAssets = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [assetFlag, setAssetFlag] = useBoolean();
   const { activeAccount } = useWallet();
-  const { data, isFetching } = useGetAllAssets({ address: activeAccount?.universalProfile });
-
-  if (isFetching && !data) {
-    return <LoadingView my={28} />;
-  }
+  const { tokens, nfts } = useImportedLegacyAssets();
 
   const handleSend = (assetAddress, isNft) => {
     const state = {
@@ -44,8 +26,6 @@ const UniversalProfileAssets = ({ ...props }) => {
     }
   };
 
-  const assetData = assetFlag ? data?.issued : data?.received;
-
   return (
     <VStack alignItems="stretch" {...props}>
       <Tabs maxH="100%" variant="soft-rounded" isLazy>
@@ -54,16 +34,11 @@ const UniversalProfileAssets = ({ ...props }) => {
             Tokens
           </Tab>
           <Tab fontSize="sm">NFTs</Tab>
-          <HStack ml="auto" alignItems="center">
-            <Text fontSize="xs">{t('asset:received')}</Text>
-            <Switch size="md" mr={4} onChange={setAssetFlag.toggle} />
-            <Text fontSize="xs">{t('asset:issued')}</Text>
-          </HStack>
         </TabList>
         <TabPanels>
           <TabPanel px={0}>
             <AssetList
-              assetAddresses={assetData?.tokens || []}
+              assetAddresses={tokens || []}
               ownerAddress={activeAccount?.universalProfile}
               onSendClick={addr => handleSend(addr, false)}
               areNfts={false}
@@ -71,7 +46,7 @@ const UniversalProfileAssets = ({ ...props }) => {
           </TabPanel>
           <TabPanel px={0}>
             <AssetList
-              assetAddresses={assetData?.nfts || []}
+              assetAddresses={nfts || []}
               ownerAddress={activeAccount?.universalProfile}
               onSendClick={addr => handleSend(addr, true)}
               areNfts={true}
@@ -79,15 +54,6 @@ const UniversalProfileAssets = ({ ...props }) => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </VStack>
-  );
-};
-
-const LoadingView = ({ ...props }) => {
-  return (
-    <VStack w="100%" justify="center" spacing={4} {...props}>
-      <DiamondIcon size={64} />
-      <Progress w="40%" size="xs" colorScheme="primary" isIndeterminate />
     </VStack>
   );
 };

@@ -18,7 +18,7 @@ const VaultManager = () => {
         </Heading>
       </HStack>
       <Divider />
-      {activeAccount?.universalProfile ? <VaultsList py={2} /> : <EmptyProfileView py={12} />}
+      {activeAccount?.universalProfile ? <VaultsList pt={2} /> : <EmptyProfileView py={8} />}
     </BottomNavLayout>
   );
 };
