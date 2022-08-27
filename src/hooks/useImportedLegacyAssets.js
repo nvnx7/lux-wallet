@@ -1,3 +1,5 @@
+import { useCallback, useMemo } from 'react';
+
 const { KEY_IMPORTED_LEGACY_ASSETS } = require('utils/storage');
 const { default: useLocalStorage } = require('./useLocalStorage');
 
@@ -8,21 +10,30 @@ const defaultValue = {
 const useImportedLegacyAssets = () => {
   const [assets, setAssets] = useLocalStorage(KEY_IMPORTED_LEGACY_ASSETS, defaultValue);
 
-  const importAsset = ({ type, ...data }) => {
-    const updated = assets ? { ...assets } : defaultValue;
-    if (type === 'token') {
-      updated.tokens ? updated.tokens.push(data) : (updated.tokens = [data]);
-    } else if (type === 'nft') {
-      updated.nfts ? updated.nfts.push(data) : (updated.nfts = [data]);
-    }
-    setAssets(updated);
-  };
+  const importAsset = useCallback(
+    ({ type, address }) => {
+      const updated = assets ? { ...assets } : defaultValue;
+      if (type === 'token') {
+        updated.tokens ? updated.tokens.push(address) : (updated.tokens = [address]);
+      } else if (type === 'nft') {
+        updated.nfts ? updated.nfts.push(address) : (updated.nfts = [address]);
+      }
+      console.log({ updated });
+      setAssets(updated);
+    },
+    [assets, setAssets]
+  );
 
-  return {
-    tokens: assets.tokens,
-    nfts: assets.nfts,
-    importAsset,
-  };
+  const value = useMemo(
+    () => ({
+      tokens: assets.tokens,
+      nfts: assets.nfts,
+      importAsset,
+    }),
+    [assets, importAsset]
+  );
+
+  return value;
 };
 
 export default useImportedLegacyAssets;

@@ -3,7 +3,6 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { FormInput } from 'components/common/form';
-import { logDebug } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';

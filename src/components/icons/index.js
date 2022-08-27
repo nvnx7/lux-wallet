@@ -20,3 +20,6 @@ export { FiX as XIcon } from 'react-icons/fi';
 export { FiActivity as ActivityIcon } from 'react-icons/fi';
 export { FiArrowRight as ArrowStraightIcon } from 'react-icons/fi';
 export { FiWatch as WatchIcon } from 'react-icons/fi';
+export { FiKey as KeyIcon } from 'react-icons/fi';
+export { FiAlertTriangle as AlertIcon } from 'react-icons/fi';
+export { FiTrash2 as TrashIcon } from 'react-icons/fi';

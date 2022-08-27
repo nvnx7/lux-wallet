@@ -2,11 +2,16 @@ import { useColorMode } from '@chakra-ui/react';
 import { createContext, useContext, useMemo, useReducer } from 'react';
 import { logError } from 'utils/logger';
 
+/**
+ * All possible views for the Managed Modal
+ */
 export const ModalView = {
   ACCOUNT_DETAILS: 'accountDetails',
   CREATE_ACCOUNT: 'createAccount',
   IMPORT_ACCOUNT: 'importAccount',
+  DELETE_ACCOUNT: 'removeAccount',
   CREATE_VAULT: 'createVault',
+  IMPORT_LEGACY_TOKEN: 'importLegacyToken',
 };
 
 const initialState = {
@@ -25,6 +30,9 @@ const Action = {
   SET_MODAL_DATA: 'SET_MODAL_DATA',
 };
 
+/**
+ * Reducer for UI state provider
+ */
 const reducer = (state, action) => {
   switch (action.type) {
     case Action.SET_MODAL_VIEW:
@@ -41,6 +49,11 @@ const reducer = (state, action) => {
   }
 };
 
+/**
+ * UI context provider to handle UI related stuff - like
+ * handling the Modal, it's component & data - from any component
+ * anywhere in app!
+ */
 export const UIProvider = props => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [state, dispatch] = useReducer(reducer, initialState);

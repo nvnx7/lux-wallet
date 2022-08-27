@@ -1,11 +1,13 @@
-import { BottomNavLayout } from 'components/layout';
+import { HeaderLayout } from 'components/layout';
 import { SettingsView } from 'components/settings';
+import { useTranslation } from 'react-i18next';
 
 const Settings = () => {
+  const { t } = useTranslation();
   return (
-    <BottomNavLayout>
+    <HeaderLayout title={t('common:settings')}>
       <SettingsView />
-    </BottomNavLayout>
+    </HeaderLayout>
   );
 };
 

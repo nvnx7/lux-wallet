@@ -27,10 +27,8 @@ const DigitalAssets = () => {
       </HStack>
       <Divider />
       {!activeAccount?.universalProfile && <EmptyProfileView my={4} />}
-      {activeAccount?.universalProfile && assetType === 'lukso' && (
-        <UniversalProfileAssets h={100} />
-      )}
-      {activeAccount?.universalProfile && assetType === 'legacy' && <LegacyAssets h={100} />}
+      {activeAccount?.universalProfile && assetType === 'lukso' && <UniversalProfileAssets />}
+      {activeAccount?.universalProfile && assetType === 'legacy' && <LegacyAssets h="88%" />}
     </BottomNavLayout>
   );
 };

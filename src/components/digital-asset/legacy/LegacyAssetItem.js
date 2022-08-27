@@ -7,7 +7,7 @@ import AssetIcon from '../AssetIcon';
 import { ExplorerLink } from 'components/tx';
 import { useGetLegacyToken } from 'api/asset/legacy/getLegacyToken';
 
-const AssetItemNft = ({ assetAddress, ownerAddress, onSendClick, ...props }) => {
+const LegacyAssetItem = ({ assetAddress, ownerAddress, onSendClick, ...props }) => {
   const { t } = useTranslation();
   const { data, isFetching } = useGetLegacyToken({
     tokenAddress: assetAddress,
@@ -36,7 +36,7 @@ const AssetItemNft = ({ assetAddress, ownerAddress, onSendClick, ...props }) => 
         <VStack alignItems="end" justify="space-between" spacing={0}>
           <HStack>
             <WalletIcon size={10} color="gray" />
-            <Text fontWeight="bold">{data?.balance?.wei}</Text>
+            <Text fontWeight="bold">{data?.balance?.lyx}</Text>
           </HStack>
           <Button
             size="xs"
@@ -53,4 +53,4 @@ const AssetItemNft = ({ assetAddress, ownerAddress, onSendClick, ...props }) => 
   );
 };
 
-export default AssetItemNft;
+export default LegacyAssetItem;

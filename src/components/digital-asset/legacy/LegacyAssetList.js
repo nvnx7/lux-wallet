@@ -1,8 +1,7 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { MehIcon } from 'components/icons';
 import { useTranslation } from 'react-i18next';
-import AssetItemNft from './AssetItemNft';
-import AssetItemToken from './AssetItemToken';
+import LegacyAssetItem from './LegacyAssetItem';
 
 const LegacyAssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNfts, ...props }) => {
   if (assetAddresses?.length === 0) {
@@ -13,7 +12,7 @@ const LegacyAssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNf
     <Box w="full" overflowY="scroll" h="360px" {...props}>
       {!areNfts &&
         assetAddresses?.map(assetAddress => (
-          <AssetItemToken
+          <LegacyAssetItem
             key={assetAddress}
             assetAddress={assetAddress}
             ownerAddress={ownerAddress}
@@ -22,7 +21,7 @@ const LegacyAssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNf
           />
         ))}
 
-      {areNfts &&
+      {/* {areNfts &&
         assetAddresses?.map(assetAddress => (
           <AssetItemNft
             key={assetAddress}
@@ -31,7 +30,7 @@ const LegacyAssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNf
             onSendClick={() => onSendClick(assetAddress)}
             my={1}
           />
-        ))}
+        ))} */}
       <Box py={1} />
     </Box>
   );

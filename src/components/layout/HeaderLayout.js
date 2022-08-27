@@ -20,7 +20,7 @@ const HeaderLayout = ({ children, title = '', ...props }) => {
           onClick={handleBack}
           position="absolute"
           left={4}
-          top={0}
+          top={1}
           bottom={0}
         />
         <Text fontWeight="semibold" textAlign="center" maxW="60%" noOfLines={1}>

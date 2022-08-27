@@ -1,9 +1,13 @@
 {
   "balance": "Balance",
   "send": "Send",
+  "asset": "Assets",
   "digital-assets": "Digital Assets",
   "issued": "Issued",
   "received": "Received",
+  "lukso-assets": "Lukso Assets",
+  "legacy-assets": "Legacy Assets",
+  "import": "Import",
   "no-asset-found": "No digital assets found",
   "vault-manager": "Vault Manager",
   "error-loading": "Error loading assets!"
