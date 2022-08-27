@@ -1,5 +1,5 @@
 import KeyringController from 'eth-keyring-controller';
-import { KEY_VAULTS } from 'utils/storage';
+import { KEY_KEYRING_VAULTS } from 'utils/storage';
 
 export const KeyringType = {
   HD_KEYRING: 'HD Key Tree',
@@ -7,11 +7,11 @@ export const KeyringType = {
 };
 
 const getVault = () => {
-  return localStorage.getItem(KEY_VAULTS);
+  return localStorage.getItem(KEY_KEYRING_VAULTS);
 };
 
 const setVault = data => {
-  localStorage.setItem(KEY_VAULTS, data);
+  localStorage.setItem(KEY_KEYRING_VAULTS, data);
 };
 
 const vault = getVault();

@@ -11,7 +11,7 @@ import { useGetDigitalAsset } from 'api/asset/getDigitalAsset';
 import { AssetIcon } from 'components/digital-asset';
 import { useEffect } from 'react';
 import useToast from 'hooks/useToast';
-import { areEqualAddresses } from 'utils/web3';
+import { areEqualHex } from 'utils/web3';
 import { useSendUpNft } from 'api/asset/sendUpNft';
 import { useSendVaultNft } from 'api/asset/sendVaultNft';
 import { useListNfts } from 'api/asset/listNfts';
@@ -97,7 +97,7 @@ const SendNftForm = ({ ...props }) => {
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
     vaults
-      ?.filter(address => !areEqualAddresses(params.fromAddress, address))
+      ?.filter(address => !areEqualHex(params.fromAddress, address))
       .map(vaultAddress => ({
         label: 'Vault',
         value: vaultAddress,
@@ -107,7 +107,7 @@ const SendNftForm = ({ ...props }) => {
   const onSubmit = data => {
     // Force send enable for unknown address
     data.force = addressOpts.findIndex(v => data.to === v.value) === -1;
-    if (areEqualAddresses(data.from, activeAccount.universalProfile)) {
+    if (areEqualHex(data.from, activeAccount.universalProfile)) {
       // Sending from Universal Profile
       sendUpNft({
         ...data,

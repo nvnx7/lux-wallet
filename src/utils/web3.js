@@ -2,8 +2,8 @@ import web3 from 'lib/web3';
 import { explorerEndpoint } from 'settings/config';
 import { supportedNetworks } from 'settings/constants';
 
-export const areEqualAddresses = (address1, address2) => {
-  return address1.toLowerCase() === address2.toLowerCase();
+export const areEqualHex = (hex1, hex2) => {
+  return hex1.toLowerCase() === hex2.toLowerCase();
 };
 
 export const isValidAddress = address => {

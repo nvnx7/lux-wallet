@@ -3,16 +3,16 @@ import React, { createContext, useState, useContext, useMemo, useCallback } from
 import keyringController, { KeyringType } from 'lib/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
-import { areEqualAddresses, privateKeyToAddress } from 'utils/web3';
+import { areEqualHex, privateKeyToAddress } from 'utils/web3';
 import { usePreferences } from './preferences';
 
 /**
  * Accounts data list storing non-sensitive account data
  * Structure:
- * {
+ * [{
  *   address: '0xa..',
  *   universalProfile: '0xb..',
- * }
+ * }]
  */
 const defaultAccountsData = [];
 const initialContextValue = {
@@ -28,7 +28,7 @@ WalletContext.displayName = 'AccountContext';
  */
 const getCreatedAddress = (before, after) => {
   return after.find(address => {
-    return before.every(v => !areEqualAddresses(v, address));
+    return before.every(v => !areEqualHex(v, address));
   });
 };
 
@@ -74,7 +74,7 @@ export const WalletProvider = ({ children }) => {
    */
   const updateAccount = useCallback(
     (address, data) => {
-      const idx = accountsData?.findIndex(account => areEqualAddresses(account.address, address));
+      const idx = accountsData?.findIndex(account => areEqualHex(account.address, address));
       if (idx === -1) {
         logError('AccountProvider:updateAccount', `${address} not found!`);
         return;
@@ -90,7 +90,7 @@ export const WalletProvider = ({ children }) => {
    * Returns currently selected account by user
    */
   const activeAccount = useMemo(() => {
-    const account = accountsData?.find(acc => areEqualAddresses(acc.address, activeAccountAddress));
+    const account = accountsData?.find(acc => areEqualHex(acc.address, activeAccountAddress));
     if (!account) {
       logError(
         `AccountsProvider:activeAccount`,
@@ -117,7 +117,7 @@ export const WalletProvider = ({ children }) => {
    */
   const removeAccount = useCallback(
     address => {
-      const updated = accountsData?.filter(v => !areEqualAddresses(address, v.address)) || [];
+      const updated = accountsData?.filter(v => !areEqualHex(address, v.address)) || [];
       logDebug('AccountsProvider:removeAccount', updated);
       setAccountsData(updated);
     },

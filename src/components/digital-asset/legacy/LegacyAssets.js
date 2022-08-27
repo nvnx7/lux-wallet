@@ -1,16 +1,12 @@
 import { Button, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { AssetList } from 'components/digital-asset';
 import { useWallet } from 'contexts/wallet';
 import useImportedLegacyAssets from 'hooks/useImportedLegacyAssets';
-import Path from 'router/paths';
 import { ModalView, useUI } from 'contexts/ui';
 import LegacyAssetList from './LegacyAssetList';
 
 const UniversalProfileAssets = ({ ...props }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { activeAccount } = useWallet();
   const { tokens, nfts } = useImportedLegacyAssets();
   const { setModalViewAndOpen, setModalData } = useUI();
@@ -20,13 +16,7 @@ const UniversalProfileAssets = ({ ...props }) => {
       fromAddress: activeAccount?.universalProfile,
       fromLabel: 'Universal Profile',
     };
-    if (isNft) {
-      state.nftAddress = assetAddress;
-      navigate(Path.TX_SEND_NFT, { state });
-    } else {
-      state.tokenAddress = assetAddress;
-      navigate(Path.TX_SEND_TOKEN, { state });
-    }
+    //@todo coming soon!
   };
 
   const handleImport = () => {

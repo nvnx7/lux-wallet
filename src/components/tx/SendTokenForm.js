@@ -13,7 +13,7 @@ import { AssetIcon } from 'components/digital-asset';
 import { useEffect } from 'react';
 import useToast from 'hooks/useToast';
 import { useSendVaultToken } from 'api/asset/sendVaultToken';
-import { areEqualAddresses } from 'utils/web3';
+import { areEqualHex } from 'utils/web3';
 import { useListVaults } from 'api/vault/listVaults';
 
 const schema = yup.object().shape({
@@ -77,7 +77,7 @@ const SendTokenForm = ({ ...props }) => {
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
     vaults
-      ?.filter(address => !areEqualAddresses(params.fromAddress, address))
+      ?.filter(address => !areEqualHex(params.fromAddress, address))
       .map(vaultAddress => ({
         label: 'Vault',
         value: vaultAddress,
@@ -92,7 +92,7 @@ const SendTokenForm = ({ ...props }) => {
 
     // Force send enable for unknown address
     input.force = addressOpts.findIndex(v => input.to === v.value) === -1;
-    if (areEqualAddresses(input.from, activeAccount.universalProfile)) {
+    if (areEqualHex(input.from, activeAccount.universalProfile)) {
       // Sending from Universal Profile
       sendUpToken({
         ...input,

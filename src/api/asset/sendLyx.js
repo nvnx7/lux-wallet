@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
-import { areEqualAddresses } from 'utils/web3';
+import { areEqualHex } from 'utils/web3';
 import useSentTxStore from 'hooks/useSentTxStore';
 import { logError } from 'utils/logger';
 
@@ -20,7 +20,7 @@ const sendLyx = async params => {
 
   // Assuming, for now, LYX is either transferred from account address or
   // related universal profile address.
-  if (!areEqualAddresses(from, accountAddress)) {
+  if (!areEqualHex(from, accountAddress)) {
     // Send from universal profile
     const up = new web3.eth.Contract(UniversalProfile.abi, from);
     const kmAddress = await up.methods.owner().call();
