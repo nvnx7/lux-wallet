@@ -5,7 +5,7 @@ import { now } from 'utils/datetime';
 /**
  * Signs the tx data & sends it, returning tx hash
  */
-export const signAndSendTx = async (txData, eoaAddress) => {
+export const sendSignedTx = async (txData, eoaAddress) => {
   const pk = await keyringController.exportAccount(eoaAddress);
   const signed = await web3.eth.accounts.signTransaction(txData, pk);
   return new Promise((resolve, reject) => {
@@ -27,6 +27,18 @@ export const signAndSendTx = async (txData, eoaAddress) => {
   });
 };
 
+/**
+ * Signs the tx data, sends it & waits for receipt
+ */
+export const sendSignedTxAndWait = async (txData, eoaAddress) => {
+  const pk = await keyringController.exportAccount(eoaAddress);
+  const signed = await web3.eth.accounts.signTransaction(txData, pk);
+  return web3.eth.sendSignedTransaction(signed.rawTransaction);
+};
+
+/**
+ * Batch call promisified
+ */
 export const makeBatchCall = (web3, calls) => {
   let batch = new web3.BatchRequest();
 

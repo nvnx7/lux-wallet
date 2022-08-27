@@ -1,4 +1,4 @@
-import { signAndSendTx } from 'api/utils/tx';
+import { sendSignedTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
 import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
@@ -34,7 +34,7 @@ const sendLyx = async params => {
     txData.gas = 300_000;
   }
 
-  const data = await signAndSendTx(txData, accountAddress);
+  const data = await sendSignedTx(txData, accountAddress);
 
   return data;
 };

@@ -46,7 +46,6 @@ const useVaults = ({ upAddress }) => {
 
   const value = useMemo(() => {
     // Filter vaults by assoc. universal profile address
-    console.log({ vaults });
     const upVaults = vaults?.filter(v => areEqualHex(upAddress, v.upAddress)) || [];
     const isLoading = isFetching && upVaults.length === 0;
     return {

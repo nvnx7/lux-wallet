@@ -7,7 +7,7 @@ import Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import receivedVaultsSchema from '@erc725/erc725.js/schemas/LSP10ReceivedVaults.json';
-import { signAndSendTx } from 'api/utils/tx';
+import { sendSignedTxAndWait } from 'api/utils/tx';
 import { ipfsGateway } from 'settings/config';
 import { logError } from 'utils/logger';
 const config = { ipfsGateway };
@@ -15,7 +15,7 @@ const config = { ipfsGateway };
 const URD_DATA_KEY = ERC725YKeys.LSP0.LSP1UniversalReceiverDelegate;
 
 /**
- * Deploys UniversalReceiverDelegateVault contract.
+ * Deploys URD for vault
  * Returns created contract address.
  */
 const deployURD = async ({ accountAddress }) => {
@@ -31,12 +31,12 @@ const deployURD = async ({ accountAddress }) => {
     gas: 5_000_000,
   };
 
-  const res = await signAndSendTx(tx, accountAddress);
+  const res = await sendSignedTxAndWait(tx, accountAddress);
   return res.contractAddress;
 };
 
 /**
- * Deploys LSP9Vault contract.
+ * Deploys Vault contract.
  * Returns created contract address.
  */
 const deployVault = async ({ accountAddress, upAddress }) => {
@@ -57,7 +57,7 @@ const deployVault = async ({ accountAddress, upAddress }) => {
 
   console.log({ txData });
 
-  const res = await signAndSendTx(txData, accountAddress);
+  const res = await sendSignedTxAndWait(txData, accountAddress);
   console.log({ res });
 
   return res.contractAddress;
@@ -94,7 +94,7 @@ const registerVaultToUP = async ({ accountAddress, upAddress, vaultAddress }) =>
     data: txPayload,
     gas: 300_000,
   };
-  const res = await signAndSendTx(tx, accountAddress);
+  const res = await sendSignedTxAndWait(tx, accountAddress);
   return res;
 };
 
@@ -123,16 +123,16 @@ const createVault = async params => {
 
   const data = await km.methods.execute(executePayload).encodeABI();
   const txData = { from: accountAddress, data, to: kmAddress, gas: 600_000 };
-  const res = await signAndSendTx(txData, accountAddress);
+  const res = await sendSignedTxAndWait(txData, accountAddress);
 
   console.log({ res });
 
   // Register created vault to universal profile
   // NOTE: This is manually done for now due to an implementation
   // bug in LSP contracts
-  await registerVaultToUP({ accountAddress, upAddress, vaultAddress });
+  // await registerVaultToUP({ accountAddress, upAddress, vaultAddress });
 
-  return res;
+  return vaultAddress;
 };
 
 export const useCreateVault = () => {
