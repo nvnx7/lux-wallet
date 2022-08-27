@@ -1,6 +1,8 @@
-export const KEY_VAULTS = 'vaults';
+export const KEY_KEYRING_VAULTS = 'krVaults';
 export const KEY_ACCOUNTS_DATA = 'accounts';
 export const KEY_PREFERENCES = 'preferences';
+export const KEY_IMPORTED_LEGACY_ASSETS = 'legacyAssets';
+export const KEY_UP_VAULTS = 'upVaults';
 
 export const getItem = (key, defaultValue) => {
   const item = localStorage.getItem(key);
@@ -12,15 +14,15 @@ export const storeItem = (key, value) => {
 };
 
 export const getVault = () => {
-  return getItem(KEY_VAULTS);
+  return getItem(KEY_KEYRING_VAULTS);
 };
 
 export const storeVault = vault => {
-  return storeItem(KEY_VAULTS, vault);
+  return storeItem(KEY_KEYRING_VAULTS, vault);
 };
 
 export const getAccountsData = () => {
-  const data = getItem(KEY_VAULTS);
+  const data = getItem(KEY_KEYRING_VAULTS);
   JSON.parse(data);
 };
 

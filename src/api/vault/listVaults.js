@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import ERC725 from '@erc725/erc725.js';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 import receivedVaultsSchema from '@erc725/erc725.js/schemas/LSP10ReceivedVaults.json';
 import { ipfsGateway } from 'settings/config';
 const config = { ipfsGateway };

@@ -8,9 +8,16 @@
   "from": "From",
   "to": "To",
   "amount": "Amount",
+  "value": "Value",
+  "status": "Status",
+  "success": "Success",
+  "pending": "Pending",
+  "error": "Error",
   "token-id": "Token Id",
   "asset": "Asset",
   "review": "Review",
-  "tx-success": "Transaction Successful!",
-  "tx-error": "Transaction Error!"
+  "tx-success": "Transaction Sent!",
+  "tx-confirmed": "Transaction Confirmed",
+  "tx-error": "Transaction Error!",
+  "activity": "Activity"
 }

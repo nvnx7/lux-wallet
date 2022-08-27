@@ -1,18 +1,18 @@
 import useLocalStorage from 'hooks/useLocalStorage';
 import React, { createContext, useState, useContext, useMemo, useCallback } from 'react';
-import keyringController, { KeyringType } from 'scripts/keyringController';
+import keyringController, { KeyringType } from 'lib/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
-import { areEqualAddresses, privateKeyToAddress } from 'utils/web3';
+import { areEqualHex, privateKeyToAddress } from 'utils/web3';
 import { usePreferences } from './preferences';
 
 /**
  * Accounts data list storing non-sensitive account data
  * Structure:
- * {
+ * [{
  *   address: '0xa..',
  *   universalProfile: '0xb..',
- * }
+ * }]
  */
 const defaultAccountsData = [];
 const initialContextValue = {
@@ -21,6 +21,16 @@ const initialContextValue = {
 };
 const WalletContext = createContext(initialContextValue);
 WalletContext.displayName = 'AccountContext';
+
+/**
+ * Helper function to detect a newly created address
+ * by looking at difference
+ */
+const getCreatedAddress = (before, after) => {
+  return after.find(address => {
+    return before.every(v => !areEqualHex(v, address));
+  });
+};
 
 /**
  * Wallet context provider for access to accounts data,
@@ -64,7 +74,7 @@ export const WalletProvider = ({ children }) => {
    */
   const updateAccount = useCallback(
     (address, data) => {
-      const idx = accountsData?.findIndex(account => areEqualAddresses(account.address, address));
+      const idx = accountsData?.findIndex(account => areEqualHex(account.address, address));
       if (idx === -1) {
         logError('AccountProvider:updateAccount', `${address} not found!`);
         return;
@@ -80,7 +90,7 @@ export const WalletProvider = ({ children }) => {
    * Returns currently selected account by user
    */
   const activeAccount = useMemo(() => {
-    const account = accountsData?.find(acc => areEqualAddresses(acc.address, activeAccountAddress));
+    const account = accountsData?.find(acc => areEqualHex(acc.address, activeAccountAddress));
     if (!account) {
       logError(
         `AccountsProvider:activeAccount`,
@@ -96,12 +106,47 @@ export const WalletProvider = ({ children }) => {
   const addAccount = useCallback(
     (account, activate) => {
       const updated = [...accountsData, account];
-      logDebug('AccountsProvider:addNewAccount', updated);
+      logDebug('AccountsProvider:addAccount', account);
       setAccountsData(updated);
       activate && setActiveAccountAddress(account.address);
     },
     [accountsData, setAccountsData, setActiveAccountAddress]
   );
+  /**
+   * Removes & syncs an account to storage & state
+   */
+  const removeAccount = useCallback(
+    address => {
+      const updated = accountsData?.filter(v => !areEqualHex(address, v.address)) || [];
+      logDebug('AccountsProvider:removeAccount', updated);
+      setAccountsData(updated);
+    },
+    [accountsData, setAccountsData]
+  );
+
+  /**
+   * Removes an account from wallet & switching to first wallet
+   * Will not remove if there is only one account
+   */
+  const deleteAccount = async (password, address) => {
+    try {
+      await keyringController.verifyPassword(password);
+      const addresses = await keyringController.getAccounts();
+      if (address.length <= 1) {
+        logError('AccountsProvider:deleteAccount', 'Trying to remove only account!');
+        throw new Error('Trying to remove only account!');
+      }
+
+      await keyringController.removeAccount(address);
+      removeAccount(address);
+
+      // Set first available account as active
+      setActiveAccountAddress(addresses[0]);
+      return { isValid: true };
+    } catch (error) {
+      return { isValid: false };
+    }
+  };
 
   /**
    * Export private key of an address
@@ -138,12 +183,14 @@ export const WalletProvider = ({ children }) => {
    */
   const createNewAccount = async (account, activate = true) => {
     const keyring = await keyringController.getKeyringForAccount(activeAccountAddress);
+    const beforeAddresses = await keyringController.getAccounts();
     await keyringController.addNewAccount(keyring);
-    const addresses = await keyringController.getAccounts();
-    if (addresses.length === 0) {
-      logError('WalletProvider:createNewAccount', `No existing account found!`);
-    }
-    const createdAddress = addresses[addresses.length - 1];
+    const afterAddresses = await keyringController.getAccounts();
+    // if (addresses.length === 0) {
+    //   logError('WalletProvider:createNewAccount', `No existing account found!`);
+    //   throw new Error(`No existing account found!`);
+    // }
+    const createdAddress = getCreatedAddress(beforeAddresses, afterAddresses);
     logDebug('WalletProvider:createNewAccount', `Created new account: ${createdAddress}`);
     addAccount({ label: account.label, address: createdAddress }, activate);
     return {
@@ -182,6 +229,7 @@ export const WalletProvider = ({ children }) => {
       createNewAccount,
       importAccount,
       exportAccount,
+      deleteAccount,
       switchAccount: setActiveAccountAddress,
     }),
     [isUnlocked, accountsData, activeAccount, addAccount]

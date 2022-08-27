@@ -9,7 +9,7 @@ import { ExplorerLink } from 'components/tx';
 
 const AssetItemNft = ({ assetAddress, ownerAddress, onSendClick, ...props }) => {
   const { t } = useTranslation();
-  const { data, isLoading, isError, isFetching } = useGetDigitalAsset({
+  const { data, isFetching } = useGetDigitalAsset({
     assetAddress,
     ownerAddress,
   });

@@ -1,11 +1,12 @@
-import { signAndSendTx } from 'api/utils/tx';
+import { sendSignedTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
-import web3 from 'scripts/web3';
+import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
 import { logError } from 'utils/logger';
 import { padToBytes32Hex } from 'utils/web3';
+import useSentTxStore from 'hooks/useSentTxStore';
 
 /**
  * Send LSP8 Identifiable Digital Asset (nft) from Universal Profile contract
@@ -36,13 +37,15 @@ const sendUpNft = async params => {
     gas: 600_000,
   };
 
-  const data = await signAndSendTx(txData, accountAddress);
+  const data = await sendSignedTx(txData, accountAddress);
 
   return data;
 };
 
-export const useSendUpNft = () => {
+export const useSendUpNft = ({ accountAddress }) => {
+  const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendUpNft(params), {
+    onSuccess: tx => storeSentTx(tx),
     onError: logError,
   });
 };

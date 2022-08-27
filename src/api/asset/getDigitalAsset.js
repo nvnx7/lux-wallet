@@ -4,7 +4,7 @@ import digitalAssetMetadataSchema from '@erc725/erc725.js/schemas/LSP4DigitalAss
 import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
 import LSP7DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
-import web3, { web3Provider } from 'scripts/web3';
+import web3, { web3Provider } from 'lib/web3';
 const config = { ipfsGateway };
 
 export const getDigitalAsset = async params => {

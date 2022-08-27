@@ -10,7 +10,7 @@ const AssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNfts, ..
   }
 
   return (
-    <Box maxH="400px" overflowY="scroll" {...props}>
+    <Box w="full" overflowY="scroll" h="360px" {...props}>
       {!areNfts &&
         assetAddresses?.map(assetAddress => (
           <AssetItemToken
@@ -32,7 +32,7 @@ const AssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNfts, ..
             my={1}
           />
         ))}
-      <Box py={8} />
+      <Box py={1} />
     </Box>
   );
 };

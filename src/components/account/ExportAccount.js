@@ -1,16 +1,13 @@
-import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, HStack, Text, VStack } from '@chakra-ui/react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { FormInput, FormPasswordInput } from 'components/common/form';
-import { logDebug, logError } from 'utils/logger';
+import { FormPasswordInput } from 'components/common/form';
 import { useTranslation } from 'react-i18next';
 import { isDev } from 'settings/config';
 import { Mock } from 'settings/constants';
-import keyringController, { KeyringType } from 'scripts/keyringController';
 import { useWallet } from 'contexts/wallet';
 import { useState } from 'react';
-import { CopyableAddress } from 'components/common/ui';
 
 const schema = yup.object().shape({
   password: yup.string().required('Required'),

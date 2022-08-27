@@ -11,7 +11,7 @@ import { useGetDigitalAsset } from 'api/asset/getDigitalAsset';
 import { AssetIcon } from 'components/digital-asset';
 import { useEffect } from 'react';
 import useToast from 'hooks/useToast';
-import { areEqualAddresses } from 'utils/web3';
+import { areEqualHex } from 'utils/web3';
 import { useSendUpNft } from 'api/asset/sendUpNft';
 import { useSendVaultNft } from 'api/asset/sendVaultNft';
 import { useListNfts } from 'api/asset/listNfts';
@@ -36,10 +36,6 @@ const SendNftForm = ({ ...props }) => {
   const navigate = useNavigate();
   const { showTxStatusToast, showErrorToast } = useToast();
   const { activeAccount } = useWallet();
-  const { control, handleSubmit } = useForm({
-    resolver,
-    defaultValues: { from: params.fromAddress || undefined },
-  });
 
   const {
     data: asset,
@@ -60,18 +56,25 @@ const SendNftForm = ({ ...props }) => {
     isError: isNftError,
   } = useListNfts({ nftAddress: params.nftAddress, ownerAddress: params.fromAddress });
 
+  const nftOptions = nfts?.map(id => ({ label: `${asset.symbol} #${id}`, value: `${id}` })) || [];
+
+  const { control, handleSubmit } = useForm({
+    resolver,
+    defaultValues: { from: params.fromAddress || undefined, tokenId: nftOptions?.[0]?.value },
+  });
+
   const {
     mutate: sendUpNft,
     isSuccess: isUpTxSuccess,
     isError: isUpTxError,
     isLoading: isUpTxLoading,
-  } = useSendUpNft();
+  } = useSendUpNft({ accountAddress: activeAccount?.address });
   const {
     mutate: sendVaultNft,
     isSuccess: isVaultTxSuccess,
     isError: isVaultTxError,
     isLoading: isVaultTxLoading,
-  } = useSendVaultNft();
+  } = useSendVaultNft({ accountAddress: activeAccount?.address });
 
   // For tx feedback
   useEffect(() => {
@@ -94,7 +97,7 @@ const SendNftForm = ({ ...props }) => {
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
     vaults
-      ?.filter(address => !areEqualAddresses(params.fromAddress, address))
+      ?.filter(address => !areEqualHex(params.fromAddress, address))
       .map(vaultAddress => ({
         label: 'Vault',
         value: vaultAddress,
@@ -104,7 +107,7 @@ const SendNftForm = ({ ...props }) => {
   const onSubmit = data => {
     // Force send enable for unknown address
     data.force = addressOpts.findIndex(v => data.to === v.value) === -1;
-    if (areEqualAddresses(data.from, activeAccount.universalProfile)) {
+    if (areEqualHex(data.from, activeAccount.universalProfile)) {
       // Sending from Universal Profile
       sendUpNft({
         ...data,
@@ -123,7 +126,7 @@ const SendNftForm = ({ ...props }) => {
 
   const isLoading =
     isAssetLoading || isUpTxLoading || isVaultTxLoading || isNftLoading || areVaultsLoading;
-  const nftOptions = nfts?.map(id => ({ label: `${asset.symbol} #${id}`, value: `${id}` })) || [];
+
   return (
     <VStack as="form" px={8} onSubmit={handleSubmit(onSubmit)} {...props}>
       <VStack>

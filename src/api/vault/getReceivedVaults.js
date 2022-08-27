@@ -6,17 +6,17 @@ import { ipfsGateway } from 'settings/config';
 
 const config = { ipfsGateway };
 
-export const getReceivedVaults = async params => {
+export const listReceivedVaults = async params => {
   const { profileAddress } = params;
   const vaults = new ERC725(receivedVaultsSchema, profileAddress, web3Provider, config);
   const data = await vaults.fetchData('LSP10Vaults');
   return data.value;
 };
 
-export const useGetReceivedVaults = ({ profileAddress }) => {
+export const useListReceivedVaults = ({ profileAddress }) => {
   return useQuery(
     ['LSP10ReceivedVaults', { profileAddress }],
-    () => getReceivedVaults({ profileAddress }),
+    () => listReceivedVaults({ profileAddress }),
     { enabled: !!profileAddress }
   );
 };

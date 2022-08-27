@@ -1,8 +1,8 @@
 import { HStack, IconButton, Text, VStack } from '@chakra-ui/react';
-import { createElement, useEffect, useState } from 'react';
+import { createElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
-import { CogIcon, DiamondIcon, HomeIcon, ShieldIcon } from 'components/icons';
+import { ActivityIcon, CogIcon, DiamondIcon, HomeIcon, ShieldIcon } from 'components/icons';
 import { logDebug } from 'utils/logger';
 
 const Tab = ({ isActive, icon, label, onClick, ...props }) => {
@@ -17,7 +17,7 @@ const Tab = ({ isActive, icon, label, onClick, ...props }) => {
   );
 };
 
-const tabPaths = [Path.HOME, Path.DIGITAL_ASSETS, Path.VAULT_MANAGER, Path.SETTINGS];
+const tabPaths = [Path.HOME, Path.DIGITAL_ASSETS, Path.VAULT_MANAGER, Path.ACTIVITY];
 
 const BottomNavigationTabs = ({ ...props }) => {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const BottomNavigationTabs = ({ ...props }) => {
       />
       <Tab
         label="Setting"
-        icon={CogIcon}
+        icon={ActivityIcon}
         isActive={activeTab === 3}
         onClick={() => handleTabClick(3)}
       />

@@ -1,6 +1,6 @@
 import { HStack, Text, useClipboard } from '@chakra-ui/react';
 import { CheckIcon, CopyIcon } from 'components/icons';
-import { abbreviateAddress } from 'utils/web3';
+import { abbreviateHex } from 'utils/web3';
 
 const CopyableAddress = ({ address = '', abbreviate = 9, text, ...props }) => {
   const { hasCopied, onCopy } = useClipboard(address);
@@ -9,7 +9,7 @@ const CopyableAddress = ({ address = '', abbreviate = 9, text, ...props }) => {
     address && onCopy();
   };
 
-  const abbreviated = abbreviate ? abbreviateAddress(address, abbreviate) : address;
+  const abbreviated = abbreviate ? abbreviateHex(address, abbreviate) : address;
 
   return (
     <HStack

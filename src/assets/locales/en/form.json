@@ -22,5 +22,8 @@
   "vault-address": "Vault Address",
   "create-vault": "Create Vault",
   "create-new-vault": "Create New Vault",
-  "edit": "Edit"
+  "edit": "Edit",
+  "import-asset": "Import Asset",
+  "asset-address": "Asset Address",
+  "asset-type": "Token Type"
 }

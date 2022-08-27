@@ -1,6 +1,6 @@
 import { Text, VStack } from '@chakra-ui/react';
 import { Identicon } from 'components/common';
-import { CopyableAddress } from 'components/common/ui';
+import { abbreviateHex } from 'utils/web3';
 
 const VaultItem = ({ data, onClick, ...props }) => {
   return (
@@ -15,7 +15,7 @@ const VaultItem = ({ data, onClick, ...props }) => {
     >
       <Identicon address={data.address} size={32} variant="square" />
       <Text fontSize="xs" fontWeight="semibold" noOfLines={1}>
-        {data.label}
+        {data.label || abbreviateHex(data.address, 8)}
       </Text>
       {/* <CopyableAddress
         address={data.address}

@@ -30,8 +30,6 @@ export const PreferencesProvider = ({ children }) => {
     return getNetworkInfo(preferences.chainId);
   }, [preferences.chainId]);
 
-  console.log({ preferences });
-
   const value = useMemo(
     () => ({
       ...preferences,

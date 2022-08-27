@@ -7,5 +7,11 @@
   "export-account": "Export Account",
   "export-warning": "Warning: Do not reveal this to key to anyone!",
   "incorrect-password": "Incorrect Password",
-  "lock-account": "Lock Account"
+  "lock-account": "Lock Account",
+  "delete-account": "Delete Account",
+  "caution": "Caution",
+  "delete-account-confirm": "Are you sure to delete following account?",
+  "delete-account-caution": "Make sure to export your private key otherwise, you'll lose access to all funds in your account!",
+  "confirm-delete": "Confirm Delete",
+  "confirm-backup": "I have backed up my private key"
 }

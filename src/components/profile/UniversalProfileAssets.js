@@ -61,7 +61,7 @@ const UniversalProfileAssets = ({ ...props }) => {
           </HStack>
         </TabList>
         <TabPanels>
-          <TabPanel>
+          <TabPanel px={0}>
             <AssetList
               assetAddresses={assetData?.tokens || []}
               ownerAddress={activeAccount?.universalProfile}
@@ -69,7 +69,7 @@ const UniversalProfileAssets = ({ ...props }) => {
               areNfts={false}
             />
           </TabPanel>
-          <TabPanel>
+          <TabPanel px={0}>
             <AssetList
               assetAddresses={assetData?.nfts || []}
               ownerAddress={activeAccount?.universalProfile}
