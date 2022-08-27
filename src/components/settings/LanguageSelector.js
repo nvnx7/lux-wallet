@@ -7,7 +7,7 @@ const LanguageSelector = ({ ...props }) => {
   const { t } = useTranslation();
   const {} = usePreferences();
   const handleChange = e => {
-    console.log({ v: e.target.value });
+    const opt = e.target.value;
     //set preferred lang
   };
 

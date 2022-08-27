@@ -18,7 +18,6 @@ const useImportedLegacyAssets = () => {
       } else if (type === 'nft') {
         updated.nfts ? updated.nfts.push(address) : (updated.nfts = [address]);
       }
-      console.log({ updated });
       setAssets(updated);
     },
     [assets, setAssets]

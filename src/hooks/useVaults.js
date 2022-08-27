@@ -1,5 +1,6 @@
 import { useListVaults } from 'api/vault/listVaults';
 import { useCallback, useEffect, useMemo } from 'react';
+import { logError } from 'utils/logger';
 import { KEY_UP_VAULTS } from 'utils/storage';
 import { areEqualHex } from 'utils/web3';
 import useLocalStorage from './useLocalStorage';
@@ -44,6 +45,20 @@ const useVaults = ({ upAddress }) => {
     [vaults, setVaults, upAddress]
   );
 
+  const updateVault = useCallback(
+    vault => {
+      const updated = vaults ? [...vaults] : [];
+      const idx = updated.findIndex(v => areEqualHex(v.address, vault.address));
+      if (idx < 0) {
+        logError('useVaults:updateVault', `Tried to update non-existent vault!`, vault);
+        return;
+      }
+      updated[idx] = { ...updated[idx], ...vault };
+      setVaults(updated);
+    },
+    [vaults, setVaults]
+  );
+
   const value = useMemo(() => {
     // Filter vaults by assoc. universal profile address
     const upVaults = vaults?.filter(v => areEqualHex(upAddress, v.upAddress)) || [];
@@ -51,9 +66,10 @@ const useVaults = ({ upAddress }) => {
     return {
       vaults: upVaults,
       addVault,
+      updateVault,
       isLoading,
     };
-  }, [vaults, upAddress, addVault, isFetching]);
+  }, [vaults, upAddress, addVault, isFetching, updateVault]);
 
   return value;
 };

@@ -32,11 +32,7 @@ const MemoryRoutes = () => {
   useEffect(() => {
     const state = keyringController.store.getState();
     const hasVault = !!state.vault;
-    // if (state) {
-    //   keyringController.getAccounts().then(d => console.log({ d }));
-    // }
     wait(2000).then(() => setLoading(false));
-
     logDebug('Router:', { isLoading, isUnlocked, hasVault });
     if (isUnlocked && hasVault) navigate(Path.HOME);
     else if (!hasVault) navigate(Path.ONBOARD);

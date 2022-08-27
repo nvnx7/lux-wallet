@@ -52,14 +52,10 @@ const deployVault = async ({ accountAddress, upAddress }) => {
   const txData = {
     from: accountAddress,
     data: encodedData,
-    gas: 300_000,
+    gas: 5_000_000,
   };
 
-  console.log({ txData });
-
   const res = await sendSignedTxAndWait(txData, accountAddress);
-  console.log({ res });
-
   return res.contractAddress;
 };
 
@@ -102,11 +98,8 @@ const createVault = async params => {
   const { upAddress, accountAddress } = params;
 
   // Contracts
-  const urdAddress = await deployURD({ accountAddress });
-  console.log({ urdAddress });
   const vaultAddress = await deployVault({ accountAddress, upAddress });
-
-  console.log({ vaultAddress, urdAddress });
+  const urdAddress = await deployURD({ accountAddress });
 
   // Proceed to set URD to vault
   const vault = new web3.eth.Contract(Vault.abi, vaultAddress);
@@ -123,9 +116,7 @@ const createVault = async params => {
 
   const data = await km.methods.execute(executePayload).encodeABI();
   const txData = { from: accountAddress, data, to: kmAddress, gas: 600_000 };
-  const res = await sendSignedTxAndWait(txData, accountAddress);
-
-  console.log({ res });
+  await sendSignedTxAndWait(txData, accountAddress);
 
   // Register created vault to universal profile
   // NOTE: This is manually done for now due to an implementation

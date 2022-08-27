@@ -29,7 +29,6 @@ export const getExplorerLink = (hexString, type = 'address') => {
 };
 
 export const getNetworkInfo = chainId => {
-  console.log({ chainId });
   return supportedNetworks.find(network => network.chainId === chainId);
 };
 

@@ -7,8 +7,6 @@ const ActivityList = ({ ...props }) => {
   const { activeAccount } = useWallet();
   const { txList } = useSentTxStore({ accountAddress: activeAccount.address });
 
-  console.log({ txList });
-
   return (
     <VStack alignItems="stretch" w="full" {...props}>
       {txList?.map(tx => (
