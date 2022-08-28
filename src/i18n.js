@@ -5,8 +5,12 @@ import commonEn from 'assets/locales/en/common.json';
 import formEn from 'assets/locales/en/form.json';
 import txEn from 'assets/locales/en/tx.json';
 import accountEn from 'assets/locales/en/account.json';
+
 import assetEs from 'assets/locales/es/asset.json';
 import commonEs from 'assets/locales/es/common.json';
+import formEs from 'assets/locales/es/form.json';
+import txEs from 'assets/locales/es/tx.json';
+import accountEs from 'assets/locales/es/account.json';
 
 const resources = {
   en: {
@@ -19,6 +23,9 @@ const resources = {
   es: {
     asset: assetEs,
     common: commonEs,
+    form: formEs,
+    tx: txEs,
+    account: accountEs,
   },
 };
 

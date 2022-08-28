@@ -19,6 +19,10 @@ export const supportedLanguages = [
     symbol: 'en',
     name: 'English',
   },
+  {
+    symbol: 'es',
+    name: 'Español',
+  },
 ];
 
 // For testing purposes only

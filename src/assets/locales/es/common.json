@@ -1,3 +1,24 @@
 {
-  "welcome": "Bienvenido a Lux"
+  "welcome": "Bienvenido a Lux",
+  "get-started": "Comenzar",
+  "get-started-desc": "Para comenzar con la billetera Lux, debe crear una nueva cuenta protegida con contraseña e importar su billetera desde una clave privada. Comience a continuación.",
+  "lets-go": "Vamos",
+  "back": "Atras",
+  "universal-profile": "Perfil Universal",
+  "account-details": "Detalles de la cuenta",
+  "lock": "Bloquear",
+  "network": "La Red",
+  "language": "Idioma",
+  "coming-soon": "Próximamente",
+  "vault-detail": "Detalle de la bóveda",
+  "home": "Hogar",
+  "assets": "Activos",
+  "vaults": "Bóvedas",
+  "activity": "Actividad",
+  "settings": "Configuraciones",
+  "send": "Enviar",
+  "buy": "Compra",
+  "guardians": "Guardianes",
+  "social-recovery": "Recuperación Social",
+  "social-recovery-desc": "Recuperación social le permite agregar las direcciones de sus amigos/familiares como dirección de tutor, permitiéndoles otorgarle acceso a su perfil en caso de que lo pierda."
 }
