@@ -1,5 +1,5 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
-import { MehIcon } from 'components/icons';
+import { CoinIcon } from 'components/icons/3d';
 import { useTranslation } from 'react-i18next';
 import AssetItemNft from './AssetItemNft';
 import AssetItemToken from './AssetItemToken';
@@ -40,8 +40,8 @@ const AssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNfts, ..
 const EmptyView = ({ ...props }) => {
   const { t } = useTranslation();
   return (
-    <VStack py={4} {...props}>
-      <MehIcon size={64} color="gray" />
+    <VStack py={6} {...props}>
+      <CoinIcon size={24} />
       <Text fontSize="sm" color="gray.400">
         {t('asset:no-asset-found')}
       </Text>

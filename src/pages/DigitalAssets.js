@@ -15,7 +15,7 @@ const DigitalAssets = () => {
 
   return (
     <BottomNavLayout>
-      <HStack py={2} justify="space-between" alignItems="center" position="relative">
+      <HStack py={1} justify="space-between" alignItems="center" position="relative">
         <Box px={6} />
         <HStack>
           <DiamondIcon size={20} />

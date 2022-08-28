@@ -1,6 +1,6 @@
 import {
   HStack,
-  Progress,
+  Spinner,
   Switch,
   Tab,
   TabList,
@@ -8,13 +8,12 @@ import {
   TabPanels,
   Tabs,
   Text,
-  useBoolean,
   VStack,
 } from '@chakra-ui/react';
 import { useGetAllAssets } from 'api/asset/getAllAssets';
 import { AssetList } from 'components/digital-asset';
-import { DiamondIcon } from 'components/icons';
 import { useWallet } from 'contexts/wallet';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
@@ -22,7 +21,7 @@ import Path from 'router/paths';
 const UniversalProfileAssets = ({ ...props }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [assetFlag, setAssetFlag] = useBoolean();
+  const [assetFlag, setAssetFlag] = useState(true);
   const { activeAccount } = useWallet();
   const { data, isFetching } = useGetAllAssets({ address: activeAccount?.universalProfile });
 
@@ -44,7 +43,7 @@ const UniversalProfileAssets = ({ ...props }) => {
     }
   };
 
-  const assetData = assetFlag ? data?.issued : data?.received;
+  const assetData = assetFlag ? data?.received : data?.issued;
 
   return (
     <VStack alignItems="stretch" {...props}>
@@ -55,9 +54,15 @@ const UniversalProfileAssets = ({ ...props }) => {
           </Tab>
           <Tab fontSize="sm">NFTs</Tab>
           <HStack ml="auto" alignItems="center">
-            <Text fontSize="xs">{t('asset:received')}</Text>
-            <Switch size="md" mr={4} onChange={setAssetFlag.toggle} />
             <Text fontSize="xs">{t('asset:issued')}</Text>
+            <Switch
+              size="md"
+              mr={4}
+              colorScheme="orange"
+              isChecked={assetFlag}
+              onChange={() => setAssetFlag(!assetFlag)}
+            />
+            <Text fontSize="xs">{t('asset:received')}</Text>
           </HStack>
         </TabList>
         <TabPanels>
@@ -86,8 +91,7 @@ const UniversalProfileAssets = ({ ...props }) => {
 const LoadingView = ({ ...props }) => {
   return (
     <VStack w="100%" justify="center" spacing={4} {...props}>
-      <DiamondIcon size={64} />
-      <Progress w="40%" size="xs" colorScheme="primary" isIndeterminate />
+      <Spinner thickness={8} speed="0.65s" color="orange.600" size="xl" />
     </VStack>
   );
 };

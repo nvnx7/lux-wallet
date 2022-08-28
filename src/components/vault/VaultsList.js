@@ -1,4 +1,4 @@
-import { Box, Button, SimpleGrid } from '@chakra-ui/react';
+import { Box, Button, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { AddIcon } from 'components/icons';
 import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
 import VaultItem from './VaultItem';
 import useVaults from 'hooks/useVaults';
+import { SafeIcon } from 'components/icons/3d';
 
 const VaultsList = ({ ...props }) => {
   const { t } = useTranslation();
@@ -22,10 +23,6 @@ const VaultsList = ({ ...props }) => {
     return 'Loading..';
   }
 
-  if (vaults.length === 0) {
-    return 'No vaults found';
-  }
-
   const handleClick = address => {
     const vault = vaults.find(v => v.address === address);
     navigate(Path.VAULT_DETAIL, { state: vault });
@@ -37,11 +34,20 @@ const VaultsList = ({ ...props }) => {
 
   return (
     <Box position="relative" height="100%">
-      <SimpleGrid columns={3} spacing={8} {...props}>
-        {vaults.map((vault, idx) => (
-          <VaultItem key={vault.address} data={vault} onClick={() => handleClick(vault.address)} />
-        ))}
-      </SimpleGrid>
+      {vaults.length === 0 ? (
+        <EmptyView />
+      ) : (
+        <SimpleGrid columns={3} spacing={8} justifyItems="center" {...props}>
+          {vaults.map(vault => (
+            <VaultItem
+              alignSelf="center"
+              key={vault.address}
+              data={vault}
+              onClick={() => handleClick(vault.address)}
+            />
+          ))}
+        </SimpleGrid>
+      )}
       <Button
         position="absolute"
         right={0}
@@ -52,6 +58,18 @@ const VaultsList = ({ ...props }) => {
         {t('form:create-vault')}
       </Button>
     </Box>
+  );
+};
+
+const EmptyView = ({ ...props }) => {
+  const { t } = useTranslation();
+  return (
+    <VStack py={8} {...props}>
+      <SafeIcon size={24} />
+      <Text fontSize="sm" color="gray.400" textAlign="center" px={8}>
+        {t('asset:no-vault-found')}
+      </Text>
+    </VStack>
   );
 };
 

@@ -2,23 +2,25 @@ import { createElement } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HStack, Text, VStack } from '@chakra-ui/react';
 import Path from 'router/paths';
-import { ActivityIcon, DiamondIcon, HomeIcon, ShieldIcon } from 'components/icons';
+import { ActivityIcon, DiamondIcon, HomeIcon, SafeIcon } from 'components/icons';
 import { logDebug } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
 
+const gradientBg = 'linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)';
 const Tab = ({ isActive, icon, label, onClick, ...props }) => {
   const iconEl = createElement(icon, { size: 28, color: 'white' });
   return (
     <VStack
-      boxSize={12}
+      boxSize={14}
       spacing={0}
       alignItems="center"
+      justify="center"
       onClick={onClick}
-      rounded="md"
-      bg={isActive ? 'blackAlpha.200' : 'none'}
+      rounded={12}
+      bg={isActive ? gradientBg : 'none'}
       _hover={{
         cursor: 'pointer',
-        bg: 'blackAlpha.200',
+        bg: gradientBg,
       }}
       {...props}
     >
@@ -44,9 +46,10 @@ const BottomNavigationTabs = ({ ...props }) => {
     <HStack
       justify="space-between"
       px={4}
-      py={3}
+      py={2}
       rounded="xl"
-      background="linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)"
+      bg="whiteAlpha.200"
+      // background="linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)"
       {...props}
     >
       <Tab
@@ -63,7 +66,7 @@ const BottomNavigationTabs = ({ ...props }) => {
       />
       <Tab
         label={t('common:vaults')}
-        icon={ShieldIcon}
+        icon={SafeIcon}
         isActive={pathname === Path.VAULT_MANAGER}
         onClick={() => handleTabClick(2)}
       />

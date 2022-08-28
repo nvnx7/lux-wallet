@@ -22,7 +22,7 @@ const LegacyAssetItem = ({ assetAddress, ownerAddress, onSendClick, isNft, ...pr
     <Card px={4} py={4} {...props}>
       <HStack justify="space-between" alignSelf="stretch">
         <HStack {...props}>
-          <AssetIcon src={data?.iconUrl} />
+          <AssetIcon src={data?.iconUrl} isNft={isNft} />
           <VStack alignItems="start" justifyContent="center" spacing={0}>
             <Text fontWeight="semibold">{data?.symbol}</Text>
             <HStack>

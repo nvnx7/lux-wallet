@@ -1,5 +1,5 @@
 import { Divider, Heading, HStack } from '@chakra-ui/react';
-import { ShieldIcon } from 'components/icons';
+import { SafeIcon } from 'components/icons';
 import { BottomNavLayout } from 'components/layout';
 import { EmptyProfileView } from 'components/profile';
 import { VaultsList } from 'components/vault';
@@ -12,7 +12,7 @@ const VaultManager = () => {
   return (
     <BottomNavLayout>
       <HStack py={2} justify="center" alignItems="center">
-        <ShieldIcon size={20} />
+        <SafeIcon size={20} />
         <Heading textAlign="center" fontSize="lg">
           {t('asset:vault-manager')}
         </Heading>

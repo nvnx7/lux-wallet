@@ -3,7 +3,7 @@ import { ArrowLeftIcon } from 'components/icons';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 
-const HeaderLayout = ({ children, title = '', icon, ...props }) => {
+const HeaderLayout = ({ children, title = '', icon, iconPosition = 'left', ...props }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {

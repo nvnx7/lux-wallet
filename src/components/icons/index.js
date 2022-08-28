@@ -1,3 +1,5 @@
+import { Image } from '@chakra-ui/react';
+
 export { FaWallet as WalletIcon } from 'react-icons/fa';
 export { FiPlus as AddIcon } from 'react-icons/fi';
 export { FiArrowUpRight as ArrowUpRightIcon } from 'react-icons/fi';
@@ -25,3 +27,4 @@ export { FiKey as KeyIcon } from 'react-icons/fi';
 export { FiAlertTriangle as AlertIcon } from 'react-icons/fi';
 export { FiTrash2 as TrashIcon } from 'react-icons/fi';
 export { FiHeart as HeartIcon } from 'react-icons/fi';
+export { RiSafe2Line as SafeIcon } from 'react-icons/ri';

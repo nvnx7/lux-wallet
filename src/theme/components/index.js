@@ -6,6 +6,7 @@ import Modal from './modal';
 import Switch from './switch';
 import Heading from './heading';
 import Menu from './menu';
+import Spinner from './spinner';
 
 const components = {
   Button,
@@ -17,6 +18,7 @@ const components = {
   Switch,
   Heading,
   Menu,
+  Spinner,
 };
 
 export default components;

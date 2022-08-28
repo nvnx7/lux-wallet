@@ -1,13 +1,14 @@
 import { Image } from '@chakra-ui/react';
-import fallbackSrc from 'assets/images/coin.png';
+import fallbackSrcToken from 'assets/images/coin.png';
+import fallbackSrcNft from 'assets/images/nft.png';
 
-const AssetIcon = ({ src, ...props }) => {
+const AssetIcon = ({ src, isNft, ...props }) => {
   return (
     <Image
       boxSize="42px"
       borderRadius="full"
       src={src}
-      fallbackSrc={fallbackSrc}
+      fallbackSrc={isNft ? fallbackSrcNft : fallbackSrcToken}
       bgColor="none"
       {...props}
     />
