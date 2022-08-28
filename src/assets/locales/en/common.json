@@ -7,9 +7,18 @@
   "universal-profile": "Universal Profile",
   "account-details": "Account Details",
   "lock": "Lock",
-  "settings": "Settings",
   "network": "Network",
   "language": "Language",
-  "coming-soon": "Coming Soon!",
-  "vault-detail": "Vault Detail"
+  "coming-soon": "Coming Soon",
+  "vault-detail": "Vault Detail",
+  "home": "Home",
+  "assets": "Assets",
+  "vaults": "Vaults",
+  "activity": "Activity",
+  "settings": "Settings",
+  "send": "Send",
+  "buy": "Buy",
+  "guardians": "Guardians",
+  "social-recovery": "Social Recovery",
+  "social-recovery-desc": "Social recovery lets add your friends/family addresses as guardian address allowing them to grant you access back to your profile in case you lost it."
 }

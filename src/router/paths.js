@@ -17,6 +17,7 @@ const Path = {
   TX_SEND_TOKEN: '/send-token',
   TX_SEND_NFT: '/send-nft',
   ACTIVITY: '/activity',
+  SOCIAL_RECOVERY: '/social-recovery',
 };
 
 export default Path;

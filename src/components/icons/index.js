@@ -1,6 +1,7 @@
 export { FaWallet as WalletIcon } from 'react-icons/fa';
 export { FiPlus as AddIcon } from 'react-icons/fi';
 export { FiArrowUpRight as ArrowUpRightIcon } from 'react-icons/fi';
+export { FiArrowDownLeft as ArrowDownLeftIcon } from 'react-icons/fi';
 export { FiArrowLeft as ArrowLeftIcon } from 'react-icons/fi';
 export { FiMoreVertical as VerticalDotsIcon } from 'react-icons/fi';
 export { FiCopy as CopyIcon } from 'react-icons/fi';
@@ -23,3 +24,4 @@ export { FiWatch as WatchIcon } from 'react-icons/fi';
 export { FiKey as KeyIcon } from 'react-icons/fi';
 export { FiAlertTriangle as AlertIcon } from 'react-icons/fi';
 export { FiTrash2 as TrashIcon } from 'react-icons/fi';
+export { FiHeart as HeartIcon } from 'react-icons/fi';
