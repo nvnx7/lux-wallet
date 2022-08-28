@@ -15,9 +15,14 @@ const setVault = data => {
 };
 
 const vault = getVault();
+
+/**
+ * Keyring controller to securely manage the keyrings containing
+ * added account credentials
+ */
 const keyringController = new KeyringController({ initState: { vault } });
 keyringController.fullUpdate();
-keyringController.on('update', async (...args) => {
+keyringController.on('update', async () => {
   const state = keyringController.store.getState();
   setVault(state.vault);
 });
