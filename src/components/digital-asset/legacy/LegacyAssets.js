@@ -4,6 +4,7 @@ import { useWallet } from 'contexts/wallet';
 import useImportedLegacyAssets from 'hooks/useImportedLegacyAssets';
 import { ModalView, useUI } from 'contexts/ui';
 import LegacyAssetList from './LegacyAssetList';
+import { gradient } from 'theme/colors';
 
 const UniversalProfileAssets = ({ ...props }) => {
   const { t } = useTranslation();
@@ -28,10 +29,12 @@ const UniversalProfileAssets = ({ ...props }) => {
     <VStack alignItems="stretch" position="relative" {...props}>
       <Tabs maxH="100%" variant="soft-rounded" isLazy>
         <TabList>
-          <Tab fontSize="sm" py={0}>
+          <Tab fontSize="sm" py={0} _selected={{ bgImage: gradient, color: 'white' }}>
             Tokens
           </Tab>
-          <Tab fontSize="sm">NFTs</Tab>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
+            NFTs
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel px={0}>

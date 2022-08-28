@@ -13,6 +13,7 @@ import { useGetAllAssets } from 'api/asset/getAllAssets';
 import { AssetList } from 'components/digital-asset';
 import { DiamondIcon } from 'components/icons';
 import Path from 'router/paths';
+import { gradient } from 'theme/colors';
 
 const VaultAssets = ({ vaultAddress, ...props }) => {
   const navigate = useNavigate();
@@ -42,8 +43,12 @@ const VaultAssets = ({ vaultAddress, ...props }) => {
     <VStack alignItems="stretch" {...props}>
       <Tabs maxH="100%" variant="soft-rounded" isLazy>
         <TabList px={2}>
-          <Tab fontSize="sm">Tokens</Tab>
-          <Tab fontSize="sm">NFTs</Tab>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
+            Tokens
+          </Tab>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
+            NFTs
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

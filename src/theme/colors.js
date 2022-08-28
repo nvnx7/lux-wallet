@@ -13,6 +13,9 @@ const colors = {
   },
   backgroundDark: '#383838',
   accent: '#E8EEFA',
+  gradient: `linear-gradient(290deg, #D38312 0%, #A83279 74%)`,
 };
+
+export const gradient = `linear-gradient(290deg, #D38312 0%, #A83279 74%)`;
 
 export default colors;

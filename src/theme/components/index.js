@@ -1,5 +1,4 @@
 import Button from './button';
-import Tabs from './tabs';
 import Text from './text';
 import { FormLabel, FormErrorMessage } from './form';
 import Modal from './modal';
@@ -10,7 +9,6 @@ import Spinner from './spinner';
 
 const components = {
   Button,
-  Tabs,
   Text,
   FormLabel,
   FormErrorMessage,

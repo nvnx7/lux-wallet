@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
+import { gradient } from 'theme/colors';
 
 const UniversalProfileAssets = ({ ...props }) => {
   const { t } = useTranslation();
@@ -49,10 +50,12 @@ const UniversalProfileAssets = ({ ...props }) => {
     <VStack alignItems="stretch" {...props}>
       <Tabs maxH="100%" variant="soft-rounded" isLazy>
         <TabList>
-          <Tab fontSize="sm" py={0}>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
             Tokens
           </Tab>
-          <Tab fontSize="sm">NFTs</Tab>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
+            NFTs
+          </Tab>
           <HStack ml="auto" alignItems="center">
             <Text fontSize="xs">{t('asset:issued')}</Text>
             <Switch

@@ -79,7 +79,13 @@ const UniversalProfile = ({ ...props }) => {
       </HStack>
 
       <HStack>
-        <Button size="sm" leftIcon={<ArrowUpRightIcon />} onClick={handleSend}>
+        <Button
+          size="sm"
+          leftIcon={<ArrowUpRightIcon />}
+          onClick={handleSend}
+          bgImage={`linear-gradient(290deg, #7b4397 0%, #dc2430 74%)`}
+          color="white"
+        >
           {t('common:send')}
         </Button>
         <Button size="sm" leftIcon={<ArrowDownLeftIcon />} disabled={true} onClick={handleSend}>

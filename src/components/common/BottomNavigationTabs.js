@@ -5,9 +5,9 @@ import Path from 'router/paths';
 import { ActivityIcon, DiamondIcon, HomeIcon, SafeIcon } from 'components/icons';
 import { logDebug } from 'utils/logger';
 import { useTranslation } from 'react-i18next';
+import { gradient } from 'theme/colors';
 
-const gradientBg = 'linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)';
-const Tab = ({ isActive, icon, label, onClick, ...props }) => {
+const TabItem = ({ isActive, icon, label, onClick, ...props }) => {
   const iconEl = createElement(icon, { size: 28, color: 'white' });
   return (
     <VStack
@@ -17,10 +17,10 @@ const Tab = ({ isActive, icon, label, onClick, ...props }) => {
       justify="center"
       onClick={onClick}
       rounded={12}
-      bg={isActive ? gradientBg : 'none'}
+      bg={isActive ? gradient : 'none'}
       _hover={{
         cursor: 'pointer',
-        bg: gradientBg,
+        bg: gradient,
       }}
       {...props}
     >
@@ -43,34 +43,26 @@ const BottomNavigationTabs = ({ ...props }) => {
   };
 
   return (
-    <HStack
-      justify="space-between"
-      px={4}
-      py={2}
-      rounded="xl"
-      bg="whiteAlpha.200"
-      // background="linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)"
-      {...props}
-    >
-      <Tab
+    <HStack justify="space-between" px={4} py={2} rounded="xl" bg="whiteAlpha.200" {...props}>
+      <TabItem
         label={t('common:home')}
         icon={HomeIcon}
         isActive={pathname === Path.HOME}
         onClick={() => handleTabClick(0)}
       />
-      <Tab
+      <TabItem
         label={t('common:assets')}
         icon={DiamondIcon}
         isActive={pathname === Path.DIGITAL_ASSETS}
         onClick={() => handleTabClick(1)}
       />
-      <Tab
+      <TabItem
         label={t('common:vaults')}
         icon={SafeIcon}
         isActive={pathname === Path.VAULT_MANAGER}
         onClick={() => handleTabClick(2)}
       />
-      <Tab
+      <TabItem
         label={t('common:activity')}
         icon={ActivityIcon}
         isActive={pathname === Path.ACTIVITY}
