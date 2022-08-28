@@ -21,16 +21,17 @@ const LegacyAssetList = ({ assetAddresses = [], ownerAddress, onSendClick, areNf
           />
         ))}
 
-      {/* {areNfts &&
+      {areNfts &&
         assetAddresses?.map(assetAddress => (
-          <AssetItemNft
+          <LegacyAssetItem
             key={assetAddress}
             assetAddress={assetAddress}
             ownerAddress={ownerAddress}
             onSendClick={() => onSendClick(assetAddress)}
+            isNft={areNfts}
             my={1}
           />
-        ))} */}
+        ))}
       <Box py={1} />
     </Box>
   );

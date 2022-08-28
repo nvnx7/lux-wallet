@@ -1,4 +1,4 @@
-import { Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { Card } from 'components/common/ui';
 import { ArrowUpRightIcon, WalletIcon } from 'components/icons';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,7 @@ import AssetIcon from '../AssetIcon';
 import { ExplorerLink } from 'components/tx';
 import { useGetLegacyToken } from 'api/asset/legacy/getLegacyToken';
 
-const LegacyAssetItem = ({ assetAddress, ownerAddress, onSendClick, ...props }) => {
+const LegacyAssetItem = ({ assetAddress, ownerAddress, onSendClick, isNft, ...props }) => {
   const { t } = useTranslation();
   const { data, isFetching } = useGetLegacyToken({
     tokenAddress: assetAddress,
@@ -36,17 +36,13 @@ const LegacyAssetItem = ({ assetAddress, ownerAddress, onSendClick, ...props }) 
         <VStack alignItems="end" justify="space-between" spacing={0}>
           <HStack>
             <WalletIcon size={10} color="gray" />
-            <Text fontWeight="bold">{data?.balance?.lyx}</Text>
+            <Text fontWeight="bold">{isNft ? data?.balance?.wei : data?.balance?.lyx}</Text>
           </HStack>
-          <Button
-            size="xs"
-            disabled={true}
-            leftIcon={<ArrowUpRightIcon />}
-            variant="ghost"
-            onClick={onSendClick}
-          >
-            {t('tx:send')}
-          </Button>
+          <Tooltip label={t('common:coming-soon')} bg="gray.700" color="white" fontSize="xs">
+            <Button size="xs" leftIcon={<ArrowUpRightIcon />} variant="ghost">
+              {t('tx:send')}
+            </Button>
+          </Tooltip>
         </VStack>
       </HStack>
     </Card>

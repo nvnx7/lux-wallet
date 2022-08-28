@@ -5,6 +5,7 @@ import { FormLabel, FormErrorMessage } from './form';
 import Modal from './modal';
 import Switch from './switch';
 import Heading from './heading';
+import Menu from './menu';
 
 const components = {
   Button,
@@ -15,6 +16,7 @@ const components = {
   Modal,
   Switch,
   Heading,
+  Menu,
 };
 
 export default components;
