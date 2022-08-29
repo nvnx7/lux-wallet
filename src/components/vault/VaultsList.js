@@ -1,4 +1,4 @@
-import { Box, Button, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Link, SimpleGrid, Spinner, Text, VStack } from '@chakra-ui/react';
 import { AddIcon } from 'components/icons';
 import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';
@@ -20,7 +20,7 @@ const VaultsList = ({ ...props }) => {
   });
 
   if (isLoading) {
-    return 'Loading..';
+    return <LoadingView />;
   }
 
   const handleClick = address => {
@@ -34,7 +34,7 @@ const VaultsList = ({ ...props }) => {
 
   return (
     <Box position="relative" height="100%">
-      {vaults.length === 0 ? (
+      {vaults.length !== 0 ? (
         <EmptyView />
       ) : (
         <SimpleGrid columns={3} spacing={8} justifyItems="center" {...props}>
@@ -69,6 +69,22 @@ const EmptyView = ({ ...props }) => {
       <Text fontSize="sm" color="gray.400" textAlign="center" px={8}>
         {t('asset:no-vault-found')}
       </Text>
+      <Text color="white" fontSize="xs" textAlign="center" pt={20} px={8}>
+        (Not seeing your vault? This might be due to a known bug in current LSP contract
+        implementation.{' '}
+        <Link isExternal href="" color="orange">
+          See here
+        </Link>
+        )
+      </Text>
+    </VStack>
+  );
+};
+
+const LoadingView = ({ ...props }) => {
+  return (
+    <VStack w="100%" justify="center" spacing={4} {...props}>
+      <Spinner thickness={8} speed="0.65s" color="orange.600" size="xl" />
     </VStack>
   );
 };
