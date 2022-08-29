@@ -12,20 +12,3 @@ export const getItem = (key, defaultValue) => {
 export const storeItem = (key, value) => {
   return localStorage.setItem(key, JSON.stringify(value));
 };
-
-export const getVault = () => {
-  return getItem(KEY_KEYRING_VAULTS);
-};
-
-export const storeVault = vault => {
-  return storeItem(KEY_KEYRING_VAULTS, vault);
-};
-
-export const getAccountsData = () => {
-  const data = getItem(KEY_KEYRING_VAULTS);
-  JSON.parse(data);
-};
-
-export const storeAccountData = data => {
-  return storeItem(KEY_ACCOUNTS_DATA, data);
-};
