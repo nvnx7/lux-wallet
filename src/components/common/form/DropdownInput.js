@@ -13,6 +13,7 @@ import {
   AutoCompleteList,
 } from '@choc-ui/chakra-autocomplete';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const FormDropdownInput = ({
   name,
@@ -26,6 +27,7 @@ const FormDropdownInput = ({
   _input,
   ...props
 }) => {
+  const { t } = useTranslation();
   const { field, formState } = useController({ name, control, defaultValue });
   const error = formState?.errors?.[name]?.message;
 
@@ -51,6 +53,7 @@ const FormDropdownInput = ({
           value={field.value}
           onChange={handleChange}
           onBlur={field.onBlur}
+          autoComplete="false"
           {..._input}
         />
         <AutoCompleteList>
@@ -72,7 +75,7 @@ const FormDropdownInput = ({
         </AutoCompleteList>
       </AutoComplete>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <FormErrorMessage>{t(error)}</FormErrorMessage>
     </FormControl>
   );
 };

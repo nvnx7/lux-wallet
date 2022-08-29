@@ -12,7 +12,7 @@ const HeaderLayout = ({ children, title = '', icon, iconPosition = 'left', ...pr
 
   return (
     <Box height="100%" display="flex" flexDirection="column" position="relative">
-      <Header h="11%" />
+      <Header h="10%" />
       <HStack justify="center" py={3} position="relative" h="8%">
         <IconButton
           icon={<ArrowLeftIcon />}
@@ -29,7 +29,7 @@ const HeaderLayout = ({ children, title = '', icon, iconPosition = 'left', ...pr
         </Text>
       </HStack>
       <Divider m={0} p={0} />
-      <Box p={2} h="88%" {...props}>
+      <Box p={2} h="82%" {...props}>
         {children}
       </Box>
     </Box>

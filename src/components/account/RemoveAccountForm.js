@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { FormPasswordInput } from 'components/common/form';
 
 const schema = yup.object().shape({
-  password: yup.string().required('Required'),
+  password: yup.string().required('error:required'),
 });
 const resolver = yupResolver(schema);
 const defaultValues = isDev

@@ -14,8 +14,8 @@ import Path from 'router/paths';
 const schema = yup.object().shape({
   profileAddress: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
 });
 const resolver = yupResolver(schema);
 

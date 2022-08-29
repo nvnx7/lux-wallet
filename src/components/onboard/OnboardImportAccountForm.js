@@ -12,8 +12,8 @@ import { useLocation } from 'react-router-dom';
 const schema = yup.object().shape({
   privateKey: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{64})$/, 'Invalid private key')
-    .required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{64})$/, 'error:invalid-private-key')
+    .required('error:required'),
   label: yup.string(),
 });
 const resolver = yupResolver(schema);

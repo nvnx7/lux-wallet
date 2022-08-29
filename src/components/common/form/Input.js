@@ -1,5 +1,6 @@
 import { FormControl, Input, FormLabel, FormHelperText, FormErrorMessage } from '@chakra-ui/react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const FormInput = ({
   name,
@@ -15,6 +16,7 @@ const FormInput = ({
   _input,
   ...props
 }) => {
+  const { t } = useTranslation();
   const { field, formState } = useController({ name, control, defaultValue });
   const error = formState?.errors?.[name]?.message;
 
@@ -31,7 +33,7 @@ const FormInput = ({
         {..._input}
       />
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <FormErrorMessage>{t(error)}</FormErrorMessage>
     </FormControl>
   );
 };

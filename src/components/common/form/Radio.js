@@ -7,6 +7,7 @@ import {
   RadioGroup,
 } from '@chakra-ui/react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const FormRadioGroup = ({
   name,
@@ -19,6 +20,7 @@ const FormRadioGroup = ({
   children,
   ...props
 }) => {
+  const { t } = useTranslation();
   const { field, formState } = useController({ name, control });
   const error = formState?.errors?.[name]?.message;
 
@@ -35,7 +37,7 @@ const FormRadioGroup = ({
         {children}
       </RadioGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <FormErrorMessage>{t(error)}</FormErrorMessage>
     </FormControl>
   );
 };

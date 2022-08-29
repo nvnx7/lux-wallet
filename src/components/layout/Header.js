@@ -7,7 +7,7 @@ import { useWallet } from 'contexts/wallet';
 const Header = ({ ...props }) => {
   const { isUnlocked } = useWallet();
   return (
-    <HStack width="100%" justify="space-between" pl={0} pr={2} bgColor="blackAlpha.800" {...props}>
+    <HStack width="100%" justify="space-between" px={2} bgColor="blackAlpha.800" {...props}>
       <Logo />
       <Text fontWeight="bold" fontSize={24} letterSpacing={8} align="center" color="white">
         {appName}

@@ -14,18 +14,22 @@ import { useEffect } from 'react';
 import useToast from 'hooks/useToast';
 import { useSendVaultToken } from 'api/asset/sendVaultToken';
 import { areEqualHex } from 'utils/web3';
-import { useListVaults } from 'api/vault/listVaults';
+import useVaults from 'hooks/useVaults';
 
 const schema = yup.object().shape({
   from: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
   to: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
-  amount: yup.number().positive('Invalid amount').typeError('Invalid amount').required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
+  amount: yup
+    .number()
+    .positive('error:invalid-amount')
+    .typeError('error:invalid-amount')
+    .required('error:required'),
 });
 const resolver = yupResolver(schema);
 
@@ -48,11 +52,9 @@ const SendTokenForm = ({ ...props }) => {
     assetAddress: params.tokenAddress,
     ownerAddress: params.fromAddress,
   });
-  const {
-    data: vaults,
-    isLoading: areVaultsLoading,
-    error: vaultError,
-  } = useListVaults({ upAddress: activeAccount.universalProfile });
+  const { vaults, isLoading: areVaultsLoading } = useVaults({
+    upAddress: activeAccount.universalProfile,
+  });
   const {
     mutate: sendUpToken,
     isSuccess: isUpTxSuccess,
@@ -77,10 +79,10 @@ const SendTokenForm = ({ ...props }) => {
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
     vaults
-      ?.filter(address => !areEqualHex(params.fromAddress, address))
-      .map(vaultAddress => ({
-        label: 'Vault',
-        value: vaultAddress,
+      ?.filter(vault => !areEqualHex(params.fromAddress, vault.address))
+      .map(vault => ({
+        label: vault.label || '---',
+        value: vault.address,
       })) || [];
   const addressOpts = [profileOpt, ...vaultOpts];
 

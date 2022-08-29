@@ -10,8 +10,8 @@ import useImportedLegacyAssets from 'hooks/useImportedLegacyAssets';
 const schema = yup.object().shape({
   address: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
   type: yup.string().required(),
 });
 const resolver = yupResolver(schema);

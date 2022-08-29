@@ -1,0 +1,9 @@
+{
+  "required": "Required",
+  "invalid-address": "Invalid address",
+  "invalid-amount": "Invalid amount",
+  "invalid-private-key": "Invalid private key",
+  "min-8-chars": "Min 8 characters",
+  "max-32-chars": "Max 32 characters",
+  "passwords-not-matching": "Passwords do not match!"
+}

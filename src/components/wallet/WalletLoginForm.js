@@ -9,7 +9,7 @@ import { Mock } from 'settings/constants';
 import { useWallet } from 'contexts/wallet';
 
 const schema = yup.object().shape({
-  password: yup.string().required('Required'),
+  password: yup.string().required('error:required'),
 });
 const resolver = yupResolver(schema);
 
