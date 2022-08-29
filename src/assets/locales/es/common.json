@@ -20,5 +20,10 @@
   "buy": "Compra",
   "guardians": "Guardianes",
   "social-recovery": "Recuperación Social",
-  "social-recovery-desc": "Recuperación social le permite agregar las direcciones de sus amigos/familiares como dirección de tutor, permitiéndoles otorgarle acceso a su perfil en caso de que lo pierda."
+  "social-recovery-desc": "Recuperación social le permite agregar las direcciones de sus amigos/familiares como dirección de tutor, permitiéndoles otorgarle acceso a su perfil en caso de que lo pierda.",
+  "permissions": "Permisos",
+  "permissioned-addresses-desc": "Direcciones autorizadas para su perfil universal",
+  "all-allowed": "Todo Permitido",
+  "edit": "Editar",
+  "your-account-address": "La Dirección de su Cuenta"
 }
