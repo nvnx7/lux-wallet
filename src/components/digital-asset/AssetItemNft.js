@@ -22,7 +22,7 @@ const AssetItemNft = ({ assetAddress, ownerAddress, onSendClick, ...props }) => 
     <Card px={4} py={4} {...props}>
       <HStack justify="space-between" alignSelf="stretch">
         <HStack {...props}>
-          <AssetIcon src={data?.iconUrl} />
+          <AssetIcon src={data?.iconUrl} isNft={true} />
           <VStack alignItems="start" justifyContent="center" spacing={0}>
             <Text fontWeight="semibold">{data?.symbol}</Text>
             <HStack>

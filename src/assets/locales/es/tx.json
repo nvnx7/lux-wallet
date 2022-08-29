@@ -1,0 +1,23 @@
+{
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
+  "view-on-explorer": "Ver en Explorer",
+  "send": "Enviar",
+  "send-lyx": "Enviar LYX",
+  "send-asset": "Enviar activo",
+  "from": "Desde",
+  "to": "A",
+  "amount": "Cantidad",
+  "value": "Valor",
+  "status": "Estado",
+  "success": "Éxito",
+  "pending": "Pendiente",
+  "error": "Error",
+  "token-id": "Identificación del token",
+  "asset": "Activo",
+  "review": "Revisar",
+  "tx-success": "¡Transacción enviada!",
+  "tx-confirmed": "Transacción confirmada",
+  "tx-error": "¡Error de transacción!",
+  "activity": "Actividad"
+}

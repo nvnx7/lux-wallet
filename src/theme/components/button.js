@@ -1,11 +1,21 @@
+import { gradient } from 'theme/colors';
+
 const Button = {
+  baseStyle: {
+    borderRadius: '3xl',
+    _hover: {
+      transform: `scale(1.04)`,
+    },
+  },
   defaultProps: {
-    colorScheme: 'primary',
     variant: 'solid',
   },
   variants: {
     solid: {
-      borderRadius: '3xl',
+      bgImage: gradient,
+      _hover: {
+        bgImage: gradient,
+      },
     },
   },
 };

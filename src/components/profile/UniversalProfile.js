@@ -12,7 +12,7 @@ import {
 import { useGetBalance } from 'api/account/getBalance';
 import { useGetUniversalProfileMetadata } from 'api/profile/getUniversalProfile';
 import { Card, CopyableAddress, LuksoLogo } from 'components/common/ui';
-import { ArrowUpRightIcon } from 'components/icons';
+import { ArrowDownLeftIcon, ArrowUpRightIcon } from 'components/icons';
 import { useWallet } from 'contexts/wallet';
 import { usePreferences } from 'contexts/preferences';
 import { useTranslation } from 'react-i18next';
@@ -77,9 +77,21 @@ const UniversalProfile = ({ ...props }) => {
           {balance?.lyx} {network?.currencySymbol}
         </Text>
       </HStack>
-      <Button size="sm" leftIcon={<ArrowUpRightIcon />} onClick={handleSend}>
-        {t('tx:send')}
-      </Button>
+
+      <HStack>
+        <Button
+          size="sm"
+          leftIcon={<ArrowUpRightIcon />}
+          onClick={handleSend}
+          bgImage={`linear-gradient(290deg, #7b4397 0%, #dc2430 74%)`}
+          color="white"
+        >
+          {t('common:send')}
+        </Button>
+        <Button size="sm" leftIcon={<ArrowDownLeftIcon />} disabled={true} onClick={handleSend}>
+          {t('common:buy')}
+        </Button>
+      </HStack>
     </VStack>
   );
 };

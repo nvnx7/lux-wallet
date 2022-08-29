@@ -1,9 +1,9 @@
-import { Box, Center, Divider, IconButton, Text } from '@chakra-ui/react';
+import { Box, Center, Divider, HStack, IconButton, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon } from 'components/icons';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 
-const HeaderLayout = ({ children, title = '', ...props }) => {
+const HeaderLayout = ({ children, title = '', icon, iconPosition = 'left', ...props }) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -12,8 +12,8 @@ const HeaderLayout = ({ children, title = '', ...props }) => {
 
   return (
     <Box height="100%" display="flex" flexDirection="column" position="relative">
-      <Header />
-      <Center py={3} position="relative">
+      <Header h="11%" />
+      <HStack justify="center" py={3} position="relative" h="8%">
         <IconButton
           icon={<ArrowLeftIcon />}
           variant="ghost"
@@ -23,12 +23,13 @@ const HeaderLayout = ({ children, title = '', ...props }) => {
           top={1}
           bottom={0}
         />
+        {!!icon && icon}
         <Text fontWeight="semibold" textAlign="center" maxW="60%" noOfLines={1}>
           {title}
         </Text>
-      </Center>
+      </HStack>
       <Divider m={0} p={0} />
-      <Box p={2} {...props}>
+      <Box p={2} h="88%" {...props}>
         {children}
       </Box>
     </Box>

@@ -1,9 +1,19 @@
 import { useNavigate } from 'react-router-dom';
-import { Progress, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
+import {
+  Progress,
+  Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  VStack,
+} from '@chakra-ui/react';
 import { useGetAllAssets } from 'api/asset/getAllAssets';
 import { AssetList } from 'components/digital-asset';
 import { DiamondIcon } from 'components/icons';
 import Path from 'router/paths';
+import { gradient } from 'theme/colors';
 
 const VaultAssets = ({ vaultAddress, ...props }) => {
   const navigate = useNavigate();
@@ -32,9 +42,13 @@ const VaultAssets = ({ vaultAddress, ...props }) => {
   return (
     <VStack alignItems="stretch" {...props}>
       <Tabs maxH="100%" variant="soft-rounded" isLazy>
-        <TabList>
-          <Tab fontSize="sm">Tokens</Tab>
-          <Tab fontSize="sm">NFTs</Tab>
+        <TabList px={2}>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
+            Tokens
+          </Tab>
+          <Tab fontSize="sm" _selected={{ bgImage: gradient, color: 'white' }}>
+            NFTs
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -62,8 +76,7 @@ const VaultAssets = ({ vaultAddress, ...props }) => {
 const LoadingView = ({ ...props }) => {
   return (
     <VStack w="100%" justify="center" spacing={4} {...props}>
-      <DiamondIcon size={64} />
-      <Progress w="40%" size="xs" colorScheme="primary" isIndeterminate />
+      <Spinner thickness={8} speed="0.65s" color="orange.600" size="xl" />
     </VStack>
   );
 };

@@ -16,6 +16,7 @@ import {
   VaultDetail,
   VaultManager,
   Activity,
+  SocialRecovery,
 } from 'pages';
 import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Path from './paths';
@@ -63,6 +64,8 @@ const MemoryRoutes = () => {
       <Route path={Path.TX_SEND_NFT} element={<SendNft />} />
       {/* Activity pages */}
       <Route path={Path.ACTIVITY} element={<Activity />} />
+      {/* Social Recovery pages */}
+      <Route path={Path.SOCIAL_RECOVERY} element={<SocialRecovery />} />
     </Routes>
   );
 };

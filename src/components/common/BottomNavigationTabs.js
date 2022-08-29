@@ -1,66 +1,71 @@
-import { HStack, IconButton, Text, VStack } from '@chakra-ui/react';
-import { createElement, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createElement } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { HStack, Text, VStack } from '@chakra-ui/react';
 import Path from 'router/paths';
-import { ActivityIcon, CogIcon, DiamondIcon, HomeIcon, ShieldIcon } from 'components/icons';
+import { ActivityIcon, DiamondIcon, HomeIcon, SafeIcon } from 'components/icons';
 import { logDebug } from 'utils/logger';
+import { useTranslation } from 'react-i18next';
+import { gradient } from 'theme/colors';
 
-const Tab = ({ isActive, icon, label, onClick, ...props }) => {
+const TabItem = ({ isActive, icon, label, onClick, ...props }) => {
   const iconEl = createElement(icon, { size: 28, color: 'white' });
   return (
-    <VStack spacing={0} alignItems="center" {...props}>
-      <IconButton size="md" icon={iconEl} variant="ghost" onClick={onClick} />
-      {/* <Text fontSize="xs" color="gray.100">
-        {label}
-      </Text> */}
+    <VStack
+      boxSize={14}
+      spacing={0}
+      alignItems="center"
+      justify="center"
+      onClick={onClick}
+      rounded={12}
+      bg={isActive ? gradient : 'none'}
+      _hover={{
+        cursor: 'pointer',
+        bg: gradient,
+      }}
+      {...props}
+    >
+      {iconEl}
+      <Text fontSize="xs">{label}</Text>
     </VStack>
   );
 };
 
 const tabPaths = [Path.HOME, Path.DIGITAL_ASSETS, Path.VAULT_MANAGER, Path.ACTIVITY];
-
 const BottomNavigationTabs = ({ ...props }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(0);
+  const { pathname } = useLocation();
 
   const handleTabClick = index => {
     logDebug('BottomNavigationTabs:handleTabClick', index);
     const path = tabPaths[index];
     navigate(path);
-    setActiveTab(index);
   };
 
   return (
-    <HStack
-      justify="space-between"
-      px={4}
-      py={4}
-      rounded="xl"
-      background="linear-gradient(180deg, #E74C3C 49.44%, #F9B93C 153.37%)"
-      {...props}
-    >
-      <Tab
-        label="Home"
+    <HStack justify="space-between" px={4} py={2} rounded="xl" bg="whiteAlpha.200" {...props}>
+      <TabItem
+        label={t('common:home')}
         icon={HomeIcon}
-        isActive={activeTab === 0}
+        isActive={pathname === Path.HOME}
         onClick={() => handleTabClick(0)}
       />
-      <Tab
-        label="Assets"
+      <TabItem
+        label={t('common:assets')}
         icon={DiamondIcon}
-        isActive={activeTab === 1}
+        isActive={pathname === Path.DIGITAL_ASSETS}
         onClick={() => handleTabClick(1)}
       />
-      <Tab
-        label="Vaults"
-        icon={ShieldIcon}
-        isActive={activeTab === 2}
+      <TabItem
+        label={t('common:vaults')}
+        icon={SafeIcon}
+        isActive={pathname === Path.VAULT_MANAGER}
         onClick={() => handleTabClick(2)}
       />
-      <Tab
-        label="Setting"
+      <TabItem
+        label={t('common:activity')}
         icon={ActivityIcon}
-        isActive={activeTab === 3}
+        isActive={pathname === Path.ACTIVITY}
         onClick={() => handleTabClick(3)}
       />
     </HStack>

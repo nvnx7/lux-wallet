@@ -10,5 +10,6 @@
   "import": "Import",
   "no-asset-found": "No digital assets found",
   "vault-manager": "Vault Manager",
+  "no-vault-found": "No vaults found in your universal profile. Create one first.",
   "error-loading": "Error loading assets!"
 }

@@ -1,0 +1,18 @@
+{
+  "accounts": "Cuentas",
+  "import": "Importar",
+  "import-account": "Importar cuenta",
+  "create-account": "Crear Cuenta",
+  "export-private-key": "Exportar clave privada",
+  "export-account": "Exportar cuenta",
+  "export-warning": "Advertencia: ¡No reveles esta clave a nadie!",
+  "incorrect-password": "Contraseña incorrecta",
+  "lock-account": "Bloquear Billetera",
+  "delete-account": "Borrar Cuenta",
+  "caution": "Precaución",
+  "delete-account-confirm": "¿Está seguro de eliminar la siguiente cuenta?",
+  "delete-account-caution": "¡Asegúrate de exportar tu clave privada, de lo contrario perderás el acceso a todos los fondos de tu cuenta!",
+  "confirm-backup": "He hecho una copia de seguridad de mi clave privada",
+  "confirm-delete": "Confirmar eliminación",
+  "no-activity-found": "Aún no hay actividades"
+}

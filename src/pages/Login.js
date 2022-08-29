@@ -9,8 +9,8 @@ const Login = () => {
 
   return (
     <Layout>
-      <VStack h="full">
-        <Logo />
+      <VStack>
+        <Logo size={64} />
         <Heading py={8}>{t('common:welcome')}</Heading>
         <WalletLoginForm />
       </VStack>

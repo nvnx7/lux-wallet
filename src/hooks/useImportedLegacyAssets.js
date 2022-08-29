@@ -7,6 +7,10 @@ const defaultValue = {
   tokens: [],
   nfts: [],
 };
+
+/**
+ * For managing the imported legacy Tokens and NFTs
+ */
 const useImportedLegacyAssets = () => {
   const [assets, setAssets] = useLocalStorage(KEY_IMPORTED_LEGACY_ASSETS, defaultValue);
 

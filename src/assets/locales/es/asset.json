@@ -1,3 +1,14 @@
 {
-  "balance": "Balanza"
+  "balance": "saldo",
+  "send": "Enviar",
+  "asset": "Activos",
+  "digital-assets": "Activos Digitales",
+  "issued": "Emitido",
+  "received": "Recibido",
+  "lukso-assets": "Activos de Lukso",
+  "legacy-assets": "Activos heredados",
+  "import": "Importar",
+  "no-asset-found": "No se encontraron activos digitales",
+  "vault-manager": "Administrador de la bóveda",
+  "error-loading": "¡Error al cargar activos!"
 }

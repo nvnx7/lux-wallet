@@ -1,27 +1,32 @@
-import { Text, VStack } from '@chakra-ui/react';
+import { Box, Center, Square, Text, VStack } from '@chakra-ui/react';
 import { Identicon } from 'components/common';
+import { SafeIcon } from 'components/icons';
+
 import { abbreviateHex } from 'utils/web3';
 
 const VaultItem = ({ data, onClick, ...props }) => {
   return (
     <VStack
       boxSize={20}
-      {...props}
       shadow="md"
-      bgColor="whiteAlpha.200"
       rounded="md"
       cursor="pointer"
       onClick={onClick}
+      justify="center"
+      _hover={{ bgColor: 'whiteAlpha.200' }}
+      {...props}
     >
-      <Identicon address={data.address} size={32} variant="square" />
+      <Square position="relative" justifyContent="center" alignItems="center">
+        <Identicon address={data.address} size={48} variant="square" />
+        <Box position="absolute" top={0} left={0} right={0} bottom={0} bgColor="blackAlpha.400" />
+        <Center position="absolute" top={0} left={0} right={0} bottom={0}>
+          <SafeIcon size={32} />
+        </Center>
+      </Square>
+
       <Text fontSize="xs" fontWeight="semibold" noOfLines={1}>
         {data.label || abbreviateHex(data.address, 8)}
       </Text>
-      {/* <CopyableAddress
-        address={data.address}
-        abbreviate={6}
-        text={{ fontSize: 'xs', color: 'gray.400' }}
-      /> */}
     </VStack>
   );
 };

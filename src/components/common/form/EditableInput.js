@@ -2,7 +2,7 @@ import { HStack, IconButton, Input, Text } from '@chakra-ui/react';
 import { CheckIcon, EditIcon } from 'components/icons';
 import { useState } from 'react';
 
-function EditableInput({ input, value, onSubmit, ...props }) {
+function EditableInput({ input = {}, text = {}, value, onSubmit, ...props }) {
   const [editMode, setEditMode] = useState(false);
   const [val, setValue] = useState(value);
 
@@ -26,7 +26,9 @@ function EditableInput({ input, value, onSubmit, ...props }) {
         </>
       ) : (
         <>
-          <Text textAlign="center">{value}</Text>
+          <Text textAlign="center" {...text}>
+            {value}
+          </Text>
           <IconButton
             size="sm"
             icon={<EditIcon />}
