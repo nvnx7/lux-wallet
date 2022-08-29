@@ -12,13 +12,13 @@ import { Mock } from 'settings/constants';
 const schema = yup.object().shape({
   password: yup
     .string()
-    .min(8, 'Min 8 characters')
-    .max(32, 'Max 32 characters')
-    .required('Password Required'),
+    .min(8, 'error:min-8-chars')
+    .max(32, 'error:max-32-chars')
+    .required('error:required'),
   confirmPassword: yup
     .string()
-    .required('Confirm Password Required')
-    .oneOf([yup.ref('password'), null], 'Passwords do not match!'),
+    .required('error:required')
+    .oneOf([yup.ref('password'), null], 'error:passwords-not-matching'),
 });
 const resolver = yupResolver(schema);
 

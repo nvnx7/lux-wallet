@@ -17,6 +17,8 @@ import {
   VaultManager,
   Activity,
   SocialRecovery,
+  UniversalProfilePermissions,
+  VaultPermissions,
 } from 'pages';
 import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Path from './paths';
@@ -51,11 +53,13 @@ const MemoryRoutes = () => {
       <Route path={Path.ONBOARD_IMPORT_ACCOUNT} element={<OnboardImportAccount />} />
       {/* Profile pages */}
       <Route path={Path.PROFILE_ADD} element={<AddUniversalProfile />} />
+      <Route path={Path.PROFILE_PERMISSIONS} element={<UniversalProfilePermissions />} />
       {/* Assets pages */}
       <Route path={Path.DIGITAL_ASSETS} element={<DigitalAssets />} />
       {/* Vaults pages */}
       <Route path={Path.VAULT_MANAGER} element={<VaultManager />} />
       <Route path={Path.VAULT_DETAIL} element={<VaultDetail />} />
+      <Route path={Path.VAULT_PERMISSIONS} element={<VaultPermissions />} />
       {/* Settings pages */}
       <Route path={Path.SETTINGS} element={<Settings />} />
       {/* Tx Pages */}

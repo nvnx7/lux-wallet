@@ -10,7 +10,7 @@ import { useWallet } from 'contexts/wallet';
 import { useState } from 'react';
 
 const schema = yup.object().shape({
-  password: yup.string().required('Required'),
+  password: yup.string().required('error:required'),
 });
 const resolver = yupResolver(schema);
 

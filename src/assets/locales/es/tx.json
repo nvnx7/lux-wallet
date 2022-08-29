@@ -13,7 +13,7 @@
   "success": "Éxito",
   "pending": "Pendiente",
   "error": "Error",
-  "token-id": "Identificación del token",
+  "token-id": "Token Id",
   "asset": "Activo",
   "review": "Revisar",
   "tx-success": "¡Transacción enviada!",

@@ -3,9 +3,9 @@ import { Icon } from '@chakra-ui/react';
 const Logo = ({ size = 42, ...props }) => {
   return (
     <Icon viewBox="0 0 203 203" width={`${size}px`} height={`${size}px`} {...props}>
-      <circle cx="102" cy="102" r="72" fill="url(#paint0_linear_24_21)" fill-opacity="0.6" />
-      <circle cx="101.5" cy="101.5" r="101.5" fill="url(#paint1_linear_24_21)" fill-opacity="0.9" />
-      <circle cx="102" cy="102" r="50" fill="url(#paint2_linear_24_21)" fill-opacity="0.3" />
+      <circle cx="102" cy="102" r="72" fill="url(#paint0_linear_24_21)" fillOpacity="0.6" />
+      <circle cx="101.5" cy="101.5" r="101.5" fill="url(#paint1_linear_24_21)" fillOpacity="0.9" />
+      <circle cx="102" cy="102" r="50" fill="url(#paint2_linear_24_21)" fillOpacity="0.3" />
       <defs>
         <linearGradient
           id="paint0_linear_24_21"

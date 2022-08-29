@@ -6,6 +6,7 @@ import Switch from './switch';
 import Heading from './heading';
 import Menu from './menu';
 import Spinner from './spinner';
+import Tooltip from './tooltip';
 
 const components = {
   Button,
@@ -17,6 +18,7 @@ const components = {
   Heading,
   Menu,
   Spinner,
+  Tooltip,
 };
 
 export default components;

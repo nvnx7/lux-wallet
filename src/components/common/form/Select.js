@@ -1,5 +1,6 @@
 import { FormControl, FormErrorMessage, FormLabel, Select } from '@chakra-ui/react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 const FormSelect = ({
   name,
@@ -12,6 +13,7 @@ const FormSelect = ({
   disabled = false,
   ...props
 }) => {
+  const { t } = useTranslation();
   const { field, formState } = useController({ name, control, defaultValue });
   const error = formState?.errors?.[name]?.message;
 
@@ -30,7 +32,7 @@ const FormSelect = ({
           </option>
         ))}
       </Select>
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <FormErrorMessage>{t(error)}</FormErrorMessage>
     </FormControl>
   );
 };

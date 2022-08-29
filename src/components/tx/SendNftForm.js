@@ -15,18 +15,18 @@ import { areEqualHex } from 'utils/web3';
 import { useSendUpNft } from 'api/asset/sendUpNft';
 import { useSendVaultNft } from 'api/asset/sendVaultNft';
 import { useListNfts } from 'api/asset/listNfts';
-import { useListVaults } from 'api/vault/listVaults';
+import useVaults from 'hooks/useVaults';
 
 const schema = yup.object().shape({
   from: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
   to: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
-  tokenId: yup.string().required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
+  tokenId: yup.string().required('error:required'),
 });
 const resolver = yupResolver(schema);
 
@@ -45,23 +45,27 @@ const SendNftForm = ({ ...props }) => {
     assetAddress: params.nftAddress,
     ownerAddress: params.fromAddress,
   });
-  const {
-    data: vaults,
-    isLoading: areVaultsLoading,
-    isError: isVaultError,
-  } = useListVaults({ upAddress: activeAccount.universalProfile });
+  const { vaults, isLoading: areVaultsLoading } = useVaults({
+    upAddress: activeAccount.universalProfile,
+  });
   const {
     data: nfts,
     isLoading: isNftLoading,
     isError: isNftError,
   } = useListNfts({ nftAddress: params.nftAddress, ownerAddress: params.fromAddress });
 
-  const nftOptions = nfts?.map(id => ({ label: `${asset.symbol} #${id}`, value: `${id}` })) || [];
+  const nftOptions = nfts?.map(id => ({ label: `${asset?.symbol} #${id}`, value: `${id}` })) || [];
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, setValue } = useForm({
     resolver,
-    defaultValues: { from: params.fromAddress || undefined, tokenId: nftOptions?.[0]?.value },
+    defaultValues: { from: params.fromAddress || undefined },
   });
+
+  // Sets first nft as default input
+  useEffect(() => {
+    nfts && nfts?.[0] && setValue('tokenId', `${nfts[0]}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nfts]);
 
   const {
     mutate: sendUpNft,
@@ -87,20 +91,20 @@ const SendNftForm = ({ ...props }) => {
 
   // For any error in asset/vault fetching
   useEffect(() => {
-    if (isAssetError || isVaultError || isNftError) {
+    if (isAssetError || isNftError) {
       showErrorToast({ title: t('asset:error-loading') });
       navigate(-1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAssetError, isVaultError, isNftError]);
+  }, [isAssetError, isNftError]);
 
   const profileOpt = { label: 'Universal Profile', value: activeAccount.universalProfile };
   const vaultOpts =
     vaults
-      ?.filter(address => !areEqualHex(params.fromAddress, address))
-      .map(vaultAddress => ({
-        label: 'Vault',
-        value: vaultAddress,
+      ?.filter(vault => !areEqualHex(params.fromAddress, vault.address))
+      .map(vault => ({
+        label: vault.label || '---',
+        value: vault.address,
       })) || [];
   const addressOpts = [profileOpt, ...vaultOpts];
 
@@ -157,7 +161,6 @@ const SendNftForm = ({ ...props }) => {
           flex={0.6}
           options={nftOptions}
           disabled={isLoading}
-          defaultValue={nftOptions?.[0]?.value}
         />
       </HStack>
       <Button type="submit" disabled={isLoading} isLoading={isUpTxLoading || isVaultTxLoading}>

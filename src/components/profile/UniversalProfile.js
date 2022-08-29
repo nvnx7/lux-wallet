@@ -18,6 +18,7 @@ import { usePreferences } from 'contexts/preferences';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Path from 'router/paths';
+import ProfileMenu from './ProfileMenu';
 
 const UniversalProfile = ({ ...props }) => {
   const { t } = useTranslation();
@@ -60,6 +61,7 @@ const UniversalProfile = ({ ...props }) => {
           <Text fontSize="sm" fontWeight="bold" color="gray.400" textAlign="center">
             @{profile?.name}
           </Text>
+          <ProfileMenu position="absolute" top={0} right={0} />
         </Card>
 
         <Center position="absolute" bottom={2} right={0} left={0}>

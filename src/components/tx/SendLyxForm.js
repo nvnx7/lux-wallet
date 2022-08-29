@@ -17,13 +17,17 @@ import { useNavigate } from 'react-router-dom';
 const schema = yup.object().shape({
   from: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
   to: yup
     .string()
-    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'Invalid address')
-    .required('Required'),
-  amount: yup.number().positive('Invalid amount').typeError('Invalid amount').required('Required'),
+    .matches(/^(0x)?([A-Fa-f0-9]{40})$/, 'error:invalid-address')
+    .required('error:required'),
+  amount: yup
+    .number()
+    .positive('error:invalid-amount')
+    .typeError('error:invalid-amount')
+    .required('error:required'),
 });
 const resolver = yupResolver(schema);
 

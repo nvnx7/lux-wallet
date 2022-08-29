@@ -1,0 +1,9 @@
+{
+  "required": "Requerido",
+  "invalid-address": "Dirección no válida",
+  "invalid-amount": "Cantidad no válida",
+  "invalid-private-key": "Clave privada inválida",
+  "min-8-chars": "Mínimo 8 caracteres",
+  "max-32-chars": "Máximo 32 caracteres",
+  "passwords-not-matching": "¡Las contraseñas no coinciden!"
+}

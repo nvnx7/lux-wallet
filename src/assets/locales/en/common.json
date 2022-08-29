@@ -20,5 +20,10 @@
   "buy": "Buy",
   "guardians": "Guardians",
   "social-recovery": "Social Recovery",
-  "social-recovery-desc": "Social recovery lets add your friends/family addresses as guardian address allowing them to grant you access back to your profile in case you lost it."
+  "social-recovery-desc": "Social recovery lets add your friends/family addresses as guardian address allowing them to grant you access back to your profile in case you lost it.",
+  "permissions": "Permissions",
+  "permissioned-addresses-desc": "Permissioned addresses for your Universal Profile",
+  "all-allowed": "All Allowed",
+  "edit": "Edit",
+  "your-account-address": "Your Account Address"
 }

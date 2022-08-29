@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 
 const FormPasswordInput = ({
@@ -24,6 +25,7 @@ const FormPasswordInput = ({
   _input,
   ...props
 }) => {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
   const { field, formState } = useController({ name, control, defaultValue });
@@ -51,7 +53,7 @@ const FormPasswordInput = ({
         </InputRightElement>
       </InputGroup>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <FormErrorMessage>{t(error)}</FormErrorMessage>
     </FormControl>
   );
 };
