@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 const SocialRecoveryView = ({ ...props }) => {
   const { t } = useTranslation();
   return (
-    <VStack h="100%" py={20} px={4} spacing={8} {...props}>
+    <VStack h="100%" spacing={8} {...props}>
       <Text variant="body" textAlign="center">
         {t('common:social-recovery-desc')}
       </Text>
