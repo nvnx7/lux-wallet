@@ -12,7 +12,7 @@ import ExportAccount from './ExportAccount';
 
 const AccountDetails = ({ ...props }) => {
   const [showExportKey, setShowExportKey] = useState(false);
-  const { activeAccount, updateAccount } = useWallet();
+  const { activeAccount, updateAccount, accountsData } = useWallet();
   const { t } = useTranslation();
   const { setModalView } = useUI();
 
@@ -67,15 +67,17 @@ const AccountDetails = ({ ...props }) => {
           <Button leftIcon={<KeyIcon />} onClick={() => setShowExportKey(true)}>
             {t('account:export-private-key')}
           </Button>
-          <Button
-            leftIcon={<TrashIcon />}
-            variant="ghost"
-            colorScheme="red"
-            onClick={handleRemove}
-            size="sm"
-          >
-            {t('account:delete-account')}
-          </Button>
+          {accountsData && accountsData?.length > 1 && (
+            <Button
+              leftIcon={<TrashIcon />}
+              variant="ghost"
+              colorScheme="red"
+              onClick={handleRemove}
+              size="sm"
+            >
+              {t('account:delete-account')}
+            </Button>
+          )}
         </>
       ) : (
         <ExportAccount />

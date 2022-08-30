@@ -1,4 +1,4 @@
-import { Box, Button, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Link, SimpleGrid, Spinner, Text, VStack } from '@chakra-ui/react';
 import { AddIcon } from 'components/icons';
 import { useWallet } from 'contexts/wallet';
 import { ModalView, useUI } from 'contexts/ui';
@@ -20,7 +20,7 @@ const VaultsList = ({ ...props }) => {
   });
 
   if (isLoading) {
-    return 'Loading..';
+    return <LoadingView />;
   }
 
   const handleClick = address => {
@@ -69,6 +69,22 @@ const EmptyView = ({ ...props }) => {
       <Text fontSize="sm" color="gray.400" textAlign="center" px={8}>
         {t('asset:no-vault-found')}
       </Text>
+      <Text color="white" fontSize="xs" textAlign="center" pt={16} px={8}>
+        (Not seeing your vault? This might be due to a known bug in current LSP contract
+        implementation.{' '}
+        <Link isExternal href="https://lux-wallet.vercel.app/issues" color="orange">
+          See here{' '}
+        </Link>
+        or create new one using button below! )
+      </Text>
+    </VStack>
+  );
+};
+
+const LoadingView = ({ ...props }) => {
+  return (
+    <VStack w="100%" justify="center" spacing={4} {...props}>
+      <Spinner thickness={8} speed="0.65s" color="orange.600" size="xl" />
     </VStack>
   );
 };

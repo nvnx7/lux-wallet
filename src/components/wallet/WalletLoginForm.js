@@ -42,7 +42,7 @@ const LoginForm = ({ ...props }) => {
   return (
     <VStack as="form" onSubmit={handleSubmit(onSubmit)} {...props}>
       <FormPasswordInput label={t('form:your-password')} name="password" control={control} />
-      <Button type="submit">{t('form:login')}</Button>
+      <Button type="submit">{t('common:unlock')}</Button>
     </VStack>
   );
 };
