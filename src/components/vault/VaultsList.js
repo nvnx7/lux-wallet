@@ -34,7 +34,7 @@ const VaultsList = ({ ...props }) => {
 
   return (
     <Box position="relative" height="100%">
-      {vaults.length !== 0 ? (
+      {vaults.length === 0 ? (
         <EmptyView />
       ) : (
         <SimpleGrid columns={3} spacing={8} justifyItems="center" {...props}>
