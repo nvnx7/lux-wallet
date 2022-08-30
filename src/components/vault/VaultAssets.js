@@ -1,23 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import {
-  Progress,
-  Spinner,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  VStack,
-} from '@chakra-ui/react';
+import { Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
 import { useGetAllAssets } from 'api/asset/getAllAssets';
 import { AssetList } from 'components/digital-asset';
-import { DiamondIcon } from 'components/icons';
 import Path from 'router/paths';
 import { gradient } from 'theme/colors';
 
-const VaultAssets = ({ vaultAddress, ...props }) => {
+const VaultAssets = ({ vault, ...props }) => {
   const navigate = useNavigate();
-  const { data, isFetching } = useGetAllAssets({ address: vaultAddress });
+  const { data, isFetching } = useGetAllAssets({ address: vault?.address });
 
   if (isFetching && !data) {
     return <LoadingView my={16} />;
@@ -25,8 +15,8 @@ const VaultAssets = ({ vaultAddress, ...props }) => {
 
   const handleSend = (assetAddress, isNft) => {
     const state = {
-      fromAddress: vaultAddress,
-      fromLabel: 'Vault',
+      fromAddress: vault?.address,
+      fromLabel: vault?.label,
     };
     if (isNft) {
       state.nftAddress = assetAddress;
@@ -54,7 +44,7 @@ const VaultAssets = ({ vaultAddress, ...props }) => {
           <TabPanel>
             <AssetList
               assetAddresses={assetData?.tokens || []}
-              ownerAddress={vaultAddress}
+              ownerAddress={vault?.address}
               onSendClick={addr => handleSend(addr, false)}
               areNfts={false}
             />
@@ -62,7 +52,7 @@ const VaultAssets = ({ vaultAddress, ...props }) => {
           <TabPanel>
             <AssetList
               assetAddresses={assetData?.nfts || []}
-              ownerAddress={vaultAddress}
+              ownerAddress={vault?.address}
               onSendClick={addr => handleSend(addr, true)}
               areNfts={true}
             />

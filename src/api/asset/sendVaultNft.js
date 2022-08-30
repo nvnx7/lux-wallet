@@ -2,15 +2,15 @@ import { sendSignedTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
 import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
-import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
-import LSP9Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
+import IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
+import Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import { padToBytes32Hex } from 'utils/web3';
 import useSentTxStore from 'hooks/useSentTxStore';
 import { logError } from 'utils/logger';
 
 /**
- * Send LSP8 Identifiable Digital Asset (nft) from Universal Profile contract
+ * Sends LSP8 Identifiable Digital Asset (nft) from Universal Profile contract
  */
 const sendVaultNft = async params => {
   const { accountAddress, upAddress, from, to, nftAddress, tokenId, force } = params;
@@ -22,8 +22,8 @@ const sendVaultNft = async params => {
 
   // Contracts
   const up = new web3.eth.Contract(UniversalProfile.abi, upAddress);
-  const vault = new web3.eth.Contract(LSP9Vault.abi, vaultAddress);
-  const nft = new web3.eth.Contract(LSP8IdentifiableDigitalAsset.abi, nftAddress);
+  const vault = new web3.eth.Contract(Vault.abi, vaultAddress);
+  const nft = new web3.eth.Contract(IdentifiableDigitalAsset.abi, nftAddress);
   const kmAddress = await up.methods.owner().call();
   const km = new web3.eth.Contract(KeyManager.abi, kmAddress);
 

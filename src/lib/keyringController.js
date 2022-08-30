@@ -6,6 +6,10 @@ export const KeyringType = {
   SIMPLE_KEYRING: 'Simple Key Pair',
 };
 
+/**
+ * @note Using localStorage for development
+ * Will be replaced with chrome.storage later
+ */
 const getVault = () => {
   return localStorage.getItem(KEY_KEYRING_VAULTS);
 };

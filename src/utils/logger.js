@@ -1,6 +1,9 @@
 import log from 'loglevel';
 import { env } from 'settings/config';
 
+/**
+ * Logger for debugging
+ */
 const level = env === 'development' ? 'trace' : 'error';
 log.setLevel(level);
 

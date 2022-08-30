@@ -1,11 +1,14 @@
 import { useQuery } from 'react-query';
 import ERC725 from '@erc725/erc725.js';
-import uProfileMetadataSchema from '@erc725/erc725.js/schemas/LSP3UniversalProfileMetadata.json';
+import upMetadataSchema from '@erc725/erc725.js/schemas/LSP3UniversalProfileMetadata.json';
 import { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
 const config = { ipfsGateway };
 
+/**
+ * Formats the received universal profile metadata
+ */
 const formatMetadata = data => {
   const metadata = {};
 
@@ -32,6 +35,9 @@ const formatMetadata = data => {
   return metadata;
 };
 
+/**
+ * Parses the universal profile data to plain format
+ */
 export const parseProfile = value => {
   const lsp3Profile = value['LSP3Profile'];
   const avatar = lsp3Profile.profileImage?.[0]?.url;
@@ -47,8 +53,12 @@ export const parseProfile = value => {
   };
 };
 
+/**
+ * Retrieves given universal profile's metadata
+ * & returns a formatted data
+ */
 const getUniversalProfileMetadata = async ({ profileAddress }) => {
-  const profile = new ERC725(uProfileMetadataSchema, profileAddress, web3Provider, config);
+  const profile = new ERC725(upMetadataSchema, profileAddress, web3Provider, config);
   const data = await profile.fetchData();
   const profileData = formatMetadata(data);
   return profileData;

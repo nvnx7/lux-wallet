@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
-import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
+import IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
 import { logError } from 'utils/logger';
 import { padToBytes32Hex } from 'utils/web3';
 import useSentTxStore from 'hooks/useSentTxStore';
@@ -20,7 +20,7 @@ const sendUpNft = async params => {
 
   // Contracts
   const up = new web3.eth.Contract(UniversalProfile.abi, upAddress);
-  const nft = new web3.eth.Contract(LSP8IdentifiableDigitalAsset.abi, nftAddress);
+  const nft = new web3.eth.Contract(IdentifiableDigitalAsset.abi, nftAddress);
   const kmAddress = await up.methods.owner().call();
   const km = new web3.eth.Contract(KeyManager.abi, kmAddress);
 

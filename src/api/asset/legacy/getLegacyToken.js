@@ -1,9 +1,13 @@
 import { useQuery } from 'react-query';
 import web3 from 'lib/web3';
-import tokenAbi from 'api/utils/abi/erc20.json';
+import tokenAbi from 'api/utils/abi/legacyToken.json';
 import { makeBatchCall } from 'api/utils/tx';
 import { logError } from 'utils/logger';
 
+/**
+ * Fetches a legacy (ERC20/ERC721) token's metadata (name/symbol)
+ * and balance of given owner address in a batch call
+ */
 const getToken = async ({ ownerAddress, tokenAddress }) => {
   const token = new web3.eth.Contract(tokenAbi, tokenAddress);
   const calls = [
