@@ -69,13 +69,13 @@ const EmptyView = ({ ...props }) => {
       <Text fontSize="sm" color="gray.400" textAlign="center" px={8}>
         {t('asset:no-vault-found')}
       </Text>
-      <Text color="white" fontSize="xs" textAlign="center" pt={20} px={8}>
+      <Text color="white" fontSize="xs" textAlign="center" pt={16} px={8}>
         (Not seeing your vault? This might be due to a known bug in current LSP contract
         implementation.{' '}
-        <Link isExternal href="" color="orange">
-          See here
+        <Link isExternal href="https://lux-wallet.vercel.app/issues" color="orange">
+          See here{' '}
         </Link>
-        )
+        or create new one using button below! )
       </Text>
     </VStack>
   );
