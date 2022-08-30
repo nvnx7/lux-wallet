@@ -1,10 +1,11 @@
 import useLocalStorage from 'hooks/useLocalStorage';
-import React, { createContext, useState, useContext, useMemo, useCallback } from 'react';
+import React, { createContext, useState, useContext, useMemo, useCallback, useEffect } from 'react';
 import keyringController, { KeyringType } from 'lib/keyringController';
 import { logDebug, logError } from 'utils/logger';
 import { KEY_ACCOUNTS_DATA } from 'utils/storage';
 import { areEqualHex, privateKeyToAddress } from 'utils/web3';
 import { usePreferences } from './preferences';
+import { removeSessionToken, restoreSessionToken, saveSessionToken } from 'lib/session';
 
 /**
  * Accounts data list storing non-sensitive account data
@@ -42,12 +43,26 @@ export const WalletProvider = ({ children }) => {
   const [accountsData, setAccountsData] = useLocalStorage(KEY_ACCOUNTS_DATA, defaultAccountsData);
   const [isUnlocked, setUnlocked] = useState(false);
 
+  useEffect(() => {
+    if (isUnlocked) return;
+    logDebug('WalletProvider', 'Trying to unlock by session');
+    restoreSessionToken().then(data => {
+      logDebug('WalletProvider', `Fetched data:`, data);
+      const secret = data?.payload;
+      logDebug('WalletProvider', `Fetched data: ${secret}`);
+      if (secret) {
+        unlockWallet(secret, false);
+      }
+    });
+  }, [isUnlocked]);
+
   const lockWallet = async () => {
+    await removeSessionToken();
     await keyringController.setLocked();
     setUnlocked(false);
   };
 
-  const unlockWallet = async password => {
+  const unlockWallet = async (password, save = true) => {
     const memState = await keyringController.memStore.getState();
     if (memState.isUnlocked) {
       setUnlocked(true);
@@ -62,6 +77,7 @@ export const WalletProvider = ({ children }) => {
     try {
       await keyringController.unlockKeyrings(password);
       setUnlocked(true);
+      save && saveSessionToken(password);
       return { isValid: true };
     } catch (error) {
       logError('AccountProvider:unlockAccount', error);
@@ -232,6 +248,7 @@ export const WalletProvider = ({ children }) => {
       deleteAccount,
       switchAccount: setActiveAccountAddress,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [isUnlocked, accountsData, activeAccount, addAccount]
   );
 

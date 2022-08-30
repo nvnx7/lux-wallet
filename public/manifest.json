@@ -7,9 +7,13 @@
     "default_popup": "index.html",
     "default_title": "Lux Wallet"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "icons": {
     "16": "logo.png",
     "48": "logo.png",
     "128": "logo.png"
-  }
+  },
+  "permissions": ["storage"]
 }
