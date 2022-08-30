@@ -1,6 +1,6 @@
 <img align="right" width="90" height="90" top="100" src="./public/logo.png">
 
-# Lux Wallet 
+# 💡 Lux Wallet 
 ### Lux is a wallet extension for Lukso Network
 
 ## Team Members
