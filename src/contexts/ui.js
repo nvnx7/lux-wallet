@@ -69,7 +69,7 @@ export const UIProvider = props => {
     openModal();
   };
 
-  // Force color mode to dark
+  // Force color mode to dark (only mode available currently)
   if (colorMode !== 'dark') {
     toggleColorMode();
   }
@@ -83,6 +83,7 @@ export const UIProvider = props => {
       setModalData,
       setModalViewAndOpen,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [state]
   );
 

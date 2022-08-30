@@ -18,7 +18,7 @@ const sendLyx = async params => {
     gas: 30000,
   };
 
-  // Assuming, for now, LYX is either transferred from account address or
+  // Assuming, LYX is either transferred from account address or
   // related universal profile address.
   if (!areEqualHex(from, accountAddress)) {
     // Send from universal profile
@@ -39,6 +39,9 @@ const sendLyx = async params => {
   return data;
 };
 
+/**
+ * For sending native LYX coins
+ */
 export const useSendLyx = ({ accountAddress }) => {
   const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendLyx(params), {

@@ -5,6 +5,10 @@ import { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
 const config = { ipfsGateway };
 
+/**
+ * Fetches list of permissioned addresses of a universal profile
+ * & each address's allowed permissions
+ */
 const listPermissionedAddresses = async ({ upAddress }) => {
   const erc725 = new ERC725(keyManagerSchema, upAddress, web3Provider, config);
   const addresses = await erc725.getData('AddressPermissions[]').then(v => v.value);

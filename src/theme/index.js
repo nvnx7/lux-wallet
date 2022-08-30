@@ -4,6 +4,9 @@ import fonts from './fonts';
 import components from './components';
 import { Dimensions } from 'settings/constants';
 
+/**
+ * Chakra-UI theme customizations
+ */
 const theme = extendTheme({
   config: {
     initialColorMode: 'dark',

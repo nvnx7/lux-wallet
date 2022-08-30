@@ -17,6 +17,9 @@ const defaultValue = [];
 
 /**
  * Manages all vaults by active account's universal profile
+ * @note It also mitigates for current bug in LSP smart-contract implementation
+ * that fails to register created vaults in Universal Profile by exposing function
+ * to store newly created vault address in local storage
  */
 const useVaults = ({ upAddress }) => {
   const [vaults, setVaults] = useLocalStorage(KEY_UP_VAULTS, defaultValue);

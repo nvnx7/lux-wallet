@@ -2,8 +2,8 @@ import { sendSignedTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
 import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
-import LSP7DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
-import LSP9Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
+import DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
+import Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import useSentTxStore from 'hooks/useSentTxStore';
 import { logError } from 'utils/logger';
@@ -20,8 +20,8 @@ const sendVaultToken = async params => {
 
   // Contracts
   const up = new web3.eth.Contract(UniversalProfile.abi, upAddress);
-  const vault = new web3.eth.Contract(LSP9Vault.abi, vaultAddress);
-  const token = new web3.eth.Contract(LSP7DigitalAsset.abi, tokenAddress);
+  const vault = new web3.eth.Contract(Vault.abi, vaultAddress);
+  const token = new web3.eth.Contract(DigitalAsset.abi, tokenAddress);
   const kmAddress = await up.methods.owner().call();
   const km = new web3.eth.Contract(KeyManager.abi, kmAddress);
 

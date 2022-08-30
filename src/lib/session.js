@@ -7,8 +7,9 @@ const noop = new Promise(res => res());
 
 /**
  * These functions help maintain a session as long browser window is
- * open & user unlocked already the wallet. This is to avoid forcing user
- * to submit password every time user opens popup
+ * open & user unlocked already the wallet. This done by communicating with extension
+ * background script. This is to avoid forcing user to submit password
+ * every time user opens popup
  */
 export const restoreSessionToken = () => {
   if (!isExtension) return noop;

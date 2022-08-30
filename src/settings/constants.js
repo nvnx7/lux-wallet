@@ -1,6 +1,9 @@
 export const appName = 'LUX';
 export const currency = 'LYXt';
 
+/**
+ * UI dimensions
+ */
 export const Dimensions = {
   width: '450px',
   height: '600px',
@@ -27,7 +30,7 @@ export const supportedLanguages = [
 
 // For testing purposes only
 export const Mock = {
-  PASSWORD: '',
+  PASSWORD: 'th1sdummypassword',
   EOA_ADDRESS: '',
   EOA_PRIVATE_KEY: '',
   PROFILE_ADDRESS: '',

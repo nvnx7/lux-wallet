@@ -8,6 +8,9 @@ const getAddressBalance = async ({ address }) => {
   return { wei, lyx };
 };
 
+/**
+ * Fetches native token balance of an address
+ */
 export const useGetBalance = ({ address }) => {
   return useQuery(['balance', { address }], () => getAddressBalance({ address }), {
     enabled: isValidAddress(address),

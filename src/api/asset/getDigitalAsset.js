@@ -3,10 +3,14 @@ import ERC725 from '@erc725/erc725.js';
 import digitalAssetMetadataSchema from '@erc725/erc725.js/schemas/LSP4DigitalAsset.json';
 import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
-import LSP7DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
+import DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
 import web3, { web3Provider } from 'lib/web3';
 const config = { ipfsGateway };
 
+/**
+ * Fetches a Digital Asset's metadata + balance of giver ownerAddress
+ * & returns formatted data
+ */
 export const getDigitalAsset = async params => {
   const { assetAddress, ownerAddress } = params;
 
@@ -31,7 +35,7 @@ export const getDigitalAsset = async params => {
     }
   });
 
-  const contract = new web3.eth.Contract(LSP7DigitalAsset.abi, assetAddress);
+  const contract = new web3.eth.Contract(DigitalAsset.abi, assetAddress);
   let balance = {};
   if (ownerAddress) {
     balance.wei = await contract.methods.balanceOf(ownerAddress).call();
