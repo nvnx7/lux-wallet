@@ -1,4 +1,4 @@
-export const env = 'development';
+export const env = 'staging';
 
 export const isDev = env === 'development';
 export const isExtension = !!(window.chrome && window.chrome.runtime && window.chrome.runtime.id);
