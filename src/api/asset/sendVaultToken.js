@@ -1,5 +1,5 @@
-import { sendSignedTx } from 'api/utils/tx';
 import { useMutation } from 'react-query';
+import { sendSignedTx } from 'api/utils/tx';
 import web3 from 'lib/web3';
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
@@ -7,6 +7,7 @@ import Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import useSentTxStore from 'hooks/useSentTxStore';
 import { logError } from 'utils/logger';
+import { QueryKey, useInvalidateQuery } from 'api/utils/query';
 
 /**
  * Send LSP7 Digital Asset (token) from vault address
@@ -45,9 +46,13 @@ const sendVaultToken = async params => {
 };
 
 export const useSendVaultToken = ({ accountAddress }) => {
+  const { invalidateQueries } = useInvalidateQuery();
   const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendVaultToken(params), {
-    onSuccess: tx => storeSentTx(tx),
+    onSuccess: tx => {
+      storeSentTx(tx);
+      invalidateQueries([QueryKey.ASSET_DATA]);
+    },
     onError: logError,
   });
 };

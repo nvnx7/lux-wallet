@@ -7,6 +7,7 @@ import Vault from '@lukso/lsp-smart-contracts/artifacts/LSP9Vault.json';
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import { padToBytes32Hex } from 'utils/web3';
 import useSentTxStore from 'hooks/useSentTxStore';
+import { QueryKey, useInvalidateQuery } from 'api/utils/query';
 import { logError } from 'utils/logger';
 
 /**
@@ -47,9 +48,13 @@ const sendVaultNft = async params => {
 };
 
 export const useSendVaultNft = ({ accountAddress }) => {
+  const { invalidateQueries } = useInvalidateQuery();
   const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendVaultNft(params), {
-    onSuccess: tx => storeSentTx(tx),
+    onSuccess: tx => {
+      storeSentTx(tx);
+      invalidateQueries([QueryKey.ASSET_DATA]);
+    },
     onError: logError,
   });
 };

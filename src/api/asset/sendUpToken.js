@@ -5,6 +5,7 @@ import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProf
 import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json';
 import DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
 import { logError } from 'utils/logger';
+import { QueryKey, useInvalidateQuery } from 'api/utils/query';
 import useSentTxStore from 'hooks/useSentTxStore';
 
 /**
@@ -42,9 +43,13 @@ const sendUpToken = async params => {
 };
 
 export const useSendUpToken = ({ accountAddress }) => {
+  const { invalidateQueries } = useInvalidateQuery();
   const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendUpToken(params), {
-    onSuccess: tx => storeSentTx(tx),
+    onSuccess: tx => {
+      storeSentTx(tx);
+      invalidateQueries([QueryKey.ASSET_DATA]);
+    },
     onError: logError,
   });
 };

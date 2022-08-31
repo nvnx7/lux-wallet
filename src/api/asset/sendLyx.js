@@ -6,6 +6,7 @@ import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json
 import { areEqualHex } from 'utils/web3';
 import useSentTxStore from 'hooks/useSentTxStore';
 import { logError } from 'utils/logger';
+import { QueryKey, useInvalidateQuery } from 'api/utils/query';
 
 const sendLyx = async params => {
   const { accountAddress, from, to, amount } = params;
@@ -43,9 +44,13 @@ const sendLyx = async params => {
  * For sending native LYX coins
  */
 export const useSendLyx = ({ accountAddress }) => {
+  const { invalidateQueries } = useInvalidateQuery();
   const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendLyx(params), {
-    onSuccess: tx => storeSentTx(tx),
+    onSuccess: tx => {
+      storeSentTx(tx);
+      invalidateQueries([QueryKey.BALANCE]);
+    },
     onError: logError,
   });
 };
