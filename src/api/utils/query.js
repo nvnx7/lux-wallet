@@ -14,13 +14,14 @@ export const QueryKey = {
   UP_METADATA: 'upMetadata',
   UP_PERMISSIONED: 'upPermissioned',
   TX_RECEIPT: 'txReceipt',
+  VAULTS_LIST: 'vaults',
   LEGACY_ASSET_DATA: 'legacyAssetData',
 };
 
 /**
  * Milliseconds after a sent tx after which a query cache is invalidated.
  */
-export const INVALIDATE_TIMEOUT = 13500;
+export const INVALIDATE_TIMEOUT = 18000;
 
 /**
  * Custom hook to invalidate queries/caches after sent tx

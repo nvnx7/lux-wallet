@@ -66,6 +66,7 @@ export const WalletProvider = ({ children }) => {
     const memState = await keyringController.memStore.getState();
     if (memState.isUnlocked) {
       setUnlocked(true);
+      save && saveSessionToken(password);
       return { isValid: true };
     }
 
@@ -202,10 +203,6 @@ export const WalletProvider = ({ children }) => {
     const beforeAddresses = await keyringController.getAccounts();
     await keyringController.addNewAccount(keyring);
     const afterAddresses = await keyringController.getAccounts();
-    // if (addresses.length === 0) {
-    //   logError('WalletProvider:createNewAccount', `No existing account found!`);
-    //   throw new Error(`No existing account found!`);
-    // }
     const createdAddress = getCreatedAddress(beforeAddresses, afterAddresses);
     logDebug('WalletProvider:createNewAccount', `Created new account: ${createdAddress}`);
     addAccount({ label: account.label, address: createdAddress }, activate);
@@ -230,7 +227,7 @@ export const WalletProvider = ({ children }) => {
     }
     logDebug('WalletProvider:createNewWallet', `Created new wallet with an account: ${address}`);
     addAccount({ label: account.label, address }, true);
-    unlockWallet();
+    unlockWallet(password, true);
   };
 
   const value = useMemo(
