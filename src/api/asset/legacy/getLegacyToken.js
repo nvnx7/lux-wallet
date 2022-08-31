@@ -3,6 +3,7 @@ import web3 from 'lib/web3';
 import tokenAbi from 'api/utils/abi/legacyToken.json';
 import { makeBatchCall } from 'api/utils/tx';
 import { logError } from 'utils/logger';
+import QueryKey from 'api/utils/query';
 
 /**
  * Fetches a legacy (ERC20/ERC721) token's metadata (name/symbol)
@@ -30,7 +31,7 @@ const getToken = async ({ ownerAddress, tokenAddress }) => {
  */
 export const useGetLegacyToken = ({ ownerAddress, tokenAddress }) => {
   return useQuery(
-    ['legacyToken', { ownerAddress, tokenAddress }],
+    [QueryKey.LEGACY_ASSET_DATA, { ownerAddress, tokenAddress }],
     () => getToken({ ownerAddress, tokenAddress }),
     { enabled: !!ownerAddress && !!tokenAddress, onError: logError }
   );

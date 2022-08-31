@@ -7,6 +7,7 @@ import { INTERFACE_IDS } from '@lukso/lsp-smart-contracts/constants.js';
 import web3, { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
 import { makeBatchCall } from 'api/utils/tx';
+import QueryKey from 'api/utils/query';
 const config = { ipfsGateway };
 
 /**
@@ -27,7 +28,7 @@ async function batchCallIsNft(assetAddresses) {
  * Get all assets - received and issued - for an address
  */
 const allAssetsSchema = [...receivedAssetsSchema, ...issuedAssetsSchema];
-export const getAllAssets = async ({ address }) => {
+export const listDigitalAssets = async ({ address }) => {
   const assets = new ERC725(allAssetsSchema, address, web3Provider, config);
   const data = await assets.fetchData(['LSP5ReceivedAssets[]', 'LSP12IssuedAssets[]']);
 
@@ -55,8 +56,8 @@ export const getAllAssets = async ({ address }) => {
   return result;
 };
 
-export const useGetAllAssets = ({ address }) => {
-  return useQuery(['LSP5LSP12Assets', { address }], () => getAllAssets({ address }), {
+export const useListDigitalAssets = ({ address }) => {
+  return useQuery([QueryKey.ASSETS_LIST, { address }], () => listDigitalAssets({ address }), {
     enabled: !!address,
   });
 };
