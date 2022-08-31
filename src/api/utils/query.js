@@ -21,7 +21,7 @@ export const QueryKey = {
 /**
  * Milliseconds after a sent tx after which a query cache is invalidated.
  */
-export const INVALIDATE_TIMEOUT = 13500;
+export const INVALIDATE_TIMEOUT = 18000;
 
 /**
  * Custom hook to invalidate queries/caches after sent tx
