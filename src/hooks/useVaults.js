@@ -27,25 +27,32 @@ const useVaults = ({ upAddress }) => {
 
   useEffect(() => {
     if (!data || !upAddress) return;
-    setVaults(vaults => {
-      const newData = vaults ? [...vaults] : [];
-      // Fetch new vaults from universal profile & store, avoiding duplicates
-      data?.forEach(address => {
-        const isDup = newData.findIndex(v => areEqualHex(address, v.address)) >= 0;
-        if (!isDup) {
-          newData.push({ address, upAddress, label: '' });
-        }
-      });
-      return newData;
+
+    // Fetch new vaults from universal profile & store, avoiding duplicates
+    const newData = vaults ? [...vaults] : [];
+    data?.forEach(address => {
+      const isDup = newData.findIndex(v => areEqualHex(address, v.address)) >= 0;
+      if (!isDup) {
+        newData.push({ address, upAddress, label: '' });
+      }
     });
+
+    // Avoid unnecessary state sync
+    if (newData.length === 0 || newData.length === vaults?.length) {
+      return;
+    }
+
+    setVaults(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, upAddress]);
 
   const addVault = useCallback(
     ({ address, label }) => {
-      setVaults([...vaults, { address, label, upAddress }]);
+      const updated = vaults ? [...vaults] : [];
+      updated.push({ address, label, upAddress });
+      setVaults(updated);
     },
-    [vaults, setVaults, upAddress]
+    [upAddress, vaults, setVaults]
   );
 
   const updateVault = useCallback(

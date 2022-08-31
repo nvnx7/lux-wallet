@@ -23,6 +23,7 @@ const CreateVaultForm = ({ ...props }) => {
     // of a known bug in LSP contracts that prevents created vault
     // to be put in LSP10Vaults[] of universal profile
     addVault({ address: data, label: '' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const CreateVaultForm = ({ ...props }) => {
       showTxStatusToast(!!data, isError);
       closeModal();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess]);
 
   const handleCreate = () => {
