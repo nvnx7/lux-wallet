@@ -55,6 +55,9 @@ const deployVault = async ({ accountAddress, upAddress }) => {
   return res.contractAddress;
 };
 
+/**
+ * Creates a vault with a URD set to it
+ */
 const createVault = async params => {
   const { upAddress, accountAddress } = params;
 
@@ -78,11 +81,6 @@ const createVault = async params => {
   const data = await km.methods.execute(executePayload).encodeABI();
   const txData = { from: accountAddress, data, to: kmAddress, gas: 600_000 };
   await sendSignedTxAndWait(txData, accountAddress);
-
-  // Register created vault to universal profile
-  // NOTE: This is manually done for now due to an implementation
-  // bug in LSP contracts
-  // await registerVaultToUP({ accountAddress, upAddress, vaultAddress });
 
   return vaultAddress;
 };
