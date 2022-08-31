@@ -3,7 +3,7 @@ import web3 from 'lib/web3';
 import tokenAbi from 'api/utils/abi/legacyToken.json';
 import { makeBatchCall } from 'api/utils/tx';
 import { logError } from 'utils/logger';
-import QueryKey from 'api/utils/query';
+import { QueryKey } from 'api/utils/query';
 
 /**
  * Fetches a legacy (ERC20/ERC721) token's metadata (name/symbol)

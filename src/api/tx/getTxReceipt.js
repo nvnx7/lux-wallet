@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import web3 from 'lib/web3';
-import QueryKey from 'api/utils/query';
+import { QueryKey } from 'api/utils/query';
 
 /**
  * Queries for transaction receipt & returns status as well

@@ -3,7 +3,7 @@ import ERC725 from '@erc725/erc725.js';
 import keyManagerSchema from '@erc725/erc725.js/schemas/LSP6KeyManager.json';
 import { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
-import QueryKey from 'api/utils/query';
+import { QueryKey } from 'api/utils/query';
 const config = { ipfsGateway };
 
 /**
