@@ -46,7 +46,7 @@ const VaultDetailView = ({ ...props }) => {
       </HStack>
       <Divider />
       <Box alignSelf="stretch">
-        <VaultAssets vaultAddress={vault} />
+        <VaultAssets vault={vault} />
       </Box>
     </VStack>
   );

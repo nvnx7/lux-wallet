@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, VStack } from '@chakra-ui/react';
-import { useGetAllAssets } from 'api/asset/getAllAssets';
+import { useListDigitalAssets } from 'api/asset/listDigitalAssets';
 import { AssetList } from 'components/digital-asset';
 import Path from 'router/paths';
 import { gradient } from 'theme/colors';
 
 const VaultAssets = ({ vault, ...props }) => {
   const navigate = useNavigate();
-  const { data, isFetching } = useGetAllAssets({ address: vault?.address });
+  const { data, isFetching } = useListDigitalAssets({ address: vault?.address });
 
   if (isFetching && !data) {
     return <LoadingView my={16} />;
