@@ -3,6 +3,7 @@ import ERC725 from '@erc725/erc725.js';
 import web3 from 'lib/web3';
 import receivedVaultsSchema from '@erc725/erc725.js/schemas/LSP10ReceivedVaults.json';
 import { ipfsGateway } from 'settings/config';
+import { QueryKey } from 'api/utils/query';
 const config = { ipfsGateway };
 
 /**
@@ -14,9 +15,7 @@ export const listVaults = async ({ upAddress }) => {
 };
 
 export const useListVaults = ({ upAddress }) => {
-  return useQuery(
-    ['LSP8IdentifiableDigitalAssetsX', { upAddress }],
-    () => listVaults({ upAddress }),
-    { enabled: !!upAddress }
-  );
+  return useQuery([QueryKey.VAULTS_LIST, { upAddress }], () => listVaults({ upAddress }), {
+    enabled: !!upAddress,
+  });
 };

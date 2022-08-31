@@ -7,6 +7,7 @@ import KeyManager from '@lukso/lsp-smart-contracts/artifacts/LSP6KeyManager.json
 import UniversalProfile from '@lukso/lsp-smart-contracts/artifacts/UniversalProfile.json';
 import { sendSignedTxAndWait } from 'api/utils/tx';
 import { logError } from 'utils/logger';
+import { QueryKey, useInvalidateQuery } from 'api/utils/query';
 
 const URD_DATA_KEY = ERC725YKeys.LSP0.LSP1UniversalReceiverDelegate;
 
@@ -86,7 +87,11 @@ const createVault = async params => {
 };
 
 export const useCreateVault = () => {
+  const { invalidateQueries } = useInvalidateQuery();
   return useMutation(params => createVault(params), {
+    onSuccess: () => {
+      invalidateQueries([QueryKey.VAULTS_LIST]);
+    },
     onError: logError,
   });
 };

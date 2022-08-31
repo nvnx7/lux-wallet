@@ -14,6 +14,7 @@ export const QueryKey = {
   UP_METADATA: 'upMetadata',
   UP_PERMISSIONED: 'upPermissioned',
   TX_RECEIPT: 'txReceipt',
+  VAULTS_LIST: 'vaults',
   LEGACY_ASSET_DATA: 'legacyAssetData',
 };
 
