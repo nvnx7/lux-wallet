@@ -7,7 +7,7 @@ import { INTERFACE_IDS } from '@lukso/lsp-smart-contracts/constants.js';
 import web3, { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
 import { makeBatchCall } from 'api/utils/tx';
-import QueryKey from 'api/utils/query';
+import { QueryKey } from 'api/utils/query';
 const config = { ipfsGateway };
 
 /**
