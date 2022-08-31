@@ -5,6 +5,8 @@ import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
 import DigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP7DigitalAsset.json';
 import web3, { web3Provider } from 'lib/web3';
+import { QueryKey } from 'api/utils/query';
+
 const config = { ipfsGateway };
 
 /**
@@ -49,7 +51,7 @@ export const getDigitalAsset = async params => {
 
 export const useGetDigitalAsset = ({ assetAddress, ownerAddress }) => {
   return useQuery(
-    ['LSP7DigitalAsset', { assetAddress, ownerAddress }],
+    [QueryKey.ASSET_DATA, { assetAddress, ownerAddress }],
     () => getDigitalAsset({ assetAddress, ownerAddress }),
     { enabled: !!assetAddress && !!ownerAddress }
   );

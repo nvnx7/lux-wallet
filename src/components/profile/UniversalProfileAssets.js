@@ -10,7 +10,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useGetAllAssets } from 'api/asset/getAllAssets';
+import { useListDigitalAssets } from 'api/asset/listDigitalAssets';
 import { AssetList } from 'components/digital-asset';
 import { useWallet } from 'contexts/wallet';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ const UniversalProfileAssets = ({ ...props }) => {
   const navigate = useNavigate();
   const [assetFlag, setAssetFlag] = useState(true);
   const { activeAccount } = useWallet();
-  const { data, isFetching } = useGetAllAssets({ address: activeAccount?.universalProfile });
+  const { data, isFetching } = useListDigitalAssets({ address: activeAccount?.universalProfile });
 
   if (isFetching && !data) {
     return <LoadingView my={28} />;

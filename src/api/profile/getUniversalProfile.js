@@ -4,6 +4,7 @@ import upMetadataSchema from '@erc725/erc725.js/schemas/LSP3UniversalProfileMeta
 import { web3Provider } from 'lib/web3';
 import { ipfsGateway } from 'settings/config';
 import { ipfsToUrl } from 'utils/ipfs';
+import { QueryKey } from 'api/utils/query';
 const config = { ipfsGateway };
 
 /**
@@ -66,7 +67,7 @@ const getUniversalProfileMetadata = async ({ profileAddress }) => {
 
 export const useGetUniversalProfileMetadata = ({ profileAddress }) => {
   return useQuery(
-    ['LSP3UniversalProfileMetadata', { profileAddress }],
+    [QueryKey.UP_METADATA, { profileAddress }],
     () => getUniversalProfileMetadata({ profileAddress }),
     {
       enabled: !!profileAddress,

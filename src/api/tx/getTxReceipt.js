@@ -1,9 +1,10 @@
 import { useQuery } from 'react-query';
 import web3 from 'lib/web3';
+import { QueryKey } from 'api/utils/query';
 
 /**
  * Queries for transaction receipt & returns status as well
- * as txx receipt, if available
+ * as tx receipt, if available
  */
 const getTxReceipt = async ({ hash }) => {
   const receipt = await web3.eth.getTransactionReceipt(hash);
@@ -30,7 +31,7 @@ const getTxReceipt = async ({ hash }) => {
  * previously fetched & is stored in db
  */
 export const useGetTxReceipt = ({ hash, status }) => {
-  return useQuery(['txReceipt', { hash, status }], () => getTxReceipt({ hash }), {
+  return useQuery([QueryKey.TX_RECEIPT, { hash, status }], () => getTxReceipt({ hash }), {
     enabled: !!hash && status !== 'success',
   });
 };

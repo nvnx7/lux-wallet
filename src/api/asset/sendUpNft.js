@@ -7,6 +7,7 @@ import IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8I
 import { logError } from 'utils/logger';
 import { padToBytes32Hex } from 'utils/web3';
 import useSentTxStore from 'hooks/useSentTxStore';
+import { QueryKey, useInvalidateQuery } from 'api/utils/query';
 
 /**
  * Send LSP8 Identifiable Digital Asset (nft) from Universal Profile contract
@@ -43,9 +44,13 @@ const sendUpNft = async params => {
 };
 
 export const useSendUpNft = ({ accountAddress }) => {
+  const { invalidateQueries } = useInvalidateQuery();
   const { storeSentTx } = useSentTxStore({ accountAddress });
   return useMutation(params => sendUpNft(params), {
-    onSuccess: tx => storeSentTx(tx),
+    onSuccess: tx => {
+      storeSentTx(tx);
+      invalidateQueries([QueryKey.ASSET_DATA]);
+    },
     onError: logError,
   });
 };

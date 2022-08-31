@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import LSP8IdentifiableDigitalAsset from '@lukso/lsp-smart-contracts/artifacts/LSP8IdentifiableDigitalAsset.json';
 import web3 from 'lib/web3';
+import { QueryKey } from 'api/utils/query';
 
 /**
  * Lists all token (nft) ids owned by an address
@@ -14,7 +15,7 @@ export const listNfts = async ({ nftAddress, ownerAddress }) => {
 
 export const useListNfts = ({ nftAddress, ownerAddress }) => {
   return useQuery(
-    ['LSP8IdentifiableDigitalAssetsX', { nftAddress, ownerAddress }],
+    [QueryKey.NFTS_LIST, { nftAddress, ownerAddress }],
     () => listNfts({ nftAddress, ownerAddress }),
     { enabled: !!nftAddress && !!ownerAddress }
   );
